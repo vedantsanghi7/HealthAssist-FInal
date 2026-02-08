@@ -156,8 +156,35 @@ export default function PatientMessagesPage() {
                     last_message_at: new Date().toISOString()
                 })
                 .eq('id', selectedConversation.id);
+
+            // Send email notification to doctor
+            const recipientId = selectedConversation.participant1_id === user.id
+                ? selectedConversation.participant2_id
+                : selectedConversation.participant1_id;
+
+            const { data: patientProfile } = await supabase
+                .from('profiles')
+                .select('full_name')
+                .eq('id', user.id)
+                .single();
+
+            fetch('/api/send-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    type: 'new_message',
+                    data: {
+                        senderId: user.id,
+                        recipientId: recipientId,
+                        senderName: patientProfile?.full_name || 'Patient',
+                        senderRole: 'patient',
+                        messagePreview: messageContent
+                    }
+                })
+            }).catch(err => console.error('Email notification failed:', err));
         }
     };
+
 
     const getOtherParticipantName = (conv: Conversation) => {
         if (!user) return 'Unknown';

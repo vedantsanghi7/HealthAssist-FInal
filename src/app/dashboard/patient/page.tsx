@@ -216,35 +216,35 @@ export default function PatientDashboard() {
                                 <Activity className="h-5 w-5 text-blue-500" />
                                 Vitals Trends
                             </h2>
-                            <select className="bg-white/50 border border-white/60 rounded-lg text-xs py-1 px-3 text-slate-600 focus:outline-none">
-                                <option>Last 7 Days</option>
-                                <option>Last 30 Days</option>
+                            <select className="bg-white/50 dark:bg-white/5 border border-white/60 dark:border-white/10 rounded-lg text-xs py-1 px-3 text-slate-600 dark:text-slate-300 focus:outline-none">
+                                <option className="dark:bg-slate-800">Last 7 Days</option>
+                                <option className="dark:bg-slate-800">Last 30 Days</option>
                             </select>
                         </div>
-                        <div className="glass-panel p-1 rounded-3xl overflow-hidden bg-white/40">
+                        <div className="glass-panel p-1 rounded-3xl overflow-hidden bg-white/40 dark:bg-white/[0.03]">
                             <VitalsChart />
                         </div>
                     </section>
 
                     {/* Medical Timeline Section */}
                     <section className="space-y-4">
-                        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-white/80 via-white/60 to-blue-50/40 backdrop-blur-xl border border-white/50 shadow-xl">
+                        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-white/80 via-white/60 to-blue-50/40 dark:from-white/[0.03] dark:via-white/[0.02] dark:to-blue-500/5 backdrop-blur-xl border border-white/50 dark:border-white/[0.08] shadow-xl dark:shadow-none">
                             {/* Decorative gradient orbs */}
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-blue-400/10 to-indigo-400/10 rounded-full blur-3xl -z-0" />
-                            <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-purple-400/10 to-pink-400/10 rounded-full blur-3xl -z-0" />
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-blue-400/10 to-indigo-400/10 dark:from-blue-500/10 dark:to-indigo-500/10 rounded-full blur-3xl -z-0" />
+                            <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-purple-400/10 to-pink-400/10 dark:from-purple-500/10 dark:to-pink-500/10 rounded-full blur-3xl -z-0" />
 
                             {/* Header */}
                             <div className="relative z-10 flex items-center justify-between p-6 pb-0">
                                 <div className="flex items-center gap-3">
-                                    <div className="p-2.5 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20">
+                                    <div className="p-2.5 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20 dark:shadow-blue-500/10">
                                         <Activity className="h-5 w-5" />
                                     </div>
                                     <div>
-                                        <h2 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600">Health Journey</h2>
-                                        <p className="text-xs text-slate-500">Your medical timeline & activities</p>
+                                        <h2 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600 dark:from-white dark:to-slate-300">Health Journey</h2>
+                                        <p className="text-xs text-slate-500 dark:text-slate-400">Your medical timeline & activities</p>
                                     </div>
                                 </div>
-                                <Link href="/dashboard/patient/timeline" className="text-sm text-indigo-600 font-medium hover:text-indigo-700 transition-colors flex items-center gap-1">
+                                <Link href="/dashboard/patient/timeline" className="text-sm text-indigo-600 dark:text-indigo-400 font-medium hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors flex items-center gap-1">
                                     View Full History
                                     <ArrowRight className="h-4 w-4" />
                                 </Link>
@@ -280,9 +280,32 @@ export default function PatientDashboard() {
 
                         <div className="space-y-3">
                             {recentRecords.length === 0 ? (
-                                <div className="p-8 text-center rounded-2xl border-2 border-dashed border-slate-200 bg-white/30 text-slate-400">
-                                    <FileText className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                                    <p className="text-sm">No recent records</p>
+                                <div className="p-8 text-center rounded-2xl border-2 border-dashed border-slate-200 dark:border-white/10 bg-white/30 dark:bg-white/[0.02] text-slate-400 space-y-4">
+                                    <div className="mx-auto w-12 h-12 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center mb-2">
+                                        <FileText className="h-6 w-6 opacity-50" />
+                                    </div>
+                                    <div>
+                                        <p className="font-medium text-slate-600 dark:text-slate-300">No recent records</p>
+                                        <p className="text-xs text-slate-400">Get started by adding some data</p>
+                                    </div>
+                                    <button
+                                        onClick={async () => {
+                                            setLoading(true);
+                                            try {
+                                                const { addDummyRecords } = await import('@/utils/dummyData');
+                                                if (user?.id) {
+                                                    await addDummyRecords(user.id);
+                                                    window.location.reload();
+                                                }
+                                            } catch (e) {
+                                                console.error(e);
+                                                setLoading(false);
+                                            }
+                                        }}
+                                        className="text-xs px-4 py-2 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 rounded-lg transition-colors font-medium"
+                                    >
+                                        Populate Demo Data
+                                    </button>
                                 </div>
                             ) : (
                                 recentRecords.map((r, i) => (
@@ -310,7 +333,7 @@ export default function PatientDashboard() {
                         </div>
 
                         <Link href="/dashboard/patient/records" className="block w-full">
-                            <button className="w-full py-3 rounded-xl border border-slate-200 bg-white/40 hover:bg-white/60 text-sm font-medium text-slate-600 transition-all">
+                            <button className="w-full py-3 rounded-xl border border-slate-200 dark:border-white/10 bg-white/40 dark:bg-white/[0.02] hover:bg-white/60 dark:hover:bg-white/[0.05] text-sm font-medium text-slate-600 dark:text-slate-300 transition-all">
                                 View sensitive records vaulted
                             </button>
                         </Link>

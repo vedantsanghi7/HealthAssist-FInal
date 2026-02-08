@@ -30,7 +30,6 @@ interface MedicalTimelineProps {
     events?: TimelineEvent[];
 }
 
-// Mock data if none provided
 const defaultEvents: TimelineEvent[] = [
     { id: '1', title: 'Annual Cardiac Checkup', date: 'Today, 2:00 PM', status: 'upcoming', doctor: 'Dr. Sarah Smith', type: 'Appointment' },
     { id: '2', title: 'Blood Work Results', date: 'Yesterday', status: 'attention', type: 'Lab Result' },
@@ -44,30 +43,30 @@ export function MedicalTimeline({ events = defaultEvents }: MedicalTimelineProps
             case 'completed': return {
                 bg: 'from-emerald-500 to-teal-500',
                 shadow: 'shadow-emerald-500/30',
-                ring: 'ring-emerald-100',
-                badge: 'bg-gradient-to-r from-emerald-50 to-teal-50 text-emerald-700 border-emerald-200',
-                glow: 'bg-emerald-400/20'
+                ring: 'ring-emerald-100 dark:ring-emerald-500/20',
+                badge: 'bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-500/20 dark:to-teal-500/20 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/30',
+                glow: 'bg-emerald-400/20 dark:bg-emerald-500/10'
             };
             case 'upcoming': return {
                 bg: 'from-blue-500 to-indigo-500',
                 shadow: 'shadow-blue-500/30',
-                ring: 'ring-blue-100',
-                badge: 'bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 border-indigo-200',
-                glow: 'bg-blue-400/20'
+                ring: 'ring-blue-100 dark:ring-blue-500/20',
+                badge: 'bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-500/20 dark:to-indigo-500/20 text-blue-700 dark:text-blue-400 border-indigo-200 dark:border-blue-500/30',
+                glow: 'bg-blue-400/20 dark:bg-blue-500/10'
             };
             case 'attention': return {
                 bg: 'from-amber-500 to-orange-500',
                 shadow: 'shadow-amber-500/30',
-                ring: 'ring-amber-100',
-                badge: 'bg-gradient-to-r from-amber-50 to-orange-50 text-amber-700 border-amber-200',
-                glow: 'bg-amber-400/20'
+                ring: 'ring-amber-100 dark:ring-amber-500/20',
+                badge: 'bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-500/20 dark:to-orange-500/20 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-500/30',
+                glow: 'bg-amber-400/20 dark:bg-amber-500/10'
             };
             default: return {
                 bg: 'from-slate-500 to-slate-600',
                 shadow: 'shadow-slate-500/30',
-                ring: 'ring-slate-100',
-                badge: 'bg-slate-50 text-slate-700 border-slate-200',
-                glow: 'bg-slate-400/20'
+                ring: 'ring-slate-100 dark:ring-slate-500/20',
+                badge: 'bg-slate-50 dark:bg-slate-500/20 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-500/30',
+                glow: 'bg-slate-400/20 dark:bg-slate-500/10'
             };
         }
     };
@@ -104,7 +103,7 @@ export function MedicalTimeline({ events = defaultEvents }: MedicalTimelineProps
                     animate={{ scale: 1, opacity: 1 }}
                     className="relative"
                 >
-                    <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center mb-4">
+                    <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-500/20 dark:to-indigo-500/20 flex items-center justify-center mb-4">
                         <Calendar className="h-10 w-10 text-blue-400" />
                     </div>
                     <motion.div
@@ -115,8 +114,8 @@ export function MedicalTimeline({ events = defaultEvents }: MedicalTimelineProps
                         <Sparkles className="h-6 w-6 text-amber-400" />
                     </motion.div>
                 </motion.div>
-                <h3 className="text-lg font-semibold text-slate-700 mb-2">Your Journey Begins Here</h3>
-                <p className="text-sm text-slate-500 max-w-xs">
+                <h3 className="text-lg font-semibold text-slate-700 dark:text-white mb-2">Your Journey Begins Here</h3>
+                <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xs">
                     Book appointments and add medical records to start tracking your health journey.
                 </p>
             </div>
@@ -127,7 +126,7 @@ export function MedicalTimeline({ events = defaultEvents }: MedicalTimelineProps
         <div className="relative">
             {/* Animated Progress Path */}
             <div className="absolute left-8 top-0 bottom-0 w-1 overflow-hidden rounded-full">
-                <div className="absolute inset-0 bg-gradient-to-b from-blue-200/50 via-purple-200/50 to-emerald-200/50" />
+                <div className="absolute inset-0 bg-gradient-to-b from-blue-200/50 via-purple-200/50 to-emerald-200/50 dark:from-blue-500/20 dark:via-purple-500/20 dark:to-emerald-500/20" />
                 <motion.div
                     className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-blue-500/40 via-indigo-500/40 to-transparent"
                     animate={{ y: ['-100%', '500%'] }}
@@ -159,7 +158,7 @@ export function MedicalTimeline({ events = defaultEvents }: MedicalTimelineProps
                                 {/* Main Node */}
                                 <div className={cn(
                                     "relative h-6 w-6 rounded-full bg-gradient-to-br flex items-center justify-center",
-                                    "shadow-lg ring-4 ring-white/80 transition-transform duration-300 group-hover:scale-110",
+                                    "shadow-lg ring-4 ring-white/80 dark:ring-[#111827] transition-transform duration-300 group-hover:scale-110",
                                     config.bg, config.shadow
                                 )}>
                                     {getStatusIcon(event.status)}
@@ -170,8 +169,10 @@ export function MedicalTimeline({ events = defaultEvents }: MedicalTimelineProps
                             <motion.div
                                 className={cn(
                                     "relative overflow-hidden rounded-2xl transition-all duration-300",
-                                    "bg-white/60 backdrop-blur-lg border border-white/50",
-                                    "shadow-md hover:shadow-xl hover:bg-white/80",
+                                    "bg-white/60 dark:bg-white/[0.03] backdrop-blur-lg border",
+                                    "border-white/50 dark:border-white/[0.05]",
+                                    "shadow-md dark:shadow-none hover:shadow-xl dark:hover:shadow-none",
+                                    "hover:bg-white/80 dark:hover:bg-white/[0.05]",
                                     "group-hover:-translate-y-1"
                                 )}
                                 whileHover={{ scale: 1.01 }}
@@ -201,36 +202,36 @@ export function MedicalTimeline({ events = defaultEvents }: MedicalTimelineProps
                                                 )}>
                                                     {event.status}
                                                 </span>
-                                                <p className="text-[11px] text-slate-400 mt-0.5 uppercase tracking-wide">{event.type}</p>
+                                                <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5 uppercase tracking-wide">{event.type}</p>
                                             </div>
                                         </div>
 
                                         {/* Date Badge */}
-                                        <div className="flex items-center gap-1.5 bg-slate-50 px-2.5 py-1 rounded-full">
-                                            <Calendar className="h-3 w-3 text-slate-400" />
-                                            <span className="text-xs font-medium text-slate-600">{event.date}</span>
+                                        <div className="flex items-center gap-1.5 bg-slate-50 dark:bg-white/[0.03] px-2.5 py-1 rounded-full border border-transparent dark:border-white/[0.05]">
+                                            <Calendar className="h-3 w-3 text-slate-400 dark:text-slate-500" />
+                                            <span className="text-xs font-medium text-slate-600 dark:text-slate-300">{event.date}</span>
                                         </div>
                                     </div>
 
                                     {/* Title */}
-                                    <h4 className="text-base font-bold text-slate-800 mb-2 group-hover:text-indigo-600 transition-colors">
+                                    <h4 className="text-base font-bold text-slate-800 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                                         {event.title}
                                     </h4>
 
                                     {/* Doctor Info */}
                                     {event.doctor && (
-                                        <div className="flex items-center gap-2 mt-2 pt-2 border-t border-slate-100">
-                                            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center">
-                                                <Stethoscope className="h-3 w-3 text-indigo-500" />
+                                        <div className="flex items-center gap-2 mt-2 pt-2 border-t border-slate-100 dark:border-white/[0.05]">
+                                            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-indigo-500/20 dark:to-purple-500/20 flex items-center justify-center">
+                                                <Stethoscope className="h-3 w-3 text-indigo-500 dark:text-indigo-400" />
                                             </div>
-                                            <span className="text-sm text-slate-600 font-medium">{event.doctor}</span>
+                                            <span className="text-sm text-slate-600 dark:text-slate-300 font-medium">{event.doctor}</span>
                                         </div>
                                     )}
 
                                     {/* Action hint for upcoming */}
                                     {event.status === 'upcoming' && (
                                         <motion.div
-                                            className="mt-3 flex items-center gap-2 text-xs text-blue-600"
+                                            className="mt-3 flex items-center gap-2 text-xs text-blue-600 dark:text-blue-400"
                                             animate={{ x: [0, 3, 0] }}
                                             transition={{ repeat: Infinity, duration: 1.5 }}
                                         >
@@ -242,7 +243,7 @@ export function MedicalTimeline({ events = defaultEvents }: MedicalTimelineProps
                                     {/* Attention indicator */}
                                     {event.status === 'attention' && (
                                         <motion.div
-                                            className="mt-3 flex items-center gap-2 text-xs text-amber-600"
+                                            className="mt-3 flex items-center gap-2 text-xs text-amber-600 dark:text-amber-400"
                                             animate={{ opacity: [1, 0.6, 1] }}
                                             transition={{ repeat: Infinity, duration: 1 }}
                                         >
@@ -262,21 +263,21 @@ export function MedicalTimeline({ events = defaultEvents }: MedicalTimelineProps
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
-                className="mt-8 pt-4 border-t border-dashed border-slate-200"
+                className="mt-8 pt-4 border-t border-dashed border-slate-200 dark:border-white/[0.05]"
             >
                 <div className="flex items-center justify-between text-sm">
                     <div className="flex items-center gap-4">
                         <div className="flex items-center gap-1.5">
                             <div className="w-3 h-3 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500" />
-                            <span className="text-slate-500">{events.filter(e => e.status === 'completed').length} Completed</span>
+                            <span className="text-slate-500 dark:text-slate-400">{events.filter(e => e.status === 'completed').length} Completed</span>
                         </div>
                         <div className="flex items-center gap-1.5">
                             <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500" />
-                            <span className="text-slate-500">{events.filter(e => e.status === 'upcoming').length} Upcoming</span>
+                            <span className="text-slate-500 dark:text-slate-400">{events.filter(e => e.status === 'upcoming').length} Upcoming</span>
                         </div>
                     </div>
                     <motion.div
-                        className="text-xs text-slate-400 flex items-center gap-1"
+                        className="text-xs text-slate-400 dark:text-slate-500 flex items-center gap-1"
                         animate={{ opacity: [0.5, 1, 0.5] }}
                         transition={{ repeat: Infinity, duration: 2 }}
                     >

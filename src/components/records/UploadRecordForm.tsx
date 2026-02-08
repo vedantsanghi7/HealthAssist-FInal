@@ -170,6 +170,30 @@ export function UploadRecordForm({ patientId, onSuccess, onCancel }: UploadRecor
 
             if (dbError) throw dbError;
 
+            // Send email notification if doctor uploads for patient
+            if (role === 'doctor' && patientId) {
+                const { data: patientProfile } = await supabase
+                    .from('profiles')
+                    .select('full_name')
+                    .eq('id', patientId)
+                    .single();
+
+                fetch('/api/send-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        type: 'medical_record',
+                        data: {
+                            patientId: patientId,
+                            patientName: patientProfile?.full_name || 'Patient',
+                            recordType: 'Document',
+                            testName: docTitle,
+                            uploadedBy: doctorFullName
+                        }
+                    })
+                }).catch(err => console.error('Email notification failed:', err));
+            }
+
             resetForm();
             if (onSuccess) onSuccess();
         } catch (error) {
@@ -202,6 +226,30 @@ export function UploadRecordForm({ patientId, onSuccess, onCancel }: UploadRecor
 
             if (error) throw error;
 
+            // Send email notification if doctor uploads for patient
+            if (role === 'doctor' && patientId) {
+                const { data: patientProfile } = await supabase
+                    .from('profiles')
+                    .select('full_name')
+                    .eq('id', patientId)
+                    .single();
+
+                fetch('/api/send-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        type: 'medical_record',
+                        data: {
+                            patientId: patientId,
+                            patientName: patientProfile?.full_name || 'Patient',
+                            recordType: 'Lab Test',
+                            testName: test.name,
+                            uploadedBy: doctorFullName
+                        }
+                    })
+                }).catch(err => console.error('Email notification failed:', err));
+            }
+
             resetForm();
             if (onSuccess) onSuccess();
         } catch (error) {
@@ -229,6 +277,30 @@ export function UploadRecordForm({ patientId, onSuccess, onCancel }: UploadRecor
             });
 
             if (error) throw error;
+
+            // Send email notification if doctor uploads for patient
+            if (role === 'doctor' && patientId) {
+                const { data: patientProfile } = await supabase
+                    .from('profiles')
+                    .select('full_name')
+                    .eq('id', patientId)
+                    .single();
+
+                fetch('/api/send-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        type: 'medical_record',
+                        data: {
+                            patientId: patientId,
+                            patientName: patientProfile?.full_name || 'Patient',
+                            recordType: 'Prescription',
+                            testName: 'New Prescription',
+                            uploadedBy: doctorName
+                        }
+                    })
+                }).catch(err => console.error('Email notification failed:', err));
+            }
 
             resetForm();
             if (onSuccess) onSuccess();

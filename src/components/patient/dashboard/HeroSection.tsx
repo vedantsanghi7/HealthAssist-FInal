@@ -8,8 +8,9 @@ import { motion } from 'framer-motion';
 import { StatsWidget } from './StatsWidget';
 import { Activity, Heart, Droplets } from 'lucide-react';
 import * as THREE from 'three';
+import { cn } from '@/lib/utils';
 
-// 3D Organic Object (Abstract Medical Resepresentation)
+// 3D Organic Object (Abstract Medical Representation)
 function OrganicShape(props: any) {
     const meshRef = useRef<THREE.Mesh>(null!);
 
@@ -119,7 +120,13 @@ interface HeroSectionProps {
 
 export function HeroSection({ userName, healthMetrics, recentActivity }: HeroSectionProps) {
     return (
-        <div className="relative w-full h-[380px] rounded-3xl overflow-hidden mb-8 bg-gradient-to-br from-indigo-50/50 via-white/50 to-blue-50/50 border border-white/60 shadow-xl backdrop-blur-sm">
+        <div className={cn(
+            "relative w-full h-[380px] rounded-3xl overflow-hidden mb-8 border backdrop-blur-sm",
+            // Light mode
+            "bg-gradient-to-br from-indigo-50/50 via-white/50 to-blue-50/50 border-white/60 shadow-xl",
+            // Dark mode
+            "dark:bg-gradient-to-br dark:from-indigo-900/20 dark:via-[#111827]/50 dark:to-blue-900/20 dark:border-white/[0.08] dark:shadow-none"
+        )}>
             {/* 3D Background */}
             <div className="absolute inset-0 z-0">
                 <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
@@ -139,7 +146,11 @@ export function HeroSection({ userName, healthMetrics, recentActivity }: HeroSec
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8 }}
                 >
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/60 backdrop-blur-md border border-white/50 text-xs font-semibold text-indigo-600 mb-6 shadow-sm">
+                    <div className={cn(
+                        "inline-flex items-center gap-2 px-3 py-1 rounded-full backdrop-blur-md border text-xs font-semibold mb-6 shadow-sm",
+                        "bg-white/60 border-white/50 text-indigo-600",
+                        "dark:bg-white/[0.05] dark:border-white/[0.1] dark:text-indigo-400"
+                    )}>
                         <span className="relative flex h-2 w-2">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
@@ -147,21 +158,25 @@ export function HeroSection({ userName, healthMetrics, recentActivity }: HeroSec
                         Real-time Health Monitoring
                     </div>
 
-                    <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 mb-4 tracking-tight">
+                    <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-300 mb-4 tracking-tight">
                         Welcome back,<br /> {userName}
                     </h1>
 
-                    <p className="text-lg text-slate-600 max-w-md mb-8 leading-relaxed">
+                    <p className="text-lg text-slate-600 dark:text-slate-300 max-w-md mb-8 leading-relaxed">
                         {recentActivity
                             ? `${recentActivity.type === 'Appointment' ? `Upcoming: ${recentActivity.title} on ${recentActivity.date}` : `Latest: ${recentActivity.title} - ${recentActivity.date}`}`
                             : 'Welcome to your health dashboard. Track your vitals and stay connected with your care team.'}
                     </p>
 
                     <div className="flex gap-4">
-                        <Link href="/dashboard/patient/records" className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium shadow-lg shadow-blue-500/30 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all text-sm">
+                        <Link href="/dashboard/patient/ai-chat?prompt=Please+analyze+my+full+health+condition+and+medical+records+to+provide+a+comprehensive+health+report." className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium shadow-lg shadow-blue-500/30 dark:shadow-blue-500/10 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all text-sm">
                             View Full Report
                         </Link>
-                        <Link href="/dashboard/patient/doctors" className="px-6 py-3 rounded-xl bg-white/60 font-medium text-slate-700 hover:bg-white/80 transition-all border border-white/40 shadow-sm text-sm">
+                        <Link href="/dashboard/patient/doctors" className={cn(
+                            "px-6 py-3 rounded-xl font-medium transition-all border shadow-sm text-sm",
+                            "bg-white/60 text-slate-700 hover:bg-white/80 border-white/40",
+                            "dark:bg-white/[0.05] dark:text-white dark:hover:bg-white/[0.1] dark:border-white/[0.1]"
+                        )}>
                             Contact Doctor
                         </Link>
                     </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Send, User, Bot, Loader2, Sparkles, Plus, Globe, RefreshCw } from 'lucide-react';
@@ -37,6 +38,11 @@ export function AIChatInterface() {
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isTranslating, setIsTranslating] = useState(false);
+
+    const searchParams = useSearchParams();
+    const promptParam = searchParams.get('prompt');
+    const hasProcessedPrompt = useRef(false);
+
     const scrollRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -44,6 +50,42 @@ export function AIChatInterface() {
             scrollRef.current.scrollIntoView({ behavior: 'smooth' });
         }
     }, [messages]);
+
+    useEffect(() => {
+        if (promptParam && !hasProcessedPrompt.current && !isLoading) {
+            hasProcessedPrompt.current = true;
+            sendMessage(promptParam);
+        }
+    }, [promptParam]);
+
+    const sendMessage = async (text: string) => {
+        if (!text.trim() || isLoading) return;
+
+        const userMessage = text.trim();
+        setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+        setIsLoading(true);
+
+        try {
+            // Build history from original content to keep context consistent
+            const historyContext = messages.map(m => `${m.role.toUpperCase()}: ${m.originalContent || m.content}`).join('\n');
+            const response = await analyzeMedicalTextAction(userMessage, historyContext, user?.id, language);
+
+            setMessages(prev => [...prev, {
+                role: 'assistant',
+                content: response,
+                originalContent: language === 'English' ? response : undefined
+            }]);
+        } catch (error) {
+            console.error('Chat error:', error);
+            setMessages(prev => [...prev, {
+                role: 'assistant',
+                content: 'Sorry, I encountered an error. Please try again.',
+                originalContent: 'Sorry, I encountered an error. Please try again.'
+            }]);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     // Handle language change - translate all assistant messages
     const handleLanguageChange = async (newLanguage: string) => {
@@ -88,31 +130,9 @@ export function AIChatInterface() {
         e.preventDefault();
         if (!input.trim() || isLoading) return;
 
-        const userMessage = input.trim();
+        const text = input;
         setInput('');
-        setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
-        setIsLoading(true);
-
-        try {
-            // Build history from original content to keep context consistent
-            const historyContext = messages.map(m => `${m.role.toUpperCase()}: ${m.originalContent || m.content}`).join('\n');
-            const response = await analyzeMedicalTextAction(userMessage, historyContext, user?.id, language);
-
-            setMessages(prev => [...prev, {
-                role: 'assistant',
-                content: response,
-                originalContent: language === 'English' ? response : undefined
-            }]);
-        } catch (error) {
-            console.error('Chat error:', error);
-            setMessages(prev => [...prev, {
-                role: 'assistant',
-                content: 'Sorry, I encountered an error. Please try again.',
-                originalContent: 'Sorry, I encountered an error. Please try again.'
-            }]);
-        } finally {
-            setIsLoading(false);
-        }
+        await sendMessage(text);
     };
 
     const handleNewChat = () => {

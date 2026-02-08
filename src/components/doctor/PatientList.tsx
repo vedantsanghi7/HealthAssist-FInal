@@ -27,7 +27,6 @@ export function PatientList({ onSelect, refreshTrigger = 0 }: PatientListProps) 
             if (!user) return;
             setLoading(true);
             try {
-                // Get patients who have appointments with this doctor
                 const { data: appointmentData, error } = await supabase
                     .from('appointments')
                     .select('patient_id, profiles:patient_id(id, full_name, age, gender)')
@@ -36,7 +35,6 @@ export function PatientList({ onSelect, refreshTrigger = 0 }: PatientListProps) 
 
                 if (error) throw error;
 
-                // Deduplicate patients
                 const uniquePatientsMap = new Map();
                 appointmentData?.forEach((item: { profiles: any }) => {
                     const p = item.profiles;
@@ -47,9 +45,9 @@ export function PatientList({ onSelect, refreshTrigger = 0 }: PatientListProps) 
                             full_name: p.full_name,
                             age: p.age,
                             gender: p.gender,
-                            status: 'active', // Derived status could be added later
+                            status: 'active',
                             lastVisit: new Date().toISOString().split('T')[0],
-                            condition: 'General Checkup' // Placeholder
+                            condition: 'General Checkup'
                         });
                     }
                 });
@@ -70,14 +68,20 @@ export function PatientList({ onSelect, refreshTrigger = 0 }: PatientListProps) 
     );
 
     return (
-        <GlassCard className="h-full flex flex-col overflow-hidden bg-white/60">
-            <div className="p-4 border-b border-border/10">
-                <h2 className="font-semibold mb-4">My Patients</h2>
+        <GlassCard className={cn(
+            "h-full flex flex-col overflow-hidden",
+            "bg-white/60 dark:bg-white/[0.02]"
+        )}>
+            <div className="p-4 border-b border-border/10 dark:border-white/[0.05]">
+                <h2 className="font-semibold mb-4 text-foreground">My Patients</h2>
                 <div className="relative">
                     <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
                     <Input
                         placeholder="Search patients..."
-                        className="pl-9 bg-white/50 border-0 focus-visible:ring-0 focus-visible:bg-white"
+                        className={cn(
+                            "pl-9 border-0 focus-visible:ring-0",
+                            "bg-white/50 dark:bg-white/[0.03] focus-visible:bg-white dark:focus-visible:bg-white/[0.05]"
+                        )}
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -98,17 +102,22 @@ export function PatientList({ onSelect, refreshTrigger = 0 }: PatientListProps) 
                                 onSelect(patient);
                             }}
                             className={cn(
-                                "p-3 rounded-lg cursor-pointer transition-all hover:bg-white/50 flex items-center gap-3",
-                                selectedId === patient.id ? "bg-medical-primary/10 border-l-2 border-medical-primary" : "border-l-2 border-transparent"
+                                "p-3 rounded-lg cursor-pointer transition-all flex items-center gap-3",
+                                "hover:bg-white/50 dark:hover:bg-white/[0.03]",
+                                selectedId === patient.id
+                                    ? "bg-medical-primary/10 dark:bg-medical-primary/20 border-l-2 border-medical-primary"
+                                    : "border-l-2 border-transparent"
                             )}
                         >
-                            <Avatar className="h-10 w-10 border border-border/50">
+                            <Avatar className="h-10 w-10 border border-border/50 dark:border-white/[0.05]">
                                 <AvatarImage src={`/placeholder-user.jpg`} />
-                                <AvatarFallback className="text-xs">{patient.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+                                <AvatarFallback className="text-xs bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
+                                    {patient.name.substring(0, 2).toUpperCase()}
+                                </AvatarFallback>
                             </Avatar>
                             <div className="flex-1 min-w-0">
                                 <div className="flex items-center justify-between">
-                                    <h3 className="font-medium text-sm truncate">{patient.name}</h3>
+                                    <h3 className="font-medium text-sm truncate text-foreground">{patient.name}</h3>
                                 </div>
                                 <p className="text-xs text-muted-foreground truncate">
                                     {patient.status} • {patient.condition}

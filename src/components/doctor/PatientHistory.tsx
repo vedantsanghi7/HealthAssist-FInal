@@ -11,6 +11,7 @@ import { supabase } from '@/lib/supabase/supabaseClient';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RecordDetailsDialog } from '@/components/records/RecordDetailsDialog';
+import { cn } from '@/lib/utils';
 
 interface PatientHistoryProps {
     patientId: string;
@@ -89,7 +90,7 @@ export function PatientHistory({ patientId, onBack }: PatientHistoryProps) {
                         <ArrowLeft className="h-5 w-5" />
                     </Button>
                     <div>
-                        <h2 className="text-xl font-bold">Patient Medical History</h2>
+                        <h2 className="text-xl font-bold text-foreground">Patient Medical History</h2>
                         <p className="text-sm text-muted-foreground">View all records and upload new reports</p>
                     </div>
                 </div>
@@ -107,12 +108,20 @@ export function PatientHistory({ patientId, onBack }: PatientHistoryProps) {
             </div>
 
             {/* Controls Bar */}
-            <GlassCard className="p-2 flex flex-col md:flex-row gap-4 items-center bg-white/60 backdrop-blur-xl border-white/40">
+            <GlassCard className={cn(
+                "p-2 flex flex-col md:flex-row gap-4 items-center",
+                "bg-white/60 dark:bg-white/[0.02] backdrop-blur-xl border-white/40 dark:border-white/[0.05]"
+            )}>
                 <div className="relative w-full md:flex-1">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 dark:text-slate-500" />
                     <Input
                         placeholder="Search records..."
-                        className="pl-12 bg-white/40 border-transparent hover:border-blue-200 focus:border-blue-400 focus:bg-white h-10 rounded-xl transition-all"
+                        className={cn(
+                            "pl-12 h-10 rounded-xl transition-all",
+                            "bg-white/40 dark:bg-white/[0.03] border-transparent",
+                            "hover:border-blue-200 dark:hover:border-white/[0.1]",
+                            "focus:border-blue-400 dark:focus:border-white/20 focus:bg-white dark:focus:bg-white/[0.05]"
+                        )}
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
@@ -123,10 +132,12 @@ export function PatientHistory({ patientId, onBack }: PatientHistoryProps) {
                         <button
                             key={filter}
                             onClick={() => setActiveFilter(filter)}
-                            className={`px-3 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${activeFilter === filter
-                                ? 'bg-blue-100 text-blue-700 shadow-sm'
-                                : 'text-slate-500 hover:bg-white/50 hover:text-slate-700'
-                                }`}
+                            className={cn(
+                                "px-3 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
+                                activeFilter === filter
+                                    ? 'bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-400 shadow-sm'
+                                    : 'text-slate-500 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-white/[0.03] hover:text-slate-700 dark:hover:text-slate-300'
+                            )}
                         >
                             {filter}
                         </button>
@@ -142,12 +153,15 @@ export function PatientHistory({ patientId, onBack }: PatientHistoryProps) {
                             <LoadingSpinner size={32} />
                         </div>
                     ) : filteredRecords.length === 0 ? (
-                        <GlassCard className="flex flex-col items-center justify-center py-20 text-center border-dashed border-2 border-slate-200 bg-slate-50/50 h-full">
-                            <div className="h-16 w-16 rounded-full bg-blue-50 flex items-center justify-center mb-4">
-                                <Upload className="h-8 w-8 text-blue-400 opacity-80" />
+                        <GlassCard className={cn(
+                            "flex flex-col items-center justify-center py-20 text-center border-dashed border-2 h-full",
+                            "border-slate-200 dark:border-white/[0.05] bg-slate-50/50 dark:bg-white/[0.01]"
+                        )}>
+                            <div className="h-16 w-16 rounded-full bg-blue-50 dark:bg-blue-500/20 flex items-center justify-center mb-4">
+                                <Upload className="h-8 w-8 text-blue-400 dark:text-blue-400 opacity-80" />
                             </div>
-                            <h3 className="text-lg font-bold text-slate-800 mb-1">No records found</h3>
-                            <p className="text-slate-500 max-w-xs mx-auto mb-4 text-sm">
+                            <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-1">No records found</h3>
+                            <p className="text-slate-500 dark:text-slate-400 max-w-xs mx-auto mb-4 text-sm">
                                 {search ? `No results for "${search}"` : "This patient has no uploaded medical records yet."}
                             </p>
                             {!search && (

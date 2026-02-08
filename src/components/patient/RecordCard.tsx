@@ -6,6 +6,7 @@ import { FileText, Download, Share2, Eye, MoreHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { RecordParams } from '@/components/patient/records/RecordParams';
+import { cn } from '@/lib/utils';
 
 interface RecordCardProps {
     title: string;
@@ -23,12 +24,16 @@ export function RecordCard({ title, date, type, category, status, onView }: Reco
             transition={{ type: "spring", stiffness: 400, damping: 20 }}
             className="h-full"
         >
-            <GlassCard className="h-full p-5 flex flex-col justify-between group bg-white/60 backdrop-blur-xl border-white/40 hover:border-blue-400/30 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300">
+            <GlassCard className="h-full p-5 flex flex-col justify-between group hover:border-blue-400/30 dark:hover:border-blue-500/20 hover:shadow-xl hover:shadow-blue-500/10 dark:hover:shadow-blue-500/5 transition-all duration-300">
                 <div className="flex items-start justify-between mb-4">
-                    <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-white/60 flex items-center justify-center text-blue-600 shadow-sm group-hover:scale-110 transition-transform duration-300">
+                    <div className={cn(
+                        "h-12 w-12 rounded-2xl border flex items-center justify-center text-blue-600 dark:text-blue-400 shadow-sm group-hover:scale-110 transition-transform duration-300",
+                        "bg-gradient-to-br from-blue-50 to-indigo-50 border-white/60",
+                        "dark:from-blue-500/20 dark:to-indigo-500/20 dark:border-white/10"
+                    )}>
                         <FileText className="h-6 w-6" />
                     </div>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400 hover:text-slate-600 -mr-2 -mt-2">
+                    <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 -mr-2 -mt-2">
                         <MoreHorizontal className="h-5 w-5" />
                     </Button>
                 </div>
@@ -44,17 +49,21 @@ export function RecordCard({ title, date, type, category, status, onView }: Reco
                     <RecordParams type={type} category={category || 'General'} status={status} />
                 </div>
 
-                <div className="pt-4 mt-auto border-t border-slate-100 flex items-center gap-2">
+                <div className="pt-4 mt-auto border-t border-slate-100 dark:border-white/[0.05] flex items-center gap-2">
                     <Button
                         variant="outline"
                         size="sm"
-                        className="flex-1 bg-white/50 border-slate-200 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all font-medium text-xs h-9"
+                        className={cn(
+                            "flex-1 transition-all font-medium text-xs h-9",
+                            "bg-white/50 border-slate-200 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200",
+                            "dark:bg-white/[0.03] dark:border-white/[0.1] dark:hover:bg-blue-500/10 dark:hover:text-blue-400 dark:hover:border-blue-500/20"
+                        )}
                         onClick={onView}
                     >
                         <Eye className="h-3.5 w-3.5 mr-2" />
                         View
                     </Button>
-                    <Button variant="ghost" size="icon" className="h-9 w-9 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                    <Button variant="ghost" size="icon" className="h-9 w-9 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-500/10 rounded-lg transition-colors">
                         <Download className="h-4 w-4" />
                     </Button>
                 </div>

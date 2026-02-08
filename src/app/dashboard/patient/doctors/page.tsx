@@ -86,16 +86,17 @@ export default function FindDoctorsPage() {
                         transition={{ duration: 0.6, delay: 0.2 }}
                         className="flex flex-wrap gap-3 pt-2"
                     >
-                        <Button className="bg-white text-blue-900 hover:bg-blue-50 rounded-full h-12 px-8 font-semibold text-base shadow-lg hover:shadow-xl transition-all">
+                        <Button
+                            className="bg-white text-blue-900 hover:bg-blue-50 rounded-full h-12 px-8 font-semibold text-base shadow-lg hover:shadow-xl transition-all"
+                            onClick={() => {
+                                document.getElementById('doctors-grid')?.scrollIntoView({ behavior: 'smooth' });
+                            }}
+                        >
                             Find a Specialist
                         </Button>
                         <Button
                             className="bg-gradient-to-r from-red-500 to-orange-500 text-white hover:from-red-600 hover:to-orange-600 rounded-full h-12 px-6 shadow-lg shadow-red-500/30 hover:shadow-xl hover:shadow-red-500/40 transition-all font-semibold border-2 border-red-400"
-                            onClick={() => toast.error('Emergency Care', {
-                                description: 'For immediate medical emergencies, please call 911 or visit your nearest emergency room.',
-                                icon: <AlertCircle className="h-5 w-5" />,
-                                duration: 5000
-                            })}
+                            onClick={() => window.open('https://112.gov.in/', '_blank')}
                         >
                             <AlertCircle className="h-4 w-4 mr-2" />
                             Emergency Care
@@ -105,7 +106,7 @@ export default function FindDoctorsPage() {
             </section>
 
             {/* 2. Floating Search & Filter Bar */}
-            <div className="sticky top-24 z-20 -mt-20 px-4 md:px-0">
+            <div id="doctors-grid" className="sticky top-24 z-20 -mt-20 px-4 md:px-0">
                 <GlassCard className="p-2 md:p-3 flex flex-col md:flex-row gap-4 items-center bg-white/80 backdrop-blur-xl border-white/50 shadow-xl rounded-2xl">
                     <div className="relative w-full md:flex-1">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />

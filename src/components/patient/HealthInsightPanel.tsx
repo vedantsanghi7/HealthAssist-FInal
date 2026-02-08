@@ -192,38 +192,38 @@ export function HealthInsightPanel({ onHealthScoreUpdate, initialScore }: Health
     };
 
     return (
-        <GlassCard className="relative overflow-hidden border-indigo-200/50 bg-gradient-to-br from-white/90 to-indigo-50/50 shadow-xl group">
+        <GlassCard className="relative overflow-hidden p-6">
             {/* AI Glow Effect */}
-            <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-indigo-500/10 blur-2xl group-hover:bg-indigo-500/20 transition-colors duration-500" />
+            <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-indigo-500/10 dark:bg-indigo-500/5 blur-2xl group-hover:bg-indigo-500/20 transition-colors duration-500" />
 
             <div className="relative z-10">
                 {/* Header Row - Title */}
-                <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2.5 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/20">
+                <div className="flex items-start gap-3 mb-4">
+                    <div className="p-2.5 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/20 dark:shadow-indigo-500/10 shrink-0">
                         <Bot className="h-5 w-5" />
                     </div>
-                    <div>
-                        <div className="flex items-center gap-2">
-                            <h3 className="font-bold text-slate-800 text-lg leading-none">Health AI</h3>
-                            <span className="text-[10px] font-semibold text-white bg-gradient-to-r from-indigo-500 to-purple-600 px-2 py-0.5 rounded-full shadow-sm">Powered by Sarvam</span>
+                    <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-2 flex-wrap">
+                            <h3 className="font-bold text-slate-800 dark:text-white text-lg leading-none">Health AI</h3>
+                            <span className="text-[10px] font-semibold text-white bg-gradient-to-r from-indigo-500 to-purple-600 px-2 py-0.5 rounded-full shadow-sm whitespace-nowrap">Powered by Sarvam</span>
                         </div>
-                        <span className="text-[10px] uppercase font-bold tracking-wider text-indigo-500">Insights & Trends</span>
+                        <span className="text-[10px] uppercase font-bold tracking-wider text-indigo-500 dark:text-indigo-400 mt-1 block">Insights & Trends</span>
                     </div>
                 </div>
 
                 {/* Records Count + Language Selector - Below Header */}
                 <div className="flex items-center justify-between mb-4">
                     {/* Activity Pill */}
-                    <div className="flex items-center gap-2 bg-white/60 backdrop-blur-sm border border-indigo-100 rounded-full pl-1 pr-3 py-1">
+                    <div className="flex items-center gap-2 bg-white/60 dark:bg-white/5 backdrop-blur-sm border border-indigo-100 dark:border-indigo-500/20 rounded-full pl-1 pr-3 py-1">
                         <div className="h-6 w-6 rounded-full bg-emerald-500 flex items-center justify-center text-[10px] font-bold text-white shadow-sm">
                             <FileCheck2 className="h-3 w-3" />
                         </div>
-                        <span className="text-xs font-medium text-slate-600">{stats.recordCount} Records</span>
+                        <span className="text-xs font-medium text-slate-600 dark:text-slate-300">{stats.recordCount} Records</span>
                     </div>
 
                     {/* Language Selector */}
                     <Select value={language} onValueChange={setLanguage} disabled={isTranslating}>
-                        <SelectTrigger className="w-[130px] h-8 bg-white/60 border-indigo-100 text-xs font-medium text-slate-600">
+                        <SelectTrigger className="w-[130px] h-8 bg-white/60 dark:bg-white/5 border-indigo-100 dark:border-indigo-500/20 text-xs font-medium text-slate-600 dark:text-slate-300">
                             {isTranslating ? (
                                 <Loader2 className="w-3 h-3 mr-2 text-indigo-500 animate-spin" />
                             ) : (
@@ -273,18 +273,18 @@ export function HealthInsightPanel({ onHealthScoreUpdate, initialScore }: Health
                                     className={`text-indigo-500 transition-all duration-1000 ease-out`}
                                 />
                             </svg>
-                            <span className="absolute text-xs font-bold text-slate-700">{healthScore}</span>
+                            <span className="absolute text-xs font-bold text-slate-700 dark:text-white">{healthScore}</span>
                         </div>
-                        <span className="text-[10px] font-medium text-slate-400 mt-1">Health Score</span>
+                        <span className="text-[10px] font-medium text-slate-400 dark:text-slate-500 mt-1">Health Score</span>
                     </div>
                 )}
             </div>
 
             <div className="space-y-4">
                 {!insight ? (
-                    <div className="bg-white/50 rounded-xl p-4 border border-indigo-50 text-center">
-                        <Activity className="h-8 w-8 text-indigo-300 mx-auto mb-2 opacity-50" />
-                        <p className="text-sm text-slate-600 font-medium">Ready to analyze your records</p>
+                    <div className="bg-white/50 dark:bg-white/5 rounded-xl p-4 border border-indigo-50 dark:border-indigo-500/10 text-center">
+                        <Activity className="h-8 w-8 text-indigo-300 dark:text-indigo-500/50 mx-auto mb-2 opacity-50" />
+                        <p className="text-sm text-slate-600 dark:text-slate-300 font-medium">Ready to analyze your records</p>
                         <p className="text-xs text-slate-400 mt-1">
                             {stats.recordCount > 0
                                 ? `AI will analyze your ${stats.recordCount} medical records.`
@@ -292,9 +292,9 @@ export function HealthInsightPanel({ onHealthScoreUpdate, initialScore }: Health
                         </p>
                     </div>
                 ) : (
-                    <div className="flex items-start gap-4 p-2 bg-indigo-50/50 rounded-lg">
-                        <Sparkles className="h-5 w-5 text-indigo-500 mt-1 shrink-0 animate-pulse" />
-                        <p className="text-sm font-medium text-slate-700">Analysis ready. Review your personalized health summary below.</p>
+                    <div className="flex items-start gap-4 p-3 bg-indigo-50/50 dark:bg-indigo-500/10 rounded-lg">
+                        <Sparkles className="h-5 w-5 text-indigo-500 dark:text-indigo-400 mt-0.5 shrink-0 animate-pulse" />
+                        <p className="text-sm font-medium text-slate-700 dark:text-slate-200">Analysis ready. Review your personalized health summary below.</p>
                     </div>
                 )}
 
@@ -306,7 +306,7 @@ export function HealthInsightPanel({ onHealthScoreUpdate, initialScore }: Health
                             exit={{ height: 0, opacity: 0 }}
                             className="overflow-hidden"
                         >
-                            <div className="p-5 rounded-xl bg-white/60 border border-indigo-100 text-sm text-slate-700 leading-relaxed shadow-inner markdown-content">
+                            <div className="p-5 rounded-xl bg-white/60 dark:bg-white/5 border border-indigo-100 dark:border-indigo-500/10 text-sm text-slate-700 dark:text-slate-300 leading-relaxed shadow-inner dark:shadow-none markdown-content">
                                 <ReactMarkdown
                                     remarkPlugins={[remarkGfm]}
                                     components={{
@@ -333,7 +333,7 @@ export function HealthInsightPanel({ onHealthScoreUpdate, initialScore }: Health
 
                 <Button
                     onClick={insight ? () => setIsExpanded(!isExpanded) : () => generateInsight(false)}
-                    className="w-full justify-between bg-white hover:bg-indigo-50 text-indigo-600 border border-indigo-200 hover:border-indigo-300 shadow-sm h-12 rounded-xl group transition-all"
+                    className="w-full justify-between bg-white dark:bg-white/5 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-500/20 hover:border-indigo-300 dark:hover:border-indigo-500/30 shadow-sm h-12 rounded-xl group transition-all"
                     disabled={loading || stats.recordCount === 0}
                 >
                     <span className="font-semibold">

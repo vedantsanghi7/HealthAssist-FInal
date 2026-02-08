@@ -51,14 +51,15 @@ const config: Config = {
                     '5': 'hsl(var(--chart-5))'
                 },
                 medical: {
-                    bg: '#F7F9FC',
-                    primary: '#0F6CBD',
-                    secondary: '#38A3A5',
-                    accent: '#57CC99',
-                    muted: '#94A3B8',
-                    success: '#22C55E',
-                    warning: '#F59E0B',
-                    error: '#EF4444'
+                    bg: 'hsl(var(--background))', // unify with theme
+                    primary: 'hsl(var(--primary))',
+                    secondary: 'hsl(var(--secondary))',
+                    accent: 'hsl(var(--accent))',
+                    muted: 'hsl(var(--muted))',
+                    success: 'hsl(var(--success))',
+                    warning: 'hsl(var(--warning))',
+                    error: 'hsl(var(--destructive))',
+                    info: 'hsl(var(--info))',
                 }
             },
             borderRadius: {

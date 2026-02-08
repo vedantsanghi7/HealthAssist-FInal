@@ -17,11 +17,11 @@ interface StatsWidgetProps {
 
 export function StatsWidget({ icon, label, value, subValue, color = 'blue', className, delay = 0 }: StatsWidgetProps) {
     const colorMap = {
-        blue: 'bg-blue-100 text-blue-600',
-        red: 'bg-red-100 text-red-600',
-        purple: 'bg-purple-100 text-purple-600',
-        orange: 'bg-orange-100 text-orange-600',
-        emerald: 'bg-emerald-100 text-emerald-600',
+        blue: 'bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400',
+        red: 'bg-red-100 dark:bg-red-500/20 text-red-600 dark:text-red-400',
+        purple: 'bg-purple-100 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400',
+        orange: 'bg-orange-100 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400',
+        emerald: 'bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400',
     };
 
     return (
@@ -32,7 +32,7 @@ export function StatsWidget({ icon, label, value, subValue, color = 'blue', clas
             whileHover={{ scale: 1.02, y: -5 }}
             className={className}
         >
-            <GlassCard className="p-5 flex items-center gap-4 border-white/40 bg-white/60 backdrop-blur-xl hover:bg-white/70 transition-colors">
+            <GlassCard className="p-5 flex items-center gap-4">
                 <div className={cn("h-12 w-12 rounded-2xl flex items-center justify-center shadow-sm", colorMap[color])}>
                     {icon}
                 </div>

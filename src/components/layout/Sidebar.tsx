@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { useRole } from '@/hooks/useRole';
 import { useAuth } from '@/context/AuthContext';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
     LayoutDashboard,
     FileText,
@@ -14,12 +14,9 @@ import {
     Calendar,
     Settings,
     LogOut,
-    Shield,
     Users,
     MessageSquare,
     ClipboardList,
-    ChevronRight,
-    ChevronLeft,
     Mail,
     HeartPulse
 } from 'lucide-react';
@@ -55,25 +52,34 @@ export function Sidebar() {
         <motion.aside
             initial={false}
             animate={{ width: isCollapsed ? 80 : 260 }}
-            className="hidden md:flex flex-col h-[calc(100vh-2rem)] sticky top-4 mb-4 ml-4 rounded-3xl bg-white/70 backdrop-blur-xl border border-white/20 shadow-xl transition-all z-40"
+            className={cn(
+                "hidden md:flex flex-col h-[calc(100vh-2rem)] sticky top-4 mb-4 ml-4 rounded-3xl z-40",
+                "backdrop-blur-xl border transition-all duration-300",
+                // Light mode
+                "bg-white/80 border-white/60 shadow-xl",
+                // Dark mode
+                "dark:bg-[#0B0F14]/80 dark:border-white/[0.05] dark:shadow-none"
+            )}
             onMouseEnter={() => setIsCollapsed(false)}
             onMouseLeave={() => setIsCollapsed(true)}
         >
-            <div className="flex h-20 items-center justify-center border-b border-border/10 relative">
+            {/* Logo Section */}
+            <div className="flex h-20 items-center justify-center border-b border-border/10 dark:border-white/[0.05] relative">
                 <div className="flex items-center gap-3 overflow-hidden whitespace-nowrap px-4 w-full">
-                    <div className="h-10 w-10 min-w-[2.5rem] rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
+                    <div className="h-10 w-10 min-w-[2.5rem] rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/20 dark:shadow-blue-500/10">
                         <HeartPulse className="h-6 w-6 text-white" />
                     </div>
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: isCollapsed ? 0 : 1 }}
-                        className="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600"
+                        className="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600 dark:from-white dark:to-slate-300"
                     >
                         HealthAssist
                     </motion.div>
                 </div>
             </div>
 
+            {/* Navigation Menu */}
             <div className="flex-1 overflow-y-auto overflow-x-hidden py-6 px-3">
                 <nav className="space-y-2">
                     {menuItems.map((item) => {
@@ -85,19 +91,28 @@ export function Sidebar() {
                                 className={cn(
                                     "flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all duration-300 group relative",
                                     isActive
-                                        ? "text-white shadow-lg shadow-indigo-500/20"
-                                        : "text-slate-500 hover:bg-slate-100/50 hover:text-slate-800"
+                                        ? "text-white"
+                                        : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/50 dark:hover:bg-white/[0.05]"
                                 )}
                             >
                                 {isActive && (
                                     <motion.div
                                         layoutId="activeTab"
-                                        className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl z-0"
+                                        className={cn(
+                                            "absolute inset-0 rounded-xl z-0",
+                                            "bg-gradient-to-r from-blue-600 to-indigo-600",
+                                            "shadow-lg shadow-indigo-500/20 dark:shadow-indigo-500/10"
+                                        )}
                                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
                                     />
                                 )}
                                 <div className="relative z-10 flex items-center gap-3">
-                                    <item.icon className={cn("h-5 w-5 transition-transform group-hover:scale-110", isActive ? "text-white" : "text-slate-500 group-hover:text-indigo-600")} />
+                                    <item.icon className={cn(
+                                        "h-5 w-5 transition-all duration-300",
+                                        isActive
+                                            ? "text-white"
+                                            : "text-slate-500 dark:text-slate-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 group-hover:scale-110"
+                                    )} />
                                     <motion.span
                                         animate={{ opacity: isCollapsed ? 0 : 1, x: isCollapsed ? -10 : 0 }}
                                         className="whitespace-nowrap"
@@ -118,13 +133,17 @@ export function Sidebar() {
                 </nav>
             </div>
 
-            <div className="p-4 border-t border-border/10">
+            {/* Sign Out Button */}
+            <div className="p-4 border-t border-border/10 dark:border-white/[0.05]">
                 <button
                     onClick={async () => {
                         await signOut();
                     }}
                     className={cn(
-                        "flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-slate-500 hover:bg-red-50 hover:text-red-600 transition-all group overflow-hidden",
+                        "flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all group overflow-hidden",
+                        "text-slate-500 dark:text-slate-400",
+                        "hover:bg-red-50 dark:hover:bg-red-500/10",
+                        "hover:text-red-600 dark:hover:text-red-400",
                         isCollapsed && "justify-center"
                     )}
                 >

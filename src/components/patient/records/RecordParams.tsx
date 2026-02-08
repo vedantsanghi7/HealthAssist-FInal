@@ -14,20 +14,26 @@ export function RecordParams({ type, category, status = 'completed' }: RecordPar
 
     const getStatusColor = (s: string) => {
         switch (s) {
-            case 'normal': return 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20';
-            case 'attention': return 'bg-amber-500/10 text-amber-600 border-amber-500/20';
-            case 'critical': return 'bg-red-500/10 text-red-600 border-red-500/20';
-            default: return 'bg-blue-500/10 text-blue-600 border-blue-500/20';
+            case 'normal': return 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20';
+            case 'attention': return 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20';
+            case 'critical': return 'bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20';
+            default: return 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20';
         }
     };
 
     return (
         <div className="flex flex-wrap gap-2 mt-2">
-            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-slate-100 text-slate-600 border border-slate-200">
+            <span className={cn(
+                "inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium border",
+                "bg-slate-100 dark:bg-white/[0.05] text-slate-600 dark:text-slate-300 border-slate-200 dark:border-white/[0.1]"
+            )}>
                 {type}
             </span>
             {category && (
-                <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-slate-100 text-slate-600 border border-slate-200">
+                <span className={cn(
+                    "inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium border",
+                    "bg-slate-100 dark:bg-white/[0.05] text-slate-600 dark:text-slate-300 border-slate-200 dark:border-white/[0.1]"
+                )}>
                     {category}
                 </span>
             )}
