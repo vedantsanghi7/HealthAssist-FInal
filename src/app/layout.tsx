@@ -8,7 +8,21 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "HealthAssist | Next-Gen Medical Platform",
-  description: "Advanced AI-powered healthcare management",
+  description: "Advanced AI-powered healthcare management platform. Connect with doctors, manage medical records, and get AI-powered health insights in real-time.",
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
+  manifest: '/site.webmanifest',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#0B0F14' }
+  ],
+  openGraph: {
+    title: 'HealthAssist | Next-Gen Medical Platform',
+    description: 'Advanced AI-powered healthcare management platform',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({
