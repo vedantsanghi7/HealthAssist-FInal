@@ -33,3 +33,4 @@ yarn-error.log*
 *.tsbuildinfo
 *.sql
 # *.md
+test_gemini.js
