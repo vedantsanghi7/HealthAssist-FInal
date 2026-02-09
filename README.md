@@ -1,5 +1,7 @@
 # HealthAssist - AI-Powered Healthcare Platform
 
+> **🚀 Live Demo:** [https://healthassist.vedantsanghi.me](https://healthassist.vedantsanghi.me)
+
 HealthAssist is a comprehensive healthcare platform connecting patients and doctors with real-time vitals monitoring, secure medical records, and AI-powered health insights.
 
 ## Features
