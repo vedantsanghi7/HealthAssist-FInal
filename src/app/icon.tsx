@@ -24,7 +24,7 @@ export default function Icon() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     color: 'white',
-                    borderRadius: '20%', // slightly rounded
+                    borderRadius: '30%', // More rounded (squircle-like)
                 }}
             >
                 {/* Heart/Pulse SVG path simplified for 32x32 */}
@@ -36,7 +36,7 @@ export default function Icon() {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    style={{ width: '20px', height: '20px' }}
+                    style={{ width: '18px', height: '18px' }} // Slightly smaller icon
                 >
                     <path d="M19 14c1.49-1.28 3.6-2.34 2.4-5.25c-0.61-4-5.3-7.5-12.7-7.5c-7.3 0-11.9 3.5-12.6 7.5c-1.1 2.9 1 4 2.5 5.25c1.49 1.25 3.3 2.15 4.9 3.4c2.1 1.63 2.9 6.25 2.9 6.25c0 0 0.8-4.62 2.9-6.25c1.6-1.25 3.4-2.15 4.9-3.4" fill="white" stroke="none" />
                     {/* Pulse line */}

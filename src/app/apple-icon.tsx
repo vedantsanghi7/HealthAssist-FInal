@@ -29,7 +29,7 @@ export default function Icon() {
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 100 100"
-                    style={{ width: '120px', height: '120px' }}
+                    style={{ width: '100px', height: '100px' }}
                 >
                     {/* White Heart Shape */}
                     <path d="M50 22 C35 22 24 32 24 45 C24 55 29 62 36 69 L50 82 L64 69 C71 62 76 55 76 45 C76 32 65 22 50 22 Z" fill="white" />
