@@ -10,8 +10,9 @@ export const metadata: Metadata = {
   title: "HealthAssist | Next-Gen Medical Platform",
   description: "Advanced AI-powered healthcare management platform. Connect with doctors, manage medical records, and get AI-powered health insights in real-time.",
   icons: {
-    icon: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
   },
   manifest: '/site.webmanifest',
   themeColor: [
