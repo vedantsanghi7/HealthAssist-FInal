@@ -48,7 +48,13 @@ export async function analyzeMedicalText(prompt: string, language: string = "Eng
             max_tokens: 800,
         });
 
-        const content = response.choices[0]?.message?.content;
+        let content = response.choices[0]?.message?.content;
+        
+        // Remove <think>...</think> reasoning blocks if any exist
+        if (typeof content === 'string') {
+            content = content.replace(/<think>[\s\S]*?<\/think>/g, '').trim();
+        }
+
         console.log("Sarvam AI response received successfully");
         return content || "No response from AI";
     } catch (error) {

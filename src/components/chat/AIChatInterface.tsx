@@ -267,6 +267,8 @@ export function AIChatInterface() {
                                                     strong: ({ node, ...props }) => <strong className="font-bold text-slate-900 dark:text-white" {...props} />,
                                                     h1: ({ node, ...props }) => <h1 className="text-lg font-bold mb-2 mt-4 text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-700 pb-1" {...props} />,
                                                     h2: ({ node, ...props }) => <h2 className="text-base font-bold mb-2 mt-3 text-slate-800 dark:text-slate-100" {...props} />,
+                                                    h3: ({ node, ...props }) => <h3 className="text-sm font-bold mb-1 mt-2 text-slate-800 dark:text-slate-100" {...props} />,
+                                                    h4: ({ node, ...props }) => <h4 className="text-sm font-semibold mb-1 mt-2 text-slate-700 dark:text-slate-200" {...props} />,
                                                     blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-indigo-200 dark:border-indigo-800 pl-4 py-1 my-2 bg-indigo-50/50 dark:bg-indigo-900/10 italic text-slate-600 dark:text-slate-400 rounded-r" {...props} />,
                                                 }}
                                             >
