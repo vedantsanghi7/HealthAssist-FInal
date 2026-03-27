@@ -120,7 +120,7 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-24 pb-12 sm:pt-32 sm:pb-20 lg:pt-48 lg:pb-32 px-4 sm:px-6 overflow-hidden sm:overflow-visible z-10">
+      <section className="relative pt-20 pb-10 sm:pt-32 sm:pb-20 lg:pt-48 lg:pb-32 px-4 sm:px-6 overflow-hidden sm:overflow-visible z-10">
         <div className="container mx-auto grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, x: -20, filter: "blur(10px)" }}
@@ -140,7 +140,7 @@ export default function LandingPage() {
               <span className="text-xs font-bold text-slate-600 dark:text-slate-300 tracking-wide uppercase">Powered by Sarvam AI</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.1]">
+            <h1 className="text-[28px] sm:text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.1]">
               The Future of <br />
               <span className="text-gradient-primary">
                 Connected Care.
@@ -313,7 +313,7 @@ export default function LandingPage() {
       </section>
 
       {/* Features Grid */}
-      <section id="features" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 relative z-10">
+      <section id="features" className="py-12 sm:py-24 lg:py-32 px-4 sm:px-6 relative z-10">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-transparent opacity-30"></div>
         <div className={cn(
           "absolute inset-0 skew-y-1 transform origin-top-left -z-10",
@@ -333,7 +333,7 @@ export default function LandingPage() {
             )}>
               Platform Features
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-slate-900 dark:text-white leading-tight">
+            <h2 className="text-xl sm:text-3xl lg:text-5xl font-bold text-slate-900 dark:text-white leading-tight">
               Complete Care <span className="text-gradient-primary">Coordination</span>
             </h2>
             <p className="text-lg text-slate-600 dark:text-slate-300 font-medium">
@@ -386,7 +386,7 @@ export default function LandingPage() {
       </section>
 
       {/* Sarvam AI Section */}
-      <section id="ai" className="py-16 sm:py-24 lg:py-32 relative overflow-hidden">
+      <section id="ai" className="py-12 sm:py-24 lg:py-32 relative overflow-hidden">
         {/* Background blobs for this section */}
         <div className="absolute top-0 right-0 w-[50%] h-full bg-gradient-to-l from-indigo-500/5 to-transparent z-0"></div>
         <div className="absolute bottom-0 left-0 w-[40%] h-[60%] bg-gradient-to-t from-orange-500/5 to-transparent z-0"></div>
@@ -398,7 +398,7 @@ export default function LandingPage() {
             "dark:!from-[#111827]/90 dark:!to-[#0B0F14]/80"
           )} hover={false}>
             <div className="grid lg:grid-cols-2">
-              <div className="p-6 sm:p-8 md:p-12 lg:p-20 flex flex-col justify-center space-y-6 sm:space-y-8 lg:space-y-10">
+              <div className="p-5 sm:p-8 md:p-12 lg:p-20 flex flex-col justify-center space-y-4 sm:space-y-8 lg:space-y-10">
                 <div className="flex items-center gap-3">
                   <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center shadow-lg shadow-orange-500/20">
                     <Sparkles className="h-6 w-6 text-white" />
@@ -406,7 +406,7 @@ export default function LandingPage() {
                   <span className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Powered by Sarvam AI</span>
                 </div>
 
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-slate-900 dark:text-white leading-[1.1] tracking-tight">
+                <h2 className="text-xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-slate-900 dark:text-white leading-[1.1] tracking-tight">
                   Your Personal <br />
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-amber-500">
                     Multilingual Assistant
@@ -492,7 +492,7 @@ export default function LandingPage() {
 
       {/* About Us Section */}
       <section id="about" className={cn(
-        "py-16 sm:py-24 lg:py-32 px-4 sm:px-6 relative z-10",
+        "py-12 sm:py-24 lg:py-32 px-4 sm:px-6 relative z-10",
         "bg-gradient-to-b from-white to-blue-50/50",
         "dark:from-transparent dark:to-transparent"
       )}>

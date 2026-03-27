@@ -121,7 +121,7 @@ interface HeroSectionProps {
 export function HeroSection({ userName, healthMetrics, recentActivity }: HeroSectionProps) {
     return (
         <div className={cn(
-            "relative w-full h-auto min-h-[500px] md:min-h-0 md:h-[380px] rounded-2xl md:rounded-3xl overflow-hidden mb-6 md:mb-8 border backdrop-blur-sm",
+            "relative w-full h-auto min-h-[400px] md:min-h-0 md:h-[380px] rounded-2xl md:rounded-3xl overflow-hidden mb-6 md:mb-8 border backdrop-blur-sm",
             // Light mode
             "bg-gradient-to-br from-indigo-50/50 via-white/50 to-blue-50/50 border-white/60 shadow-xl",
             // Dark mode
@@ -140,7 +140,7 @@ export function HeroSection({ userName, healthMetrics, recentActivity }: HeroSec
             </div>
 
             {/* Foreground Content */}
-            <div className="relative md:absolute inset-0 z-10 p-6 md:p-12 flex flex-col justify-start md:justify-center pt-8 md:pt-0 pb-36 md:pb-0 max-w-2xl pointer-events-none">
+            <div className="relative md:absolute inset-0 z-10 p-5 md:p-12 flex flex-col justify-start md:justify-center pt-8 md:pt-0 pb-36 md:pb-0 max-w-2xl pointer-events-none">
                 <motion.div
                     initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -159,7 +159,7 @@ export function HeroSection({ userName, healthMetrics, recentActivity }: HeroSec
                         Real-time Health Monitoring
                     </div>
 
-                    <h1 className="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-300 mb-2 md:mb-4 tracking-tight">
+                    <h1 className="text-2xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-300 mb-2 md:mb-4 tracking-tight">
                         Welcome back,<br /> {userName}
                     </h1>
 

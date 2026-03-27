@@ -133,7 +133,7 @@ export default function DoctorDashboard() {
     ];
 
     return (
-        <div className="min-h-screen pb-20 p-4 md:p-6">
+        <div className="min-h-screen pb-20 p-3 md:p-6">
             {/* Background Effects */}
             <div className="fixed inset-0 -z-10 overflow-hidden">
                 <div className="absolute top-20 left-1/4 w-96 h-96 bg-gradient-to-br from-blue-400/10 to-indigo-400/10 rounded-full blur-[120px]" />
@@ -220,13 +220,13 @@ export default function DoctorDashboard() {
                 </div>
 
                 {/* Main Content Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 md:h-[calc(100vh-320px)]">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-6 md:h-[calc(100vh-320px)]">
                     {/* Left: Patient List */}
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="md:col-span-3 h-[350px] md:h-full"
+                        className="md:col-span-3 h-[280px] md:h-full"
                     >
                         <div className="h-full rounded-3xl bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/40 dark:border-white/[0.05] shadow-xl overflow-hidden">
                             <PatientList
@@ -253,7 +253,7 @@ export default function DoctorDashboard() {
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.4 }}
-                        className="md:col-span-3 h-[350px] md:h-full"
+                        className="md:col-span-3 h-[280px] md:h-full"
                     >
                         <div className="h-full rounded-3xl bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/40 dark:border-white/[0.05] shadow-xl overflow-hidden">
                             <AppointmentRequests onUpdate={() => setRefreshTrigger(prev => prev + 1)} />

@@ -72,14 +72,14 @@ export function PatientList({ onSelect, refreshTrigger = 0 }: PatientListProps) 
             "h-full flex flex-col overflow-hidden",
             "bg-white/60 dark:bg-white/[0.02]"
         )}>
-            <div className="p-4 border-b border-border/10 dark:border-white/[0.05]">
-                <h2 className="font-semibold mb-4 text-foreground">My Patients</h2>
+            <div className="p-3 md:p-4 border-b border-border/10 dark:border-white/[0.05]">
+                <h2 className="font-semibold mb-3 md:mb-4 text-foreground text-sm md:text-base">My Patients</h2>
                 <div className="relative">
                     <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
                     <Input
                         placeholder="Search patients..."
                         className={cn(
-                            "pl-9 border-0 focus-visible:ring-0",
+                            "pl-9 border-0 focus-visible:ring-0 h-9 md:h-10 text-sm",
                             "bg-white/50 dark:bg-white/[0.03] focus-visible:bg-white dark:focus-visible:bg-white/[0.05]"
                         )}
                         value={searchTerm}
@@ -92,7 +92,7 @@ export function PatientList({ onSelect, refreshTrigger = 0 }: PatientListProps) 
                 {loading ? (
                     <div className="p-4 text-center text-sm text-muted-foreground">Loading patients...</div>
                 ) : filteredPatients.length === 0 ? (
-                    <div className="p-8 text-center text-sm text-muted-foreground">No patients found.</div>
+                    <div className="p-4 md:p-8 text-center text-sm text-muted-foreground">No patients found.</div>
                 ) : (
                     filteredPatients.map((patient) => (
                         <div

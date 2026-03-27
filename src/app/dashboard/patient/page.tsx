@@ -193,7 +193,7 @@ export default function PatientDashboard() {
     }
 
     return (
-        <div className="min-h-screen pb-20 p-4 md:p-8 space-y-8">
+        <div className="min-h-screen pb-20 p-3 md:p-8 space-y-4 md:space-y-8">
 
             {/* 1. Hero Section with 3D Graphic & Key Stats */}
             <section className="w-full animate-in fade-in slide-in-from-top-4 duration-700">
@@ -204,10 +204,10 @@ export default function PatientDashboard() {
                 />
             </section>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-8">
 
                 {/* 2. Main Content Column (Left/Center) */}
-                <div className="lg:col-span-8 space-y-8">
+                <div className="lg:col-span-8 space-y-4 md:space-y-8">
 
                     {/* Vitals Chart Section */}
                     <section className="space-y-4">
@@ -259,7 +259,7 @@ export default function PatientDashboard() {
                 </div>
 
                 {/* 3. Sidebar Column (Right) */}
-                <div className="lg:col-span-4 space-y-8">
+                <div className="lg:col-span-4 space-y-4 md:space-y-8">
 
                     {/* AI Insights - Primary Action */}
                     <section>

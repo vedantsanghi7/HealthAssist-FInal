@@ -30,18 +30,18 @@ export function DoctorCard({ doctor, onBook }: DoctorCardProps) {
                 {/* Gradient Background Highlight on Hover */}
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 via-purple-500/0 to-teal-500/0 group-hover:from-blue-500/5 group-hover:via-purple-500/5 group-hover:to-teal-500/5 transition-all duration-500" />
 
-                <div className="p-4 sm:p-5 md:p-6 flex flex-col h-full relative z-10 w-full">
+                <div className="p-3 sm:p-5 md:p-6 flex flex-col h-full relative z-10 w-full">
                     {/* Header / Avatar */}
                     <div className="flex flex-row md:flex-col items-center md:items-center text-left md:text-center mb-4 md:mb-6 gap-3 sm:gap-4 md:gap-0 w-full">
                         <div className="relative mb-0 md:mb-4 shrink-0">
                             <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-full blur-lg opacity-20 group-hover:opacity-40 transition-opacity duration-500" />
-                            <Avatar className="h-14 w-14 sm:h-16 sm:w-16 md:h-24 md:w-24 border-2 md:border-4 border-white dark:border-[#111827] shadow-md md:shadow-lg">
+                            <Avatar className="h-12 w-12 sm:h-16 sm:w-16 md:h-24 md:w-24 border-2 md:border-4 border-white dark:border-[#111827] shadow-md md:shadow-lg">
                                 <AvatarImage src={`/placeholder-doctor.jpg`} alt={doctor.full_name} className="object-cover" />
-                                <AvatarFallback className="bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-700 dark:to-slate-800 text-slate-600 dark:text-slate-300 text-base md:text-xl font-bold">
+                                <AvatarFallback className="bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-700 dark:to-slate-800 text-slate-600 dark:text-slate-300 text-sm md:text-xl font-bold">
                                     {doctor.full_name?.substring(0, 2).toUpperCase()}
                                 </AvatarFallback>
                             </Avatar>
-                            <div className="absolute 0 md:-bottom-2 -bottom-1 -right-1 md:-right-2 bg-white dark:bg-[#111827] rounded-full p-1 md:p-1.5 shadow-md">
+                            <div className="absolute 0 md:-bottom-2 -bottom-1 -right-0 md:-right-2 bg-white dark:bg-[#111827] rounded-full p-0.5 md:p-1.5 shadow-md">
                                 <div className="bg-green-500 h-2.5 w-2.5 md:h-3 md:w-3 rounded-full border-2 border-white dark:border-[#111827]" />
                             </div>
                         </div>
