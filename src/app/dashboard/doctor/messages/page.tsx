@@ -288,8 +288,8 @@ export default function DoctorMessagesPage() {
                                             onClick={() => setSelectedConversation(chat)}
                                             className={cn(
                                                 "relative p-4 cursor-pointer transition-all duration-200",
-                                                "hover:bg-gradient-to-r hover:from-indigo-50/50 hover:to-purple-50/30",
-                                                isSelected && "bg-gradient-to-r from-indigo-50/70 to-purple-50/50"
+                                                "hover:bg-gradient-to-r hover:from-indigo-50/50 hover:to-purple-50/30 dark:hover:from-indigo-900/20 dark:hover:to-purple-900/20",
+                                                isSelected && "bg-gradient-to-r from-indigo-50/70 to-purple-50/50 dark:from-indigo-900/40 dark:to-purple-900/40"
                                             )}
                                         >
                                             {isSelected && (
@@ -300,12 +300,12 @@ export default function DoctorMessagesPage() {
                                             )}
                                             <div className="flex gap-3">
                                                 <div className="relative">
-                                                    <Avatar className="h-12 w-12 border-2 border-white shadow-md">
+                                                    <Avatar className="h-12 w-12 border-2 border-white dark:border-slate-800 shadow-md">
                                                         <AvatarFallback className="bg-gradient-to-br from-indigo-100 to-purple-100 text-indigo-600 font-semibold">
                                                             {otherName?.substring(0, 2).toUpperCase()}
                                                         </AvatarFallback>
                                                     </Avatar>
-                                                    <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-emerald-500 border-2 border-white" />
+                                                    <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-emerald-500 border-2 border-white dark:border-slate-800" />
                                                 </div>
                                                 <div className="flex-1 min-w-0">
                                                     <div className="flex justify-between items-center mb-1">
@@ -340,22 +340,22 @@ export default function DoctorMessagesPage() {
                     {selectedConversation ? (
                         <>
                             {/* Chat Header */}
-                            <div className="px-6 py-4 border-b border-white/30 bg-gradient-to-r from-white/50 to-white/30 backdrop-blur-md">
+                            <div className="px-6 py-4 border-b border-white/30 dark:border-white/[0.05] bg-gradient-to-r from-white/50 to-white/30 dark:from-slate-800/50 dark:to-slate-800/30 backdrop-blur-md">
                                 <div className="flex items-center justify-between">
                                     <button
                                         onClick={() => setSelectedConversation(null)}
-                                        className="md:hidden p-1.5 rounded-lg hover:bg-white/60 transition-colors mr-2"
+                                        className="md:hidden p-1.5 rounded-lg hover:bg-white/60 dark:hover:bg-slate-700/60 transition-colors mr-2"
                                     >
                                         <ArrowLeft className="h-5 w-5 text-slate-600" />
                                     </button>
                                     <div className="flex items-center gap-4">
                                         <div className="relative">
-                                            <Avatar className="h-12 w-12 border-2 border-white shadow-lg">
+                                            <Avatar className="h-12 w-12 border-2 border-white dark:border-slate-800 shadow-lg">
                                                 <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white font-bold">
                                                     {getOtherParticipantName(selectedConversation)?.substring(0, 2).toUpperCase()}
                                                 </AvatarFallback>
                                             </Avatar>
-                                            <span className="absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full bg-emerald-500 border-2 border-white" />
+                                            <span className="absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full bg-emerald-500 border-2 border-white dark:border-slate-800" />
                                         </div>
                                         <div>
                                             <h3 className="font-bold text-slate-800 dark:text-white">{getOtherParticipantName(selectedConversation)}</h3>
@@ -366,13 +366,13 @@ export default function DoctorMessagesPage() {
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <Button variant="ghost" size="icon" className="rounded-xl hover:bg-indigo-50 text-slate-500">
+                                        <Button variant="ghost" size="icon" className="rounded-xl hover:bg-indigo-50 dark:hover:bg-slate-700/50 text-slate-500 dark:text-slate-400">
                                             <Phone className="h-4 w-4" />
                                         </Button>
-                                        <Button variant="ghost" size="icon" className="rounded-xl hover:bg-indigo-50 text-slate-500">
+                                        <Button variant="ghost" size="icon" className="rounded-xl hover:bg-indigo-50 dark:hover:bg-slate-700/50 text-slate-500 dark:text-slate-400">
                                             <Video className="h-4 w-4" />
                                         </Button>
-                                        <Button variant="ghost" size="icon" className="rounded-xl hover:bg-indigo-50 text-slate-500">
+                                        <Button variant="ghost" size="icon" className="rounded-xl hover:bg-indigo-50 dark:hover:bg-slate-700/50 text-slate-500 dark:text-slate-400">
                                             <MoreVertical className="h-4 w-4" />
                                         </Button>
                                     </div>
@@ -380,7 +380,7 @@ export default function DoctorMessagesPage() {
                             </div>
 
                             {/* Messages Area */}
-                            <div className="flex-1 p-6 overflow-y-auto space-y-4 bg-gradient-to-b from-transparent to-slate-50/30 scrollbar-thin scrollbar-thumb-slate-200">
+                            <div className="flex-1 p-6 overflow-y-auto space-y-4 bg-gradient-to-b from-transparent to-slate-50/30 dark:to-slate-900/30 scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-700">
                                 <AnimatePresence initial={false}>
                                     {messages.map((msg, index) => {
                                         const isMe = msg.sender_id === user?.id;

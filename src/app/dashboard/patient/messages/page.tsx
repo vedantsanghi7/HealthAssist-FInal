@@ -262,7 +262,7 @@ export default function PatientMessagesPage() {
                                             onClick={() => setSelectedConversation(conv)}
                                             className={`p-4 border-b border-slate-100 dark:border-slate-800/50 hover:bg-blue-50/50 dark:hover:bg-slate-800/50 cursor-pointer flex gap-3 transition-all ${isSelected ? 'bg-blue-50 dark:bg-slate-800 border-l-4 border-l-blue-500' : ''}`}
                                         >
-                                            <Avatar className="h-10 w-10 border-2 border-white shadow-sm shrink-0">
+                                            <Avatar className="h-10 w-10 border-2 border-white dark:border-slate-800 shadow-sm shrink-0">
                                                 <AvatarFallback className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white text-sm font-medium">
                                                     {otherName?.substring(0, 2).toUpperCase() || 'DR'}
                                                 </AvatarFallback>
@@ -297,11 +297,11 @@ export default function PatientMessagesPage() {
                                 <div className="p-4 border-b border-slate-100 dark:border-white/[0.05] bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/10 dark:to-indigo-900/10 flex items-center gap-3">
                                     <button
                                         onClick={() => setSelectedConversation(null)}
-                                        className="md:hidden p-1.5 rounded-lg hover:bg-white/60 transition-colors"
+                                        className="md:hidden p-1.5 rounded-lg hover:bg-white/60 dark:hover:bg-slate-700/60 transition-colors"
                                     >
-                                        <ArrowLeft className="h-5 w-5 text-slate-600" />
+                                        <ArrowLeft className="h-5 w-5 text-slate-600 dark:text-slate-400" />
                                     </button>
-                                    <Avatar className="h-10 w-10 border-2 border-white shadow-md">
+                                    <Avatar className="h-10 w-10 border-2 border-white dark:border-slate-800 shadow-md">
                                         <AvatarFallback className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white font-medium">
                                             {getOtherParticipantName(selectedConversation)?.substring(0, 2).toUpperCase() || 'DR'}
                                         </AvatarFallback>
