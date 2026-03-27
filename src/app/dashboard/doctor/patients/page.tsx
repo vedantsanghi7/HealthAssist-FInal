@@ -208,7 +208,7 @@ export default function DoctorPatientsPage() {
                 <div className="md:hidden space-y-4 mt-2">
                     {filteredPatients.length > 0 ? (
                         filteredPatients.map((patient) => (
-                            <div key={patient.id} className="bg-white border rounded-xl p-4 shadow-sm flex flex-col gap-4">
+                            <div key={patient.id} className="bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl p-4 shadow-sm flex flex-col gap-4">
                                 <div className="flex items-center gap-4">
                                     <Avatar className="h-12 w-12">
                                         <AvatarFallback>{patient.full_name?.substring(0, 2).toUpperCase()}</AvatarFallback>
@@ -246,7 +246,7 @@ export default function DoctorPatientsPage() {
                             </div>
                         ))
                     ) : (
-                        <div className="p-8 text-center text-muted-foreground bg-white rounded-xl border">
+                        <div className="p-8 text-center text-muted-foreground bg-white dark:bg-slate-900 rounded-xl border dark:border-slate-800">
                             {searchTerm ? 'No patients found matching your search.' : 'No patients found.'}
                         </div>
                     )}

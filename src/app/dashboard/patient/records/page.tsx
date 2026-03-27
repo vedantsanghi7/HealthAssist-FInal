@@ -192,12 +192,12 @@ export default function MedicalRecordsPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
             >
-                <GlassCard className="p-2 flex flex-col md:flex-row gap-4 items-center bg-white/60 backdrop-blur-xl border-white/40">
+                <GlassCard className="p-2 flex flex-col md:flex-row gap-4 items-center bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border-white/40 dark:border-white/[0.05]">
                     <div className="relative w-full md:flex-1">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
                         <Input
                             placeholder="Search by name, doctor, or type..."
-                            className="pl-12 bg-white/40 border-transparent hover:border-blue-200 focus:border-blue-400 focus:bg-white h-12 rounded-xl transition-all text-base"
+                            className="pl-12 bg-white/40 dark:bg-slate-800/40 border-transparent hover:border-blue-200 dark:hover:border-slate-700 focus:border-blue-400 dark:focus:border-blue-500 focus:bg-white dark:focus:bg-slate-900 h-12 rounded-xl transition-all text-base"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                         />
@@ -219,8 +219,8 @@ export default function MedicalRecordsPage() {
                                 className={cn(
                                     "px-4 py-2.5 rounded-xl text-sm font-medium transition-all whitespace-nowrap border",
                                     activeFilter === filter
-                                        ? "bg-blue-100/50 border-blue-200 text-blue-700 shadow-sm"
-                                        : "bg-transparent border-transparent text-slate-500 hover:bg-white/50 hover:text-slate-700"
+                                        ? "bg-blue-100/50 dark:bg-blue-900/40 border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 shadow-sm"
+                                        : "bg-transparent border-transparent text-slate-500 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-800/50 hover:text-slate-700 dark:hover:text-slate-200"
                                 )}
                             >
                                 {filter}
@@ -236,9 +236,9 @@ export default function MedicalRecordsPage() {
                                 <Button
                                     variant="outline"
                                     className={cn(
-                                        "flex-1 md:w-auto justify-start text-left font-normal h-12 rounded-xl border-slate-200 hover:bg-white",
+                                        "flex-1 md:w-auto justify-start text-left font-normal h-12 rounded-xl border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-800",
                                         !dateRange && "text-muted-foreground",
-                                        dateRange && "text-blue-600 border-blue-200 bg-blue-50/50"
+                                        dateRange && "text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800 bg-blue-50/50 dark:bg-blue-900/20"
                                     )}
                                 >
                                     <CalendarIcon className="mr-2 h-4 w-4" />
@@ -270,7 +270,7 @@ export default function MedicalRecordsPage() {
 
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button variant="outline" className="flex-1 md:w-auto border-slate-200 text-slate-600 hover:bg-white h-12 rounded-xl gap-2">
+                                <Button variant="outline" className="flex-1 md:w-auto border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800 h-12 rounded-xl gap-2">
                                     <SlidersHorizontal className="h-4 w-4" />
                                     Filters
                                 </Button>

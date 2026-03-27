@@ -136,7 +136,7 @@ export default function SettingsPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
                 >
-                    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-white/80 via-white/60 to-indigo-50/40 backdrop-blur-xl border border-white/50 shadow-xl">
+                    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-white/80 via-white/60 to-indigo-50/40 dark:from-slate-900/80 dark:via-slate-900/60 dark:to-indigo-900/40 backdrop-blur-xl border border-white/50 dark:border-white/[0.05] shadow-xl">
                         {/* Decorative Elements */}
                         <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-indigo-400/10 to-purple-400/10 rounded-full blur-3xl" />
                         <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-blue-400/10 to-cyan-400/10 rounded-full blur-3xl" />
@@ -190,7 +190,7 @@ export default function SettingsPage() {
                                             value={formData.full_name}
                                             onChange={handleChange}
                                             placeholder="Enter your full name"
-                                            className="h-12 bg-white/60 border-white/40 rounded-xl focus:border-indigo-400 focus:ring-indigo-400/20 transition-all"
+                                            className="h-12 bg-white/60 dark:bg-slate-900/60 border-white/40 dark:border-white/[0.05] rounded-xl focus:border-indigo-400 focus:ring-indigo-400/20 transition-all"
                                         />
                                     </div>
 
@@ -221,7 +221,7 @@ export default function SettingsPage() {
                                                         value={formData.age}
                                                         onChange={handleChange}
                                                         placeholder="30"
-                                                        className="h-12 bg-white/60 border-white/40 rounded-xl focus:border-indigo-400"
+                                                        className="h-12 bg-white/60 dark:bg-slate-900/60 border-white/40 dark:border-white/[0.05] rounded-xl focus:border-indigo-400"
                                                     />
                                                 </div>
                                                 <div className="space-y-2">
@@ -230,7 +230,7 @@ export default function SettingsPage() {
                                                         name="gender"
                                                         value={formData.gender}
                                                         onChange={handleChange}
-                                                        className="flex h-12 w-full rounded-xl border border-white/40 bg-white/60 px-4 py-2 text-sm focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-400/20 transition-all"
+                                                        className="flex h-12 w-full rounded-xl border border-white/40 dark:border-white/[0.05] bg-white/60 dark:bg-slate-900/60 px-4 py-2 text-sm focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-400/20 transition-all text-slate-900 dark:text-white"
                                                     >
                                                         <option value="">Select gender</option>
                                                         <option value="Male">Male</option>
@@ -249,7 +249,7 @@ export default function SettingsPage() {
                                                     value={formData.doctor_name}
                                                     onChange={handleChange}
                                                     placeholder="Dr. Smith"
-                                                    className="h-12 bg-white/60 border-white/40 rounded-xl focus:border-indigo-400"
+                                                    className="h-12 bg-white/60 dark:bg-slate-900/60 border-white/40 dark:border-white/[0.05] rounded-xl focus:border-indigo-400"
                                                 />
                                             </div>
                                         </>
@@ -267,7 +267,7 @@ export default function SettingsPage() {
                                                     value={formData.specialization}
                                                     onChange={handleChange}
                                                     placeholder="Cardiology, General Practice, etc."
-                                                    className="h-12 bg-white/60 border-white/40 rounded-xl focus:border-indigo-400"
+                                                    className="h-12 bg-white/60 dark:bg-slate-900/60 border-white/40 dark:border-white/[0.05] rounded-xl focus:border-indigo-400"
                                                 />
                                             </div>
                                             <div className="grid grid-cols-2 gap-4">
@@ -282,7 +282,7 @@ export default function SettingsPage() {
                                                         value={formData.experience_years}
                                                         onChange={handleChange}
                                                         placeholder="10"
-                                                        className="h-12 bg-white/60 border-white/40 rounded-xl focus:border-indigo-400"
+                                                        className="h-12 bg-white/60 dark:bg-slate-900/60 border-white/40 dark:border-white/[0.05] rounded-xl focus:border-indigo-400"
                                                     />
                                                 </div>
                                                 <div className="space-y-2">
@@ -295,7 +295,7 @@ export default function SettingsPage() {
                                                         value={formData.hospital_name}
                                                         onChange={handleChange}
                                                         placeholder="City Hospital"
-                                                        className="h-12 bg-white/60 border-white/40 rounded-xl focus:border-indigo-400"
+                                                        className="h-12 bg-white/60 dark:bg-slate-900/60 border-white/40 dark:border-white/[0.05] rounded-xl focus:border-indigo-400"
                                                     />
                                                 </div>
                                             </div>

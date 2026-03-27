@@ -222,8 +222,8 @@ export default function PatientMessagesPage() {
             >
                 {/* Conversations Sidebar */}
                 <div className={`w-full md:w-80 shrink-0 ${selectedConversation ? 'hidden md:block' : 'block'}`}>
-                    <GlassCard className="h-full flex flex-col p-0 overflow-hidden bg-white/80 backdrop-blur-xl border border-slate-200/50 shadow-lg">
-                        <div className="p-4 border-b border-slate-100 bg-slate-50/50">
+                    <GlassCard className="h-full flex flex-col p-0 overflow-hidden bg-white/80 dark:bg-[#0B0F14]/80 backdrop-blur-xl border border-slate-200/50 dark:border-white/[0.05] shadow-lg">
+                        <div className="p-4 border-b border-slate-100 dark:border-white/[0.05] bg-slate-50/50 dark:bg-white/[0.02]">
                             <div className="flex items-center gap-2 mb-3">
                                 <Mail className="h-5 w-5 text-blue-600" />
                                 <h2 className="font-semibold text-slate-800">Conversations</h2>
@@ -232,7 +232,7 @@ export default function PatientMessagesPage() {
                                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                                 <Input
                                     placeholder="Search..."
-                                    className="pl-10 bg-white border-slate-200 focus:border-blue-400 rounded-lg h-10"
+                                    className="pl-10 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700/50 focus:border-blue-400 rounded-lg h-10"
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                 />
@@ -246,7 +246,7 @@ export default function PatientMessagesPage() {
                                 </div>
                             ) : filteredConversations.length === 0 ? (
                                 <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
-                                    <div className="h-16 w-16 rounded-full bg-blue-50 flex items-center justify-center mb-4">
+                                    <div className="h-16 w-16 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center mb-4">
                                         <Mail className="h-8 w-8 text-blue-400" />
                                     </div>
                                     <h3 className="font-medium text-slate-700 mb-1">No conversations</h3>
@@ -260,7 +260,7 @@ export default function PatientMessagesPage() {
                                         <div
                                             key={conv.id}
                                             onClick={() => setSelectedConversation(conv)}
-                                            className={`p-4 border-b border-slate-100 hover:bg-blue-50/50 cursor-pointer flex gap-3 transition-all ${isSelected ? 'bg-blue-50 border-l-4 border-l-blue-500' : ''}`}
+                                            className={`p-4 border-b border-slate-100 dark:border-slate-800/50 hover:bg-blue-50/50 dark:hover:bg-slate-800/50 cursor-pointer flex gap-3 transition-all ${isSelected ? 'bg-blue-50 dark:bg-slate-800 border-l-4 border-l-blue-500' : ''}`}
                                         >
                                             <Avatar className="h-10 w-10 border-2 border-white shadow-sm shrink-0">
                                                 <AvatarFallback className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white text-sm font-medium">
@@ -290,11 +290,11 @@ export default function PatientMessagesPage() {
 
                 {/* Chat Window */}
                 <div className={`flex-1 min-w-0 ${!selectedConversation ? 'hidden md:block' : 'block'}`}>
-                    <GlassCard className="h-full flex flex-col p-0 overflow-hidden bg-white/90 backdrop-blur-xl border border-slate-200/50 shadow-lg">
+                    <GlassCard className="h-full flex flex-col p-0 overflow-hidden bg-white/90 dark:bg-[#0B0F14]/90 backdrop-blur-xl border border-slate-200/50 dark:border-white/[0.05] shadow-lg">
                         {selectedConversation ? (
                             <>
                                 {/* Chat Header */}
-                                <div className="p-4 border-b border-slate-100 bg-gradient-to-r from-blue-50 to-indigo-50 flex items-center gap-3">
+                                <div className="p-4 border-b border-slate-100 dark:border-white/[0.05] bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/10 dark:to-indigo-900/10 flex items-center gap-3">
                                     <button
                                         onClick={() => setSelectedConversation(null)}
                                         className="md:hidden p-1.5 rounded-lg hover:bg-white/60 transition-colors"
@@ -318,7 +318,7 @@ export default function PatientMessagesPage() {
                                 </div>
 
                                 {/* Messages Area */}
-                                <div className="flex-1 p-4 overflow-auto space-y-4 bg-slate-50/30">
+                                <div className="flex-1 p-4 overflow-auto space-y-4 bg-slate-50/30 dark:bg-slate-900/30">
                                     {messages.map((msg) => {
                                         const isMe = msg.sender_id === user?.id;
                                         return (
@@ -337,7 +337,7 @@ export default function PatientMessagesPage() {
                                                     <div
                                                         className={`rounded-2xl px-4 py-2.5 text-sm shadow-sm ${isMe
                                                             ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-br-sm'
-                                                            : 'bg-white border border-slate-200 text-slate-700 rounded-bl-sm'
+                                                            : 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 text-slate-700 dark:text-slate-300 rounded-bl-sm'
                                                             }`}
                                                     >
                                                         {msg.content}
@@ -360,11 +360,11 @@ export default function PatientMessagesPage() {
                                 </div>
 
                                 {/* Message Input */}
-                                <div className="p-4 border-t border-slate-100 bg-white">
+                                <div className="p-4 border-t border-slate-100 dark:border-slate-800/50 bg-white dark:bg-slate-900">
                                     <div className="flex gap-3">
                                         <Input
                                             placeholder="Type your message..."
-                                            className="flex-1 bg-slate-50 border-slate-200 focus:border-blue-400 rounded-xl h-12"
+                                            className="flex-1 bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:border-blue-400 rounded-xl h-12"
                                             value={newMessage}
                                             onChange={(e) => setNewMessage(e.target.value)}
                                             onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
@@ -381,7 +381,7 @@ export default function PatientMessagesPage() {
                             </>
                         ) : (
                             <div className="flex-1 flex flex-col items-center justify-center text-center p-8">
-                                <div className="h-24 w-24 rounded-full bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center mb-6">
+                                <div className="h-24 w-24 rounded-full bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 flex items-center justify-center mb-6">
                                     <Mail className="h-10 w-10 text-blue-400" />
                                 </div>
                                 <h3 className="text-xl font-bold text-slate-800 mb-2">Select a conversation</h3>

@@ -180,7 +180,7 @@ export default function DoctorDashboard() {
                             transition={{ delay: index * 0.1 }}
                             className={cn(
                                 "relative overflow-hidden rounded-2xl p-5",
-                                "bg-white/70 backdrop-blur-xl border border-white/50",
+                                "bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border border-white/50 dark:border-white/[0.05]",
                                 "shadow-lg hover:shadow-xl transition-all duration-300",
                                 "hover:-translate-y-1 cursor-default",
                                 stat.shadowColor
@@ -228,7 +228,7 @@ export default function DoctorDashboard() {
                         transition={{ delay: 0.2 }}
                         className="md:col-span-3 h-[350px] md:h-full"
                     >
-                        <div className="h-full rounded-3xl bg-white/60 backdrop-blur-xl border border-white/40 shadow-xl overflow-hidden">
+                        <div className="h-full rounded-3xl bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/40 dark:border-white/[0.05] shadow-xl overflow-hidden">
                             <PatientList
                                 onSelect={(p) => setSelectedPatient(p)}
                                 refreshTrigger={refreshTrigger}
@@ -243,7 +243,7 @@ export default function DoctorDashboard() {
                         transition={{ delay: 0.3 }}
                         className="md:col-span-6 min-h-[300px] md:h-full"
                     >
-                        <div className="h-full rounded-3xl bg-white/60 backdrop-blur-xl border border-white/40 shadow-xl overflow-hidden">
+                        <div className="h-full rounded-3xl bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/40 dark:border-white/[0.05] shadow-xl overflow-hidden">
                             <PatientSummary patient={selectedPatient} />
                         </div>
                     </motion.div>
@@ -255,7 +255,7 @@ export default function DoctorDashboard() {
                         transition={{ delay: 0.4 }}
                         className="md:col-span-3 h-[350px] md:h-full"
                     >
-                        <div className="h-full rounded-3xl bg-white/60 backdrop-blur-xl border border-white/40 shadow-xl overflow-hidden">
+                        <div className="h-full rounded-3xl bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/40 dark:border-white/[0.05] shadow-xl overflow-hidden">
                             <AppointmentRequests onUpdate={() => setRefreshTrigger(prev => prev + 1)} />
                         </div>
                     </motion.div>

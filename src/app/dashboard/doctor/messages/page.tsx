@@ -231,18 +231,18 @@ export default function DoctorMessagesPage() {
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className={`w-full md:w-96 flex-shrink-0 flex flex-col rounded-3xl bg-white/60 backdrop-blur-xl border border-white/40 shadow-xl overflow-hidden ${selectedConversation ? 'hidden md:flex' : 'flex'}`}
+                    className={`w-full md:w-96 flex-shrink-0 flex flex-col rounded-3xl bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/40 dark:border-white/[0.05] shadow-xl overflow-hidden ${selectedConversation ? 'hidden md:flex' : 'flex'}`}
                 >
                     {/* Sidebar Header */}
-                    <div className="p-5 border-b border-white/30 bg-gradient-to-r from-white/40 to-white/20">
+                    <div className="p-5 border-b border-white/30 dark:border-white/[0.05] bg-gradient-to-r from-white/40 to-white/20 dark:from-slate-800/40 dark:to-slate-800/20">
                         <div className="flex items-center justify-between mb-4">
                             <div className="flex items-center gap-3">
                                 <div className="p-2.5 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/25">
                                     <MessageCircle className="h-5 w-5" />
                                 </div>
                                 <div>
-                                    <h2 className="font-bold text-slate-800">Messages</h2>
-                                    <p className="text-xs text-slate-500">{conversations.length} conversations</p>
+                                    <h2 className="font-bold text-slate-800 dark:text-white">Messages</h2>
+                                    <p className="text-xs text-slate-500 dark:text-slate-400">{conversations.length} conversations</p>
                                 </div>
                             </div>
                         </div>
@@ -252,7 +252,7 @@ export default function DoctorMessagesPage() {
                                 placeholder="Search patients..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="pl-11 h-11 bg-white/70 border-white/40 rounded-xl focus:border-indigo-400"
+                                className="pl-11 h-11 bg-white/70 dark:bg-slate-800/70 border-white/40 dark:border-white/[0.05] rounded-xl focus:border-indigo-400"
                             />
                         </div>
                     </div>
@@ -268,8 +268,8 @@ export default function DoctorMessagesPage() {
                             </div>
                         ) : filteredConversations.length === 0 ? (
                             <div className="p-8 text-center">
-                                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-50 flex items-center justify-center">
-                                    <MessageCircle className="h-8 w-8 text-slate-300" />
+                                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-50 dark:from-slate-800 dark:to-slate-800/50 flex items-center justify-center">
+                                    <MessageCircle className="h-8 w-8 text-slate-300 dark:text-slate-500" />
                                 </div>
                                 <p className="text-sm text-slate-500">No conversations yet</p>
                             </div>
@@ -311,7 +311,7 @@ export default function DoctorMessagesPage() {
                                                     <div className="flex justify-between items-center mb-1">
                                                         <h3 className={cn(
                                                             "font-semibold text-sm truncate",
-                                                            isSelected ? "text-indigo-700" : "text-slate-700"
+                                                            isSelected ? "text-indigo-700 dark:text-indigo-400" : "text-slate-700 dark:text-slate-300"
                                                         )}>
                                                             {otherName}
                                                         </h3>
@@ -335,7 +335,7 @@ export default function DoctorMessagesPage() {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 }}
-                    className={`flex-1 flex flex-col rounded-3xl bg-white/60 backdrop-blur-xl border border-white/40 shadow-xl overflow-hidden ${!selectedConversation ? 'hidden md:flex' : 'flex'}`}
+                    className={`flex-1 flex flex-col rounded-3xl bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/40 dark:border-white/[0.05] shadow-xl overflow-hidden ${!selectedConversation ? 'hidden md:flex' : 'flex'}`}
                 >
                     {selectedConversation ? (
                         <>
@@ -358,10 +358,10 @@ export default function DoctorMessagesPage() {
                                             <span className="absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full bg-emerald-500 border-2 border-white" />
                                         </div>
                                         <div>
-                                            <h3 className="font-bold text-slate-800">{getOtherParticipantName(selectedConversation)}</h3>
+                                            <h3 className="font-bold text-slate-800 dark:text-white">{getOtherParticipantName(selectedConversation)}</h3>
                                             <div className="flex items-center gap-1.5">
                                                 <span className="flex h-2 w-2 rounded-full bg-emerald-500" />
-                                                <span className="text-xs text-slate-500">Online</span>
+                                                <span className="text-xs text-slate-500 dark:text-slate-400">Online</span>
                                             </div>
                                         </div>
                                     </div>
@@ -406,7 +406,7 @@ export default function DoctorMessagesPage() {
                                                     "max-w-[70%] rounded-2xl px-4 py-3 shadow-sm",
                                                     isMe
                                                         ? "bg-gradient-to-br from-indigo-600 to-purple-600 text-white rounded-tr-sm"
-                                                        : "bg-white/80 backdrop-blur-sm border border-white/40 text-slate-700 rounded-tl-sm"
+                                                        : "bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border border-white/40 dark:border-white/[0.05] text-slate-700 dark:text-slate-300 rounded-tl-sm"
                                                 )}>
                                                     <p className="text-sm leading-relaxed">{msg.content}</p>
                                                     <div className={cn(
@@ -431,11 +431,11 @@ export default function DoctorMessagesPage() {
                             </div>
 
                             {/* Message Input */}
-                            <div className="p-4 border-t border-white/30 bg-white/50 backdrop-blur-sm">
+                            <div className="p-4 border-t border-white/30 dark:border-white/[0.05] bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm">
                                 <div className="flex gap-3 items-center">
                                     <Input
                                         placeholder="Type your message..."
-                                        className="flex-1 h-12 bg-white/80 border-white/40 rounded-xl focus:border-indigo-400 focus:ring-indigo-400/20"
+                                        className="flex-1 h-12 bg-white/80 dark:bg-slate-800/80 border-white/40 dark:border-white/[0.05] rounded-xl focus:border-indigo-400 focus:ring-indigo-400/20"
                                         value={newMessage}
                                         onChange={(e) => setNewMessage(e.target.value)}
                                         onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
@@ -459,7 +459,7 @@ export default function DoctorMessagesPage() {
                                     className="mb-6"
                                 >
                                     <div className="relative inline-block">
-                                        <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center mx-auto">
+                                        <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-indigo-900/20 dark:to-purple-900/20 flex items-center justify-center mx-auto">
                                             <MessageCircle className="h-12 w-12 text-indigo-400" />
                                         </div>
                                         <motion.div

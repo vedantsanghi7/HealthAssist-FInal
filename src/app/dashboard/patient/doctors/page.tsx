@@ -87,7 +87,7 @@ export default function FindDoctorsPage() {
                         className="flex flex-col sm:flex-row flex-wrap gap-3 pt-2"
                     >
                         <Button
-                            className="bg-white text-blue-900 hover:bg-blue-50 rounded-full h-11 md:h-12 px-6 md:px-8 font-semibold text-sm md:text-base shadow-lg hover:shadow-xl transition-all w-full sm:w-auto"
+                            className="bg-white dark:bg-slate-900 text-blue-900 dark:text-blue-100 hover:bg-blue-50 dark:hover:bg-slate-800 rounded-full h-11 md:h-12 px-6 md:px-8 font-semibold text-sm md:text-base shadow-lg hover:shadow-xl transition-all w-full sm:w-auto"
                             onClick={() => {
                                 document.getElementById('doctors-grid')?.scrollIntoView({ behavior: 'smooth' });
                             }}
@@ -107,12 +107,12 @@ export default function FindDoctorsPage() {
 
             {/* 2. Floating Search & Filter Bar */}
             <div id="doctors-grid" className="sticky top-16 md:top-24 z-30 mt-2 md:-mt-20 px-0 w-full min-w-0">
-                <GlassCard className="p-2 md:p-3 flex flex-col md:flex-row gap-2 md:gap-4 items-center bg-white/90 backdrop-blur-xl border-white/60 shadow-lg md:shadow-xl rounded-xl md:rounded-2xl w-full">
+                <GlassCard className="p-2 md:p-3 flex flex-col md:flex-row gap-2 md:gap-4 items-center bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-white/60 dark:border-white/[0.05] shadow-lg md:shadow-xl rounded-xl md:rounded-2xl w-full">
                     <div className="relative w-full md:flex-1 min-w-0">
                         <Search className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 h-4 w-4 md:h-5 md:w-5 text-slate-400" />
                         <Input
                             placeholder="Search doctors, specialties..."
-                            className="pl-10 md:pl-12 bg-white/60 border-transparent hover:border-blue-200 focus:border-blue-400 focus:bg-white h-10 md:h-14 rounded-lg md:rounded-xl transition-all text-sm md:text-base shadow-sm w-full"
+                            className="pl-10 md:pl-12 bg-white/60 dark:bg-slate-800/60 border-transparent hover:border-blue-200 dark:hover:border-slate-700 focus:border-blue-400 dark:focus:border-blue-500 focus:bg-white dark:focus:bg-slate-900 h-10 md:h-14 rounded-lg md:rounded-xl transition-all text-sm md:text-base shadow-sm w-full"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -121,7 +121,7 @@ export default function FindDoctorsPage() {
                     <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto scrollbar-hide min-w-0">
                         <Button
                             variant="outline"
-                            className="h-9 md:h-14 px-3 md:px-6 rounded-lg md:rounded-xl border-slate-200 text-slate-600 hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 bg-white/60 shadow-sm transition-all whitespace-nowrap text-xs md:text-base flex-1 md:flex-none"
+                            className="h-9 md:h-14 px-3 md:px-6 rounded-lg md:rounded-xl border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-slate-800 bg-white/60 dark:bg-slate-800/60 shadow-sm transition-all whitespace-nowrap text-xs md:text-base flex-1 md:flex-none"
                             onClick={() => toast.info('Location filter coming soon!', {
                                 description: 'We\'re working on adding location-based filtering to help you find doctors nearby.',
                             })}
@@ -131,7 +131,7 @@ export default function FindDoctorsPage() {
                         </Button>
                         <Button
                             variant="outline"
-                            className="h-9 md:h-14 px-3 md:px-6 rounded-lg md:rounded-xl border-slate-200 text-slate-600 hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 bg-white/60 shadow-sm transition-all whitespace-nowrap text-xs md:text-base flex-1 md:flex-none"
+                            className="h-9 md:h-14 px-3 md:px-6 rounded-lg md:rounded-xl border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-slate-800 bg-white/60 dark:bg-slate-800/60 shadow-sm transition-all whitespace-nowrap text-xs md:text-base flex-1 md:flex-none"
                             onClick={() => toast.info('Advanced filters coming soon!', {
                                 description: 'Filter by availability, ratings, languages spoken, and more.',
                             })}
@@ -153,8 +153,8 @@ export default function FindDoctorsPage() {
                         transition={{ delay: i * 0.05 + 0.3 }}
                         onClick={() => setActiveCategory(cat)}
                         className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all whitespace-nowrap border shrink-0 ${activeCategory === cat
-                            ? 'bg-slate-900 text-white border-slate-900 shadow-md transform scale-105'
-                            : 'bg-white text-slate-600 border-slate-200 hover:border-blue-300 hover:bg-blue-50'
+                            ? 'bg-slate-900 dark:bg-blue-600 text-white border-slate-900 dark:border-blue-600 shadow-md transform scale-105'
+                            : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-slate-600 hover:bg-blue-50 dark:hover:bg-slate-800'
                             }`}
                     >
                         {cat}
@@ -167,7 +167,7 @@ export default function FindDoctorsPage() {
                 {loading ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                         {[1, 2, 3, 4, 5, 6].map((i) => (
-                            <div key={i} className="h-[380px] md:h-[420px] rounded-2xl md:rounded-3xl bg-white/40 animate-pulse border border-white/40" />
+                            <div key={i} className="h-[380px] md:h-[420px] rounded-2xl md:rounded-3xl bg-white/40 dark:bg-slate-800/40 animate-pulse border border-white/40 dark:border-slate-700/40" />
                         ))}
                     </div>
                 ) : filteredDoctors.length === 0 ? (
@@ -176,11 +176,11 @@ export default function FindDoctorsPage() {
                         animate={{ opacity: 1, scale: 1 }}
                         className="text-center py-20"
                     >
-                        <div className="mx-auto h-20 w-20 bg-slate-50 rounded-full flex items-center justify-center mb-6 border border-slate-100 shadow-inner">
-                            <Stethoscope className="h-10 w-10 text-slate-300" />
+                        <div className="mx-auto h-20 w-20 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center mb-6 border border-slate-100 dark:border-slate-700 shadow-inner">
+                            <Stethoscope className="h-10 w-10 text-slate-300 dark:text-slate-500" />
                         </div>
-                        <h3 className="text-xl font-bold text-slate-800 mb-2">No pros found</h3>
-                        <p className="text-slate-500 max-w-sm mx-auto">
+                        <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-2">No pros found</h3>
+                        <p className="text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
                             We couldn&apos;t find any doctors matching &quot;{searchTerm}&quot;. Try adjusting your search or filters.
                         </p>
                     </motion.div>
