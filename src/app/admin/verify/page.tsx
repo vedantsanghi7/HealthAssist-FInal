@@ -297,7 +297,7 @@ function AdminVerifyContent() {
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-50 dark:bg-slate-800/30 p-5 rounded-xl border border-slate-100 dark:border-slate-800">
                                         <div>
                                             <p className="text-sm text-slate-500 mb-1">Full Name</p>
-                                            <p className="font-semibold">{doc.full_name || doc.doctor_name}</p>
+                                            <p className="font-semibold">Dr. {doc.full_name || doc.doctor_name}</p>
                                         </div>
                                         <div>
                                             <p className="text-sm text-slate-500 mb-1">Email Address</p>
@@ -458,7 +458,7 @@ function AdminVerifyContent() {
                                                     <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-600 flex items-center justify-center font-bold">
                                                         {(doc.full_name || doc.doctor_name || '?')[0].toUpperCase()}
                                                     </div>
-                                                    {doc.full_name || doc.doctor_name}
+                                                    Dr. {doc.full_name || doc.doctor_name}
                                                 </td>
                                                 <td className="px-6 py-4 text-slate-500">{doc.email}</td>
                                                 <td className="px-6 py-4 text-slate-600 dark:text-slate-300">

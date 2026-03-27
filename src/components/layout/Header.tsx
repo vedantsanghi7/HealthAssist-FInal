@@ -39,6 +39,14 @@ export function Header() {
             : 'U';
     };
 
+    const getDisplayName = () => {
+        const name = profile?.full_name || user?.email?.split('@')[0] || 'User';
+        if (profile?.role === 'doctor' && name !== 'User' && !name.startsWith('Dr.')) {
+            return `Dr. ${name}`;
+        }
+        return name;
+    };
+
     const statusColors = {
         online: 'bg-emerald-500',
         busy: 'bg-red-500',
@@ -157,7 +165,7 @@ export function Header() {
                     >
                         <div className="text-right hidden sm:block">
                             <p className="text-sm font-semibold leading-none text-foreground">
-                                {profile?.full_name || user?.email?.split('@')[0] || 'User'}
+                                {getDisplayName()}
                             </p>
                             <p className="text-[10px] text-muted-foreground mt-1 uppercase tracking-wider font-medium">
                                 {profile?.role || 'Guest'}
@@ -192,7 +200,7 @@ export function Header() {
                                 )}
                             >
                                 <div className="px-3 py-2 border-b border-slate-100 dark:border-white/[0.05] mb-1">
-                                    <p className="font-semibold text-sm text-slate-800 dark:text-white">{profile?.full_name || 'User'}</p>
+                                    <p className="font-semibold text-sm text-slate-800 dark:text-white">{getDisplayName()}</p>
                                     <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
                                 </div>
                                 <div className="space-y-1">

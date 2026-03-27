@@ -48,7 +48,7 @@ export function DoctorCard({ doctor, onBook }: DoctorCardProps) {
 
                         <div className="flex flex-col items-start md:items-center flex-1 min-w-0 justify-center">
                             <h3 className="font-bold text-base sm:text-lg md:text-xl text-foreground mb-1 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors truncate w-full">
-                                {doctor.full_name}
+                                Dr. {doctor.full_name}
                             </h3>
                             <div className="max-w-full truncate">
                                 <p className={cn(
