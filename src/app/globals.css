@@ -130,6 +130,19 @@
 
   html {
     @apply scroll-smooth;
+    font-size: 16px; /* Base for mobile */
+  }
+
+  @media (min-width: 1024px) {
+    html {
+      font-size: 18px; /* Scale up everything 12.5% for laptops */
+    }
+  }
+
+  @media (min-width: 1536px) {
+    html {
+      font-size: 20px; /* Scale up everything for extra large screens */
+    }
   }
 
   body {
