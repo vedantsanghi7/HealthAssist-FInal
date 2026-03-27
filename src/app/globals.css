@@ -130,18 +130,14 @@
 
   html {
     @apply scroll-smooth;
-    font-size: 16px; /* Base for mobile */
+    /* Optimal size for phones to prevent cramped UI */
+    font-size: 15px; 
   }
 
   @media (min-width: 1024px) {
     html {
-      font-size: 18px; /* Scale up everything 12.5% for laptops */
-    }
-  }
-
-  @media (min-width: 1536px) {
-    html {
-      font-size: 20px; /* Scale up everything for extra large screens */
+      /* Restore exact original 16px size for laptops */
+      font-size: 16px; 
     }
   }
 
