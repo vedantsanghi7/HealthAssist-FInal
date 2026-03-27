@@ -533,12 +533,6 @@ export default function LandingPage() {
                 linkedin: "https://www.linkedin.com/in/chitransh-tiwari-442434372"
               },
               {
-                name: "Pushkar Kumar",
-                image: "/avatars/pushkar.png",
-                github: "https://github.com/PushOueOUe",
-                linkedin: "https://www.linkedin.com/in/pushkar-kumar-0773b3378"
-              },
-              {
                 name: "Parth Gupta",
                 image: "/avatars/parth.png",
                 github: "https://github.com/guptaparth-tech/",
