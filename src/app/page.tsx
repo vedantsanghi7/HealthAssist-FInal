@@ -1,22 +1,24 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { PremiumFeatureCard } from '@/components/ui/PremiumFeatureCard';
 import {
   Activity, Users, ArrowRight, HeartPulse,
   Brain, MessageSquare, Calendar,
-  FileText, Video, Sparkles, Heart, Github, Linkedin, Twitter
+  FileText, Video, Sparkles, Heart, Github, Linkedin, Twitter,
+  Menu, X
 } from 'lucide-react';
 import Link from 'next/link';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { ModeToggle } from '@/components/ui/theme-toggle';
 import { cn } from '@/lib/utils';
 
 export default function LandingPage() {
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen relative overflow-hidden selection:bg-blue-500/30 font-sans tracking-tight bg-background">
@@ -43,13 +45,18 @@ export default function LandingPage() {
         "bg-white/80 border-white/20 backdrop-blur-xl",
         "dark:bg-[#0B0F14]/80 dark:border-white/[0.05]"
       )}>
-        <div className="container mx-auto px-6 h-20 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:shadow-blue-500/40 transition-all duration-300">
-              <HeartPulse className="h-6 w-6 text-white" />
+        <div className="container mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
+            <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-xl overflow-hidden transition-all duration-300 group-hover:scale-110">
+              <img 
+                src="/logo.png" 
+                alt="HealthAssist Logo" 
+                className="h-full w-full object-contain"
+              />
             </div>
-            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600 dark:from-white dark:to-slate-300">
-              HealthAssist
+            <span className="text-lg sm:text-xl font-bold">
+              <span className="text-slate-900 dark:text-white">Health</span>
+              <span className="text-blue-600">Assist</span>
             </span>
           </Link>
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600 dark:text-slate-300">
@@ -57,25 +64,64 @@ export default function LandingPage() {
             <a href="#ai" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Sarvam AI</a>
             <a href="#about" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Team</a>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             <ModeToggle />
-            <Link href="/login">
-              <Button variant="ghost" className="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-white/5 rounded-full px-6 transition-all duration-300 font-medium">
+            <Link href="/login" className="hidden sm:block">
+              <Button variant="ghost" className="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-white/5 rounded-full px-4 sm:px-6 transition-all duration-300 font-medium text-sm">
                 Log In
               </Button>
             </Link>
-            <Link href="/login?mode=signup">
-              <Button className="bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-100 text-white dark:text-slate-900 shadow-xl shadow-slate-900/20 dark:shadow-white/10 rounded-full px-6 transition-all hover:scale-105 hover:shadow-2xl">
+            <Link href="/login?mode=signup" className="hidden sm:block">
+              <Button className="bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-100 text-white dark:text-slate-900 shadow-xl shadow-slate-900/20 dark:shadow-white/10 rounded-full px-4 sm:px-6 transition-all hover:scale-105 hover:shadow-2xl text-sm">
                 Get Started
               </Button>
             </Link>
+            {/* Mobile hamburger */}
+            <button
+              className="md:hidden flex items-center justify-center h-10 w-10 rounded-xl hover:bg-white/50 dark:hover:bg-white/[0.05] transition-colors"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className={cn(
+                "md:hidden overflow-hidden border-t",
+                "bg-white/95 border-white/20 backdrop-blur-xl",
+                "dark:bg-[#0B0F14]/95 dark:border-white/[0.05]"
+              )}
+            >
+              <div className="container mx-auto px-4 py-4 flex flex-col gap-3">
+                <a href="#features" onClick={() => setMobileMenuOpen(false)} className="px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.05] transition-colors">Features</a>
+                <a href="#ai" onClick={() => setMobileMenuOpen(false)} className="px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.05] transition-colors">Sarvam AI</a>
+                <a href="#about" onClick={() => setMobileMenuOpen(false)} className="px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.05] transition-colors">Team</a>
+                <div className="flex gap-3 pt-2 border-t border-slate-200/50 dark:border-white/[0.05]">
+                  <Link href="/login" className="flex-1" onClick={() => setMobileMenuOpen(false)}>
+                    <Button variant="outline" className="w-full rounded-xl text-sm">Log In</Button>
+                  </Link>
+                  <Link href="/login?mode=signup" className="flex-1" onClick={() => setMobileMenuOpen(false)}>
+                    <Button className="w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl text-sm">Get Started</Button>
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 px-6 overflow-visible z-10">
-        <div className="container mx-auto grid lg:grid-cols-2 gap-16 items-center">
+      <section className="relative pt-24 pb-12 sm:pt-32 sm:pb-20 lg:pt-48 lg:pb-32 px-4 sm:px-6 overflow-hidden sm:overflow-visible z-10">
+        <div className="container mx-auto grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, x: -20, filter: "blur(10px)" }}
             animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
@@ -94,27 +140,27 @@ export default function LandingPage() {
               <span className="text-xs font-bold text-slate-600 dark:text-slate-300 tracking-wide uppercase">Powered by Sarvam AI</span>
             </div>
 
-            <h1 className="text-5xl lg:text-7xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.1]">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.1]">
               The Future of <br />
               <span className="text-gradient-primary">
                 Connected Care.
               </span>
             </h1>
 
-            <p className="text-lg text-slate-600 dark:text-slate-300 max-w-lg leading-relaxed font-medium">
+            <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-lg leading-relaxed font-medium">
               Seamlessly connect patients and doctors on one unified platform. Experience real-time vitals monitoring, instant AI diagnostics, and secure global consultation.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Link href="/login" className="w-full sm:w-auto">
-                <Button size="lg" className="w-full h-14 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-2xl text-lg shadow-xl shadow-blue-500/25 group transition-all hover:-translate-y-1 duration-300">
+                <Button size="lg" className="w-full h-12 sm:h-14 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-2xl text-base sm:text-lg shadow-xl shadow-blue-500/25 group transition-all hover:-translate-y-1 duration-300">
                   Patient Portal
                   <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               <Link href="/login?role=doctor" className="w-full sm:w-auto">
                 <Button size="lg" variant="outline" className={cn(
-                  "w-full h-14 rounded-2xl text-lg backdrop-blur-md shadow-sm transition-all hover:-translate-y-1 hover:shadow-md duration-300",
+                  "w-full h-12 sm:h-14 rounded-2xl text-base sm:text-lg backdrop-blur-md shadow-sm transition-all hover:-translate-y-1 hover:shadow-md duration-300",
                   "bg-white/60 hover:bg-white border-white/60 text-slate-700",
                   "dark:bg-white/[0.05] dark:hover:bg-white/[0.1] dark:border-white/[0.1] dark:text-white"
                 )}>
@@ -130,7 +176,7 @@ export default function LandingPage() {
             animate={{ opacity: 1, scale: 1, rotateY: 0 }}
             transition={{ duration: 1.2, type: "spring", bounce: 0.3 }}
             style={{ perspective: 1000 }}
-            className="relative lg:h-[650px] flex items-center justify-center md:justify-end lg:pr-10"
+            className="relative hidden sm:flex lg:h-[650px] items-center justify-center md:justify-end lg:pr-10"
           >
             <div className="relative w-full max-w-lg aspect-[4/5] transform-style-3d">
               {/* Background Glows */}
@@ -211,7 +257,7 @@ export default function LandingPage() {
               <motion.div
                 animate={{ y: [0, -15, 0], rotateZ: [0, 2, 0] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -top-12 -right-8 z-30"
+                className="absolute -top-12 -right-8 z-30 hidden md:block"
               >
                 <GlassCard className="w-36 p-4 flex flex-col items-center gap-2 !bg-white/90 dark:!bg-[#111827]/90 rounded-3xl" hover={false}>
                   <div className="relative h-16 w-16">
@@ -229,7 +275,7 @@ export default function LandingPage() {
               <motion.div
                 animate={{ y: [0, 20, 0], x: [0, 5, 0] }}
                 transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute -bottom-10 -left-12 z-30"
+                className="absolute -bottom-10 -left-12 z-30 hidden md:block"
               >
                 <GlassCard className="p-4 flex items-center gap-4 !bg-white/95 dark:!bg-[#111827]/95 rounded-3xl min-w-[240px]" hover={false}>
                   <div className="relative">
@@ -248,7 +294,7 @@ export default function LandingPage() {
               <motion.div
                 animate={{ x: [0, -10, 0], scale: [1, 1.05, 1] }}
                 transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                className="absolute top-1/2 -right-16 z-20"
+                className="absolute top-1/2 -right-16 z-20 hidden md:block"
               >
                 <GlassCard className="p-3 flex items-center gap-3 !bg-white/80 dark:!bg-[#111827]/80 rounded-2xl" hover={false}>
                   <div className="h-10 w-10 rounded-full bg-rose-100 dark:bg-rose-500/20 flex items-center justify-center text-rose-500 dark:text-rose-400">
@@ -267,7 +313,7 @@ export default function LandingPage() {
       </section>
 
       {/* Features Grid */}
-      <section id="features" className="py-32 px-6 relative z-10">
+      <section id="features" className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 relative z-10">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-transparent opacity-30"></div>
         <div className={cn(
           "absolute inset-0 skew-y-1 transform origin-top-left -z-10",
@@ -287,7 +333,7 @@ export default function LandingPage() {
             )}>
               Platform Features
             </div>
-            <h2 className="text-3xl lg:text-5xl font-bold text-slate-900 dark:text-white leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-slate-900 dark:text-white leading-tight">
               Complete Care <span className="text-gradient-primary">Coordination</span>
             </h2>
             <p className="text-lg text-slate-600 dark:text-slate-300 font-medium">
@@ -295,7 +341,7 @@ export default function LandingPage() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {[
               {
                 icon: <Users className="h-6 w-6 text-blue-600 dark:text-blue-400" />,
@@ -340,19 +386,19 @@ export default function LandingPage() {
       </section>
 
       {/* Sarvam AI Section */}
-      <section id="ai" className="py-32 relative overflow-hidden">
+      <section id="ai" className="py-16 sm:py-24 lg:py-32 relative overflow-hidden">
         {/* Background blobs for this section */}
         <div className="absolute top-0 right-0 w-[50%] h-full bg-gradient-to-l from-indigo-500/5 to-transparent z-0"></div>
         <div className="absolute bottom-0 left-0 w-[40%] h-[60%] bg-gradient-to-t from-orange-500/5 to-transparent z-0"></div>
 
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <GlassCard className={cn(
             "overflow-hidden p-0 rounded-[40px]",
             "!bg-gradient-to-br !from-white/90 !to-white/50",
             "dark:!from-[#111827]/90 dark:!to-[#0B0F14]/80"
           )} hover={false}>
             <div className="grid lg:grid-cols-2">
-              <div className="p-12 lg:p-20 flex flex-col justify-center space-y-10">
+              <div className="p-6 sm:p-8 md:p-12 lg:p-20 flex flex-col justify-center space-y-6 sm:space-y-8 lg:space-y-10">
                 <div className="flex items-center gap-3">
                   <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center shadow-lg shadow-orange-500/20">
                     <Sparkles className="h-6 w-6 text-white" />
@@ -360,7 +406,7 @@ export default function LandingPage() {
                   <span className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Powered by Sarvam AI</span>
                 </div>
 
-                <h2 className="text-4xl lg:text-6xl font-bold text-slate-900 dark:text-white leading-[1.1] tracking-tight">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-slate-900 dark:text-white leading-[1.1] tracking-tight">
                   Your Personal <br />
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-amber-500">
                     Multilingual Assistant
@@ -401,7 +447,7 @@ export default function LandingPage() {
               </div>
 
               {/* Right Side Visual */}
-              <div className="bg-slate-900 relative min-h-[500px] lg:min-h-auto p-12 flex items-center justify-center overflow-hidden">
+              <div className="bg-slate-900 relative min-h-[400px] sm:min-h-[500px] lg:min-h-auto p-6 sm:p-8 md:p-12 flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.07]"></div>
                 <div className="absolute top-[-50%] right-[-50%] w-full h-full bg-indigo-500/30 blur-[120px] rounded-full animate-pulse-slow"></div>
 
@@ -446,7 +492,7 @@ export default function LandingPage() {
 
       {/* About Us Section */}
       <section id="about" className={cn(
-        "py-32 px-6 relative z-10",
+        "py-16 sm:py-24 lg:py-32 px-4 sm:px-6 relative z-10",
         "bg-gradient-to-b from-white to-blue-50/50",
         "dark:from-transparent dark:to-transparent"
       )}>
@@ -459,7 +505,7 @@ export default function LandingPage() {
             )}>
               Our Team
             </div>
-            <h2 className="text-3xl lg:text-5xl font-bold text-slate-900 dark:text-white leading-tight mb-4">
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-slate-900 dark:text-white leading-tight mb-4">
               Built by Innovators at <span className="text-gradient-primary">BITS Pilani</span>
             </h2>
             <p className="text-lg text-slate-600 dark:text-slate-300">
@@ -467,7 +513,7 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
             {[
               {
                 name: "Vedant Sanghi",
@@ -499,11 +545,11 @@ export default function LandingPage() {
                 linkedin: "https://www.linkedin.com/in/parth-gupta-62b863367"
               }
             ].map((dev, i) => (
-              <GlassCard key={i} className="flex flex-col items-center p-6 text-center">
-                <div className="h-24 w-24 rounded-full overflow-hidden border-4 border-white dark:border-white/20 shadow-lg mb-4 bg-slate-100 dark:bg-slate-800">
+              <GlassCard key={i} className={cn("flex flex-col items-center p-4 sm:p-6 text-center", i === 4 && "col-span-2 sm:col-span-1")}>
+                <div className="h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24 rounded-full overflow-hidden border-3 sm:border-4 border-white dark:border-white/20 shadow-lg mb-3 sm:mb-4 bg-slate-100 dark:bg-slate-800">
                   <img src={dev.image} alt={dev.name} className="h-full w-full object-cover" />
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white">{dev.name}</h3>
+                <h3 className="text-sm sm:text-base lg:text-lg font-bold text-slate-900 dark:text-white">{dev.name}</h3>
 
                 <div className="mt-4 flex gap-3 text-slate-400">
                   {dev.github && (
@@ -530,13 +576,20 @@ export default function LandingPage() {
         "dark:bg-[#0B0F14]/80 dark:border-white/[0.05]"
       )}>
         <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-4 gap-12 mb-12">
-            <div className="col-span-2 space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10 md:gap-12 mb-8 sm:mb-12">
+            <div className="sm:col-span-2 space-y-4">
               <div className="flex items-center gap-2">
-                <div className="h-8 w-8 rounded-lg bg-slate-900 dark:bg-white flex items-center justify-center">
-                  <HeartPulse className="h-4 w-4 text-white dark:text-slate-900" />
+                <div className="h-8 w-8 rounded-lg overflow-hidden">
+                  <img 
+                    src="/logo.png" 
+                    alt="HealthAssist Logo" 
+                    className="h-full w-full object-contain"
+                  />
                 </div>
-                <span className="font-bold text-xl text-slate-900 dark:text-white">HealthAssist</span>
+                <span className="font-bold text-xl">
+                  <span className="text-slate-900 dark:text-white">Health</span>
+                  <span className="text-blue-600">Assist</span>
+                </span>
               </div>
               <p className="text-slate-500 dark:text-slate-400 max-w-sm leading-relaxed">
                 Empowering healthcare through intelligence. Connect with doctors, manage records, and get AI insights in real-time.
@@ -563,7 +616,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="border-t border-slate-200/50 dark:border-white/[0.05] pt-8 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-slate-500 dark:text-slate-400 font-medium">
+          <div className="border-t border-slate-200/50 dark:border-white/[0.05] pt-6 sm:pt-8 flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6 text-sm text-slate-500 dark:text-slate-400 font-medium">
             <div>
               © 2026 HealthAssist Inc. All rights reserved.
             </div>

@@ -44,6 +44,9 @@ export async function POST(request: NextRequest) {
             case 'medical_record':
                 await handleMedicalRecord(data);
                 break;
+            case 'admin_doctor_signup_notification':
+                await handleAdminDoctorSignupNotification(data);
+                break;
             default:
                 console.log('[Email API] Unknown email type:', type);
         }
@@ -193,6 +196,23 @@ async function handleMedicalRecord(data: {
     }
 }
 
+async function handleAdminDoctorSignupNotification(data: {
+    doctorId: string;
+    doctorName: string;
+    email: string;
+    specialization: string;
+    experience: string;
+}) {
+    const adminEmail = 'healthassistpilani@gmail.com';
+    await transporter.sendMail({
+        from: `"HealthAssist" <${process.env.GMAIL}>`,
+        to: adminEmail,
+        subject: '⚠️ New Doctor Signup Pending Verification - HealthAssist',
+        html: getAdminDoctorSignupNotificationTemplate(data.doctorId, data.doctorName, data.email, data.specialization, data.experience),
+    });
+    console.log(`[Email] Sent admin notification for new doctor: ${data.doctorName}`);
+}
+
 // Email Templates
 function getAppointmentBookedTemplate(patientName: string, doctorName: string, specialty: string, date: string, time: string): string {
     return `
@@ -330,6 +350,37 @@ function getMedicalRecordTemplate(patientName: string, recordType: string, testN
                     <p style="margin: 8px 0;"><strong>Uploaded by:</strong> ${uploadedBy}</p>
                 </div>
                 <p style="color: #64748b; font-size: 14px;">Log in to your dashboard to view the full record.</p>
+            </div>
+            <div style="text-align: center; padding: 20px; color: #64748b; font-size: 12px; border-top: 1px solid #e2e8f0;">
+                © 2026 HealthAssist. All rights reserved.
+            </div>
+        </div>
+    </div>`;
+}
+
+function getAdminDoctorSignupNotificationTemplate(doctorId: string, doctorName: string, email: string, specialization: string, experience: string): string {
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    const verifyUrl = `${baseUrl}/admin/verify?doctorId=${doctorId}`;
+    
+    return `
+    <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f8fafc; padding: 20px;">
+        <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <div style="background: linear-gradient(135deg, #f97316, #ea580c); color: white; padding: 30px; text-align: center;">
+                <h1 style="margin: 0; font-size: 24px;">⚠️ Verification Pending for New Doctor</h1>
+            </div>
+            <div style="padding: 30px;">
+                <p>Hello Admin,</p>
+                <p>A new doctor has completed their onboarding and requires manual verification.</p>
+                <div style="background: #fff7ed; border: 1px solid #fed7aa; border-radius: 12px; padding: 20px; margin: 20px 0;">
+                    <p style="margin: 8px 0;"><strong>Name:</strong> Dr. ${doctorName}</p>
+                    <p style="margin: 8px 0;"><strong>Email:</strong> ${email}</p>
+                    <p style="margin: 8px 0;"><strong>Specialization:</strong> ${specialization}</p>
+                    <p style="margin: 8px 0;"><strong>Experience:</strong> ${experience}</p>
+                    <p style="margin: 8px 0;"><strong>Status:</strong> <span style="color: #ea580c;">Verification Pending</span></p>
+                </div>
+                <div style="text-align: center; margin-top: 30px;">
+                    <a href="${verifyUrl}" style="background: #ea580c; color: white; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; display: inline-block;">Verify Doctor</a>
+                </div>
             </div>
             <div style="text-align: center; padding: 20px; color: #64748b; font-size: 12px; border-top: 1px solid #e2e8f0;">
                 © 2026 HealthAssist. All rights reserved.

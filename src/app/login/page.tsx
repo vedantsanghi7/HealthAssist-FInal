@@ -117,13 +117,12 @@ function LoginForm() {
             <GlassCard className="w-full p-8 md:p-10">
                 <div className="flex flex-col items-center mb-8">
                     <Link href="/" className="mb-6 group">
-                        <div className={cn(
-                            "h-14 w-14 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-105",
-                            role === 'doctor'
-                                ? "bg-gradient-to-br from-indigo-500 to-purple-600 shadow-indigo-500/20"
-                                : "bg-gradient-to-br from-blue-500 to-teal-500 shadow-blue-500/20"
-                        )}>
-                            {role === 'doctor' ? <Stethoscope className="h-7 w-7 text-white" /> : <Shield className="h-7 w-7 text-white" />}
+                        <div className="h-14 w-14 rounded-2xl overflow-hidden shadow-lg transition-all duration-300 group-hover:scale-105 bg-white dark:bg-white/5 p-2">
+                            <img 
+                                src="/logo.png" 
+                                alt="HealthAssist Logo" 
+                                className="h-full w-full object-contain"
+                            />
                         </div>
                     </Link>
                     <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
@@ -281,7 +280,7 @@ function LoginForm() {
 
 export default function LoginPage() {
     return (
-        <div className="flex min-h-screen items-center justify-center relative overflow-hidden bg-background">
+        <div className="flex min-h-screen items-center justify-center relative overflow-hidden bg-background px-4 sm:px-6">
             {/* Theme Toggle */}
             <div className="absolute top-6 right-6 z-20">
                 <ThemeToggleButton />

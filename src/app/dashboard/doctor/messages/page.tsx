@@ -15,7 +15,8 @@ import {
     MoreVertical,
     Check,
     CheckCheck,
-    Clock
+    Clock,
+    ArrowLeft
 } from 'lucide-react';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { supabase } from '@/lib/supabase/supabaseClient';
@@ -230,7 +231,7 @@ export default function DoctorMessagesPage() {
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="w-80 md:w-96 flex-shrink-0 flex flex-col rounded-3xl bg-white/60 backdrop-blur-xl border border-white/40 shadow-xl overflow-hidden"
+                    className={`w-full md:w-96 flex-shrink-0 flex flex-col rounded-3xl bg-white/60 backdrop-blur-xl border border-white/40 shadow-xl overflow-hidden ${selectedConversation ? 'hidden md:flex' : 'flex'}`}
                 >
                     {/* Sidebar Header */}
                     <div className="p-5 border-b border-white/30 bg-gradient-to-r from-white/40 to-white/20">
@@ -334,13 +335,19 @@ export default function DoctorMessagesPage() {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 }}
-                    className="flex-1 flex flex-col rounded-3xl bg-white/60 backdrop-blur-xl border border-white/40 shadow-xl overflow-hidden"
+                    className={`flex-1 flex flex-col rounded-3xl bg-white/60 backdrop-blur-xl border border-white/40 shadow-xl overflow-hidden ${!selectedConversation ? 'hidden md:flex' : 'flex'}`}
                 >
                     {selectedConversation ? (
                         <>
                             {/* Chat Header */}
                             <div className="px-6 py-4 border-b border-white/30 bg-gradient-to-r from-white/50 to-white/30 backdrop-blur-md">
                                 <div className="flex items-center justify-between">
+                                    <button
+                                        onClick={() => setSelectedConversation(null)}
+                                        className="md:hidden p-1.5 rounded-lg hover:bg-white/60 transition-colors mr-2"
+                                    >
+                                        <ArrowLeft className="h-5 w-5 text-slate-600" />
+                                    </button>
                                     <div className="flex items-center gap-4">
                                         <div className="relative">
                                             <Avatar className="h-12 w-12 border-2 border-white shadow-lg">

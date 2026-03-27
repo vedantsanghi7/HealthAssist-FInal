@@ -14,6 +14,12 @@ export default function DashboardPage() {
         console.log('Dashboard Redirect Check:', { loading, role });
 
         if (!loading) {
+            if (typeof window !== 'undefined' && localStorage.getItem('admin_redirect') === 'true') {
+                localStorage.removeItem('admin_redirect');
+                router.replace('/admin/verify');
+                return;
+            }
+
             if (!role) {
                 console.log('No role found, redirecting to login');
                 router.replace('/login');

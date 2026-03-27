@@ -121,7 +121,7 @@ interface HeroSectionProps {
 export function HeroSection({ userName, healthMetrics, recentActivity }: HeroSectionProps) {
     return (
         <div className={cn(
-            "relative w-full h-[380px] rounded-3xl overflow-hidden mb-8 border backdrop-blur-sm",
+            "relative w-full h-auto min-h-[500px] md:min-h-0 md:h-[380px] rounded-2xl md:rounded-3xl overflow-hidden mb-6 md:mb-8 border backdrop-blur-sm",
             // Light mode
             "bg-gradient-to-br from-indigo-50/50 via-white/50 to-blue-50/50 border-white/60 shadow-xl",
             // Dark mode
@@ -140,14 +140,15 @@ export function HeroSection({ userName, healthMetrics, recentActivity }: HeroSec
             </div>
 
             {/* Foreground Content */}
-            <div className="absolute inset-0 z-10 p-8 md:p-12 flex flex-col justify-center max-w-2xl">
+            <div className="relative md:absolute inset-0 z-10 p-6 md:p-12 flex flex-col justify-start md:justify-center pt-8 md:pt-0 pb-36 md:pb-0 max-w-2xl pointer-events-none">
                 <motion.div
                     initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8 }}
+                    className="pointer-events-auto"
                 >
                     <div className={cn(
-                        "inline-flex items-center gap-2 px-3 py-1 rounded-full backdrop-blur-md border text-xs font-semibold mb-6 shadow-sm",
+                        "inline-flex items-center gap-2 px-3 py-1 rounded-full backdrop-blur-md border text-xs font-semibold mb-4 md:mb-6 shadow-sm",
                         "bg-white/60 border-white/50 text-indigo-600",
                         "dark:bg-white/[0.05] dark:border-white/[0.1] dark:text-indigo-400"
                     )}>
@@ -158,22 +159,22 @@ export function HeroSection({ userName, healthMetrics, recentActivity }: HeroSec
                         Real-time Health Monitoring
                     </div>
 
-                    <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-300 mb-4 tracking-tight">
+                    <h1 className="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-300 mb-2 md:mb-4 tracking-tight">
                         Welcome back,<br /> {userName}
                     </h1>
 
-                    <p className="text-lg text-slate-600 dark:text-slate-300 max-w-md mb-8 leading-relaxed">
+                    <p className="text-sm md:text-lg text-slate-600 dark:text-slate-300 max-w-md mb-6 md:mb-8 leading-relaxed line-clamp-2 md:line-clamp-none">
                         {recentActivity
                             ? `${recentActivity.type === 'Appointment' ? `Upcoming: ${recentActivity.title} on ${recentActivity.date}` : `Latest: ${recentActivity.title} - ${recentActivity.date}`}`
                             : 'Welcome to your health dashboard. Track your vitals and stay connected with your care team.'}
                     </p>
 
-                    <div className="flex gap-4">
-                        <Link href="/dashboard/patient/ai-chat?prompt=Please+analyze+my+full+health+condition+and+medical+records+to+provide+a+comprehensive+health+report." className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium shadow-lg shadow-blue-500/30 dark:shadow-blue-500/10 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all text-sm">
+                    <div className="flex flex-col sm:flex-row gap-3 md:gap-4 pointer-events-auto">
+                        <Link href="/dashboard/patient/ai-chat?prompt=Please+analyze+my+full+health+condition+and+medical+records+to+provide+a+comprehensive+health+report." className="px-5 py-2.5 md:px-6 md:py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium shadow-lg shadow-blue-500/30 dark:shadow-blue-500/10 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all text-sm w-full sm:w-auto text-center">
                             View Full Report
                         </Link>
                         <Link href="/dashboard/patient/doctors" className={cn(
-                            "px-6 py-3 rounded-xl font-medium transition-all border shadow-sm text-sm",
+                            "px-5 py-2.5 md:px-6 md:py-3 rounded-xl font-medium transition-all border shadow-sm text-sm w-full sm:w-auto text-center",
                             "bg-white/60 text-slate-700 hover:bg-white/80 border-white/40",
                             "dark:bg-white/[0.05] dark:text-white dark:hover:bg-white/[0.1] dark:border-white/[0.1]"
                         )}>
@@ -184,34 +185,40 @@ export function HeroSection({ userName, healthMetrics, recentActivity }: HeroSec
             </div>
 
             {/* Floating Widgets - Positioned absolutely on the right */}
-            <div className="absolute top-1/2 right-12 transform -translate-y-1/2 flex flex-col gap-4 z-10 pointer-events-none md:pointer-events-auto">
-                <StatsWidget
-                    icon={<Activity className="h-6 w-6" />}
-                    label="Heart Rate"
-                    value={healthMetrics?.heartRate || '--'}
-                    subValue="BPM"
-                    color="red"
-                    delay={0.2}
-                    className="w-56"
-                />
-                <StatsWidget
-                    icon={<Droplets className="h-6 w-6" />}
-                    label="Blood Pressure"
-                    value={healthMetrics?.bloodPressure || '--/--'}
-                    subValue="mmHg"
-                    color="blue"
-                    delay={0.4}
-                    className="w-64 translate-x-8"
-                />
-                <StatsWidget
-                    icon={<Heart className="h-6 w-6" />}
-                    label="Health Score"
-                    value={healthMetrics?.healthScore || '--'}
-                    subValue="/ 100"
-                    color="emerald"
-                    delay={0.6}
-                    className="w-56"
-                />
+            <div className="absolute bottom-6 left-6 right-6 md:bottom-auto md:top-1/2 md:right-12 md:left-auto md:transform md:-translate-y-1/2 flex flex-row md:flex-col gap-3 md:gap-4 z-10 overflow-x-auto scrollbar-hide pointer-events-auto snap-x">
+                <div className="snap-start shrink-0">
+                    <StatsWidget
+                        icon={<Activity className="h-5 w-5 md:h-6 md:w-6" />}
+                        label="Heart Rate"
+                        value={healthMetrics?.heartRate || '--'}
+                        subValue="BPM"
+                        color="red"
+                        delay={0.2}
+                        className="w-44 md:w-56"
+                    />
+                </div>
+                <div className="snap-start shrink-0 md:translate-x-8">
+                    <StatsWidget
+                        icon={<Droplets className="h-5 w-5 md:h-6 md:w-6" />}
+                        label="Blood Pressure"
+                        value={healthMetrics?.bloodPressure || '--/--'}
+                        subValue="mmHg"
+                        color="blue"
+                        delay={0.4}
+                        className="w-44 md:w-64"
+                    />
+                </div>
+                <div className="snap-start shrink-0">
+                    <StatsWidget
+                        icon={<Heart className="h-5 w-5 md:h-6 md:w-6" />}
+                        label="Health Score"
+                        value={healthMetrics?.healthScore || '--'}
+                        subValue="/ 100"
+                        color="emerald"
+                        delay={0.6}
+                        className="w-44 md:w-56"
+                    />
+                </div>
             </div>
         </div>
     );

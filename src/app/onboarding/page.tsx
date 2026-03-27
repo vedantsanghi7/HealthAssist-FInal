@@ -10,10 +10,12 @@ import { User, Stethoscope, Building2, Briefcase, Calendar, ChevronRight } from 
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { ThemeToggleButton } from '@/components/ui/theme-toggle';
+import { useRouter } from 'next/navigation';
 
 export default function OnboardingPage() {
     const { user, role, refreshProfile } = useAuth();
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
     const [onboardingMode, setOnboardingMode] = useState<'patient' | 'doctor'>(() => {
         if (typeof window !== 'undefined') {
@@ -25,6 +27,13 @@ export default function OnboardingPage() {
         if (role) return role === 'doctor' ? 'doctor' : 'patient';
         return 'patient';
     });
+
+    // Redirect doctors to the new multi-step onboarding
+    React.useEffect(() => {
+        if (onboardingMode === 'doctor') {
+            router.replace('/onboarding/doctor');
+        }
+    }, [onboardingMode, router]);
 
     const [formData, setFormData] = useState({
         full_name: '',

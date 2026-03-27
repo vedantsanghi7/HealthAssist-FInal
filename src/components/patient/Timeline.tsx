@@ -189,7 +189,7 @@ export function Timeline() {
 
                             {/* Content Card */}
                             <div className={cn(
-                                "w-full md:w-[45%] ml-12 md:ml-0 group",
+                                "flex-1 md:flex-none md:w-[45%] ml-12 md:ml-0 group",
                                 isEven ? "text-left" : "text-left md:text-right"
                             )}>
                                 {/* Date Label */}
@@ -204,7 +204,7 @@ export function Timeline() {
                                 <GlassCard className={cn(
                                     "p-0 overflow-hidden hover:scale-[1.02] transition-transform duration-300",
                                     "border-white/50 dark:border-white/[0.05] shadow-sm hover:shadow-xl dark:hover:shadow-none",
-                                    "bg-white/60 dark:bg-white/[0.02] backdrop-blur-md"
+                                    "bg-white/60 dark:bg-white/[0.02] backdrop-blur-md w-full"
                                 )}>
                                     <div className="relative p-5">
                                         {/* Color Accent Bar */}

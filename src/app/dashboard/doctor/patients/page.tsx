@@ -86,9 +86,43 @@ export default function DoctorPatientsPage() {
         setLoading(false);
     };
 
+    const handleMessage = async (patientId: string) => {
+        if (!user) return;
+
+        // Check if conversation exists
+        const { data: existingConvs } = await supabase
+            .from('conversations')
+            .select('id')
+            .or(`and(participant1_id.eq.${user.id},participant2_id.eq.${patientId}),and(participant1_id.eq.${patientId},participant2_id.eq.${user.id})`)
+            .single();
+
+        if (existingConvs) {
+            router.push(`/dashboard/doctor/messages?conversationId=${existingConvs.id}`);
+        } else {
+            // Create new conversation
+            const { data: newConv, error } = await supabase
+                .from('conversations')
+                .insert({
+                    participant1_id: user.id,
+                    participant2_id: patientId,
+                    last_message: 'Started a new conversation',
+                    last_message_at: new Date().toISOString()
+                })
+                .select()
+                .single();
+
+            if (error) {
+                console.error('Error creating conversation:', error);
+                alert('Failed to start conversation');
+            } else if (newConv) {
+                router.push(`/dashboard/doctor/messages?conversationId=${newConv.id}`);
+            }
+        }
+    };
+
     return (
-        <div className="p-6 space-y-6">
-            <div className="flex items-center justify-between">
+        <div className="p-4 md:p-6 space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <h1 className="text-2xl font-bold">My Patients</h1>
                 <Button onClick={() => setIsAddPatientOpen(true)}>Add New Patient</Button>
             </div>
@@ -104,7 +138,8 @@ export default function DoctorPatientsPage() {
                     />
                 </div>
 
-                <div className="rounded-md border">
+                {/* Desktop Table View */}
+                <div className="hidden md:block overflow-x-auto rounded-md border mt-2">
                     <table className="w-full text-sm text-left">
                         <thead className="bg-slate-50 border-b">
                             <tr>
@@ -144,59 +179,15 @@ export default function DoctorPatientsPage() {
                                                 <Button
                                                     variant="ghost"
                                                     size="sm"
-                                                    onClick={() => {
-                                                        // Just a mock action or basic alert for 'View' if no page exists
-                                                        // Or redirect to main dashboard to show summary?
-                                                        // Let's redirect to messages for now as a 'Contact' action
-                                                        alert(`Viewing details for ${patient.full_name}\n\nAge: ${patient.age}\nGender: ${patient.gender}\nEmail: ${patient.email}`);
-                                                    }}
+                                                    onClick={() => alert(`Viewing details for ${patient.full_name}\n\nAge: ${patient.age}\nGender: ${patient.gender}\nEmail: ${patient.email}`)}
                                                 >
                                                     View
                                                 </Button>
-                                                <Button
-                                                    variant="outline"
-                                                    size="sm"
-                                                    onClick={async () => {
-                                                        if (!user) return;
-
-                                                        // Check if conversation exists
-                                                        const { data: existingConvs } = await supabase
-                                                            .from('conversations')
-                                                            .select('id')
-                                                            .or(`and(participant1_id.eq.${user.id},participant2_id.eq.${patient.id}),and(participant1_id.eq.${patient.id},participant2_id.eq.${user.id})`)
-                                                            .single();
-
-                                                        if (existingConvs) {
-                                                            router.push(`/dashboard/doctor/messages?conversationId=${existingConvs.id}`);
-                                                        } else {
-                                                            // Create new conversation
-                                                            const { data: newConv, error } = await supabase
-                                                                .from('conversations')
-                                                                .insert({
-                                                                    participant1_id: user.id,
-                                                                    participant2_id: patient.id,
-                                                                    last_message: 'Started a new conversation',
-                                                                    last_message_at: new Date().toISOString()
-                                                                })
-                                                                .select()
-                                                                .single();
-
-                                                            if (error) {
-                                                                console.error('Error creating conversation:', error);
-                                                                alert('Failed to start conversation');
-                                                            } else if (newConv) {
-                                                                router.push(`/dashboard/doctor/messages?conversationId=${newConv.id}`);
-                                                            }
-                                                        }
-                                                    }}
-                                                >
+                                                <Button variant="outline" size="sm" onClick={() => handleMessage(patient.id)}>
                                                     Message
                                                 </Button>
-
                                                 <UploadRecordModal patientId={patient.id} onRecordAdded={() => alert('Record uploaded successfully!')}>
-                                                    <Button variant="outline" size="sm">
-                                                        Upload
-                                                    </Button>
+                                                    <Button variant="outline" size="sm">Upload</Button>
                                                 </UploadRecordModal>
                                             </div>
                                         </td>
@@ -211,6 +202,54 @@ export default function DoctorPatientsPage() {
                             )}
                         </tbody>
                     </table>
+                </div>
+
+                {/* Mobile Cards View */}
+                <div className="md:hidden space-y-4 mt-2">
+                    {filteredPatients.length > 0 ? (
+                        filteredPatients.map((patient) => (
+                            <div key={patient.id} className="bg-white border rounded-xl p-4 shadow-sm flex flex-col gap-4">
+                                <div className="flex items-center gap-4">
+                                    <Avatar className="h-12 w-12">
+                                        <AvatarFallback>{patient.full_name?.substring(0, 2).toUpperCase()}</AvatarFallback>
+                                    </Avatar>
+                                    <div className="flex-1">
+                                        <span className="font-semibold text-base block">{patient.full_name}</span>
+                                        <span className="text-xs text-muted-foreground block">ID: #{patient.id.substring(0, 4)}</span>
+                                    </div>
+                                </div>
+                                <div className="grid grid-cols-2 gap-2 text-sm max-w-full">
+                                    <div className="flex flex-col">
+                                        <span className="text-xs text-muted-foreground">Age/Gender</span>
+                                        <span className="font-medium text-slate-700">{patient.age || '-'} yrs / {patient.gender || '-'}</span>
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <span className="text-xs text-muted-foreground">Last Visit</span>
+                                        <span className="font-medium text-slate-700">{new Date().toLocaleDateString()}</span>
+                                    </div>
+                                    <div className="col-span-2 flex flex-col mt-1">
+                                        <span className="text-xs text-muted-foreground">Email</span>
+                                        <span className="font-medium text-slate-700 truncate">{patient.email}</span>
+                                    </div>
+                                </div>
+                                <div className="grid grid-cols-3 gap-2 mt-2">
+                                    <Button variant="ghost" size="sm" className="w-full text-xs" onClick={() => alert(`Viewing details for ${patient.full_name}`)}>
+                                        View
+                                    </Button>
+                                    <Button variant="outline" size="sm" className="w-full text-xs bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-200" onClick={() => handleMessage(patient.id)}>
+                                        Message
+                                    </Button>
+                                    <UploadRecordModal patientId={patient.id} onRecordAdded={() => alert('Record uploaded successfully!')}>
+                                        <Button variant="outline" size="sm" className="w-full text-xs">Upload</Button>
+                                    </UploadRecordModal>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <div className="p-8 text-center text-muted-foreground bg-white rounded-xl border">
+                            {searchTerm ? 'No patients found matching your search.' : 'No patients found.'}
+                        </div>
+                    )}
                 </div>
             </GlassCard>
 

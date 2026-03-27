@@ -459,4 +459,9 @@
   .dark ::selection {
     @apply bg-blue-500/30 text-blue-100;
   }
+
+  /* Safe area for mobile bottom nav */
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
 }

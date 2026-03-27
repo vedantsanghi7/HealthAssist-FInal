@@ -59,23 +59,23 @@ export default function FindDoctorsPage() {
     const categories = ['All Specialists', 'Cardiologist', 'Dermatologist', 'Neurologist', 'Pediatrician'];
 
     return (
-        <div className="space-y-10 pb-20 relative">
+        <div className="space-y-6 md:space-y-10 pb-20 relative">
             {/* 1. Hero Section */}
-            <section className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-indigo-900 via-blue-900 to-sky-800 text-white shadow-2xl p-8 md:p-12 mb-8">
+            <section className="relative rounded-2xl md:rounded-3xl overflow-hidden bg-gradient-to-br from-indigo-900 via-blue-900 to-sky-800 text-white shadow-2xl p-6 sm:p-8 md:p-12 mb-2 md:mb-8">
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] opacity-10 bg-cover bg-center mix-blend-overlay" />
                 <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/90 via-blue-900/80 to-transparent" />
 
-                <div className="relative z-10 max-w-2xl space-y-6">
+                <div className="relative z-10 max-w-2xl space-y-4 md:space-y-6">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                     >
-                        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 leading-tight">
+                        <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-3 md:mb-4 leading-tight">
                             Meet the people <br />
                             <span className="text-sky-300">who care.</span>
                         </h1>
-                        <p className="text-lg text-blue-100 max-w-lg leading-relaxed opacity-90">
+                        <p className="text-base md:text-lg text-blue-100 max-w-lg leading-relaxed opacity-90">
                             Connect with trusted medical professionals who prioritize your well-being. Expert care, just an appointment away.
                         </p>
                     </motion.div>
@@ -84,10 +84,10 @@ export default function FindDoctorsPage() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className="flex flex-wrap gap-3 pt-2"
+                        className="flex flex-col sm:flex-row flex-wrap gap-3 pt-2"
                     >
                         <Button
-                            className="bg-white text-blue-900 hover:bg-blue-50 rounded-full h-12 px-8 font-semibold text-base shadow-lg hover:shadow-xl transition-all"
+                            className="bg-white text-blue-900 hover:bg-blue-50 rounded-full h-11 md:h-12 px-6 md:px-8 font-semibold text-sm md:text-base shadow-lg hover:shadow-xl transition-all w-full sm:w-auto"
                             onClick={() => {
                                 document.getElementById('doctors-grid')?.scrollIntoView({ behavior: 'smooth' });
                             }}
@@ -95,7 +95,7 @@ export default function FindDoctorsPage() {
                             Find a Specialist
                         </Button>
                         <Button
-                            className="bg-gradient-to-r from-red-500 to-orange-500 text-white hover:from-red-600 hover:to-orange-600 rounded-full h-12 px-6 shadow-lg shadow-red-500/30 hover:shadow-xl hover:shadow-red-500/40 transition-all font-semibold border-2 border-red-400"
+                            className="bg-gradient-to-r from-red-500 to-orange-500 text-white hover:from-red-600 hover:to-orange-600 rounded-full h-11 md:h-12 px-6 shadow-lg shadow-red-500/30 hover:shadow-xl hover:shadow-red-500/40 transition-all font-semibold border-2 border-red-400 w-full sm:w-auto"
                             onClick={() => window.open('https://112.gov.in/', '_blank')}
                         >
                             <AlertCircle className="h-4 w-4 mr-2" />
@@ -106,37 +106,37 @@ export default function FindDoctorsPage() {
             </section>
 
             {/* 2. Floating Search & Filter Bar */}
-            <div id="doctors-grid" className="sticky top-24 z-20 -mt-20 px-4 md:px-0">
-                <GlassCard className="p-2 md:p-3 flex flex-col md:flex-row gap-4 items-center bg-white/80 backdrop-blur-xl border-white/50 shadow-xl rounded-2xl">
-                    <div className="relative w-full md:flex-1">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+            <div id="doctors-grid" className="sticky top-16 md:top-24 z-30 mt-2 md:-mt-20 px-0 w-full min-w-0">
+                <GlassCard className="p-2 md:p-3 flex flex-col md:flex-row gap-2 md:gap-4 items-center bg-white/90 backdrop-blur-xl border-white/60 shadow-lg md:shadow-xl rounded-xl md:rounded-2xl w-full">
+                    <div className="relative w-full md:flex-1 min-w-0">
+                        <Search className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 h-4 w-4 md:h-5 md:w-5 text-slate-400" />
                         <Input
-                            placeholder="Search doctors, specialties, or clinics..."
-                            className="pl-12 bg-white/50 border-transparent hover:border-blue-200 focus:border-blue-400 focus:bg-white h-14 rounded-xl transition-all text-base shadow-sm"
+                            placeholder="Search doctors, specialties..."
+                            className="pl-10 md:pl-12 bg-white/60 border-transparent hover:border-blue-200 focus:border-blue-400 focus:bg-white h-10 md:h-14 rounded-lg md:rounded-xl transition-all text-sm md:text-base shadow-sm w-full"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
                     </div>
 
-                    <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-hide px-1">
+                    <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto scrollbar-hide min-w-0">
                         <Button
                             variant="outline"
-                            className="h-14 px-6 rounded-xl border-slate-200 text-slate-600 hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 bg-white/50 shadow-sm transition-all whitespace-nowrap"
+                            className="h-9 md:h-14 px-3 md:px-6 rounded-lg md:rounded-xl border-slate-200 text-slate-600 hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 bg-white/60 shadow-sm transition-all whitespace-nowrap text-xs md:text-base flex-1 md:flex-none"
                             onClick={() => toast.info('Location filter coming soon!', {
                                 description: 'We\'re working on adding location-based filtering to help you find doctors nearby.',
                             })}
                         >
-                            <MapPin className="h-4 w-4 mr-2" />
+                            <MapPin className="h-3 w-3 md:h-4 md:w-4 mr-1.5 md:mr-2 shrink-0" />
                             Location
                         </Button>
                         <Button
                             variant="outline"
-                            className="h-14 px-6 rounded-xl border-slate-200 text-slate-600 hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 bg-white/50 shadow-sm transition-all whitespace-nowrap"
+                            className="h-9 md:h-14 px-3 md:px-6 rounded-lg md:rounded-xl border-slate-200 text-slate-600 hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 bg-white/60 shadow-sm transition-all whitespace-nowrap text-xs md:text-base flex-1 md:flex-none"
                             onClick={() => toast.info('Advanced filters coming soon!', {
                                 description: 'Filter by availability, ratings, languages spoken, and more.',
                             })}
                         >
-                            <Filter className="h-4 w-4 mr-2" />
+                            <Filter className="h-3 w-3 md:h-4 md:w-4 mr-1.5 md:mr-2 shrink-0" />
                             Filters
                         </Button>
                     </div>
@@ -144,7 +144,7 @@ export default function FindDoctorsPage() {
             </div>
 
             {/* 3. Category Pills using Categories */}
-            <div className="flex gap-2 overflow-x-auto pb-2 px-1 scrollbar-hide">
+            <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide pt-2 md:pt-0 w-full min-w-0 max-w-full">
                 {categories.map((cat, i) => (
                     <motion.button
                         key={cat}
@@ -152,7 +152,7 @@ export default function FindDoctorsPage() {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.05 + 0.3 }}
                         onClick={() => setActiveCategory(cat)}
-                        className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all whitespace-nowrap border ${activeCategory === cat
+                        className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all whitespace-nowrap border shrink-0 ${activeCategory === cat
                             ? 'bg-slate-900 text-white border-slate-900 shadow-md transform scale-105'
                             : 'bg-white text-slate-600 border-slate-200 hover:border-blue-300 hover:bg-blue-50'
                             }`}
@@ -165,9 +165,9 @@ export default function FindDoctorsPage() {
             {/* 4. Doctors Grid */}
             <AnimatePresence mode="wait">
                 {loading ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                         {[1, 2, 3, 4, 5, 6].map((i) => (
-                            <div key={i} className="h-[420px] rounded-3xl bg-white/40 animate-pulse border border-white/40" />
+                            <div key={i} className="h-[380px] md:h-[420px] rounded-2xl md:rounded-3xl bg-white/40 animate-pulse border border-white/40" />
                         ))}
                     </div>
                 ) : filteredDoctors.length === 0 ? (

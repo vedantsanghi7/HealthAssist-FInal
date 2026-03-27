@@ -50,7 +50,7 @@ export function Header() {
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             className={cn(
-                "sticky top-4 z-30 mx-6 mb-2 rounded-2xl px-6 h-16 flex items-center justify-between",
+                "sticky top-2 sm:top-4 z-30 mx-3 sm:mx-6 mb-2 rounded-2xl px-3 sm:px-6 h-14 sm:h-16 flex items-center justify-between",
                 "backdrop-blur-xl border transition-all duration-300",
                 // Light mode
                 "bg-white/80 border-white/60 shadow-lg",
@@ -79,7 +79,15 @@ export function Header() {
                 />
             </div>
 
-            <div className="md:hidden font-semibold text-lg text-foreground">HealthAssist</div>
+            <div className="md:hidden flex items-center gap-2">
+                <div className="h-8 w-8 rounded-lg overflow-hidden">
+                    <img src="/logo.png" alt="HealthAssist Logo" className="h-full w-full object-contain" />
+                </div>
+                <span className="font-semibold text-lg">
+                    <span className="text-slate-900 dark:text-white">Health</span>
+                    <span className="text-blue-600">Assist</span>
+                </span>
+            </div>
 
             {/* Right Actions */}
             <div className="flex items-center gap-3">

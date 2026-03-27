@@ -30,11 +30,11 @@ export default function DoctorConsultationsPage() {
     };
 
     return (
-        <div className="p-6 space-y-6">
-            <h1 className="text-2xl font-bold mb-4">Consultations</h1>
+        <div className="p-4 md:p-6 space-y-6">
+            <h1 className="text-xl md:text-2xl font-bold mb-4">Consultations</h1>
             <div className="grid gap-4">
                 {appointments.map((apt) => (
-                    <GlassCard key={apt.id} className="p-4 flex items-center justify-between">
+                    <GlassCard key={apt.id} className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div className="flex items-center gap-4">
                             <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
                                 {apt.patient.charAt(0)}
@@ -47,7 +47,7 @@ export default function DoctorConsultationsPage() {
                                 </div>
                             </div>
                         </div>
-                        <div className="flex items-center gap-3">
+                        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                             <div className={`px-3 py-1 rounded-full text-xs font-medium ${apt.mode === 'Video Call' ? 'bg-purple-100 text-purple-600' : 'bg-green-100 text-green-600'}`}>
                                 {apt.mode === 'Video Call' ? <span className="flex items-center gap-1"><Video className="h-3 w-3" /> Video</span> : <span className="flex items-center gap-1"><MapPin className="h-3 w-3" /> Clinic</span>}
                             </div>

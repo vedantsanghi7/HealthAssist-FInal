@@ -4,7 +4,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Send, Search, Mail, User } from 'lucide-react';
+import { Send, Search, Mail, User, ArrowLeft } from 'lucide-react';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { supabase } from '@/lib/supabase/supabaseClient';
 import { useAuth } from '@/context/AuthContext';
@@ -218,10 +218,10 @@ export default function PatientMessagesPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="flex gap-6 h-[calc(100vh-220px)]"
+                className="flex gap-0 md:gap-6 h-[calc(100vh-220px)]"
             >
                 {/* Conversations Sidebar */}
-                <div className="w-80 shrink-0">
+                <div className={`w-full md:w-80 shrink-0 ${selectedConversation ? 'hidden md:block' : 'block'}`}>
                     <GlassCard className="h-full flex flex-col p-0 overflow-hidden bg-white/80 backdrop-blur-xl border border-slate-200/50 shadow-lg">
                         <div className="p-4 border-b border-slate-100 bg-slate-50/50">
                             <div className="flex items-center gap-2 mb-3">
@@ -289,12 +289,18 @@ export default function PatientMessagesPage() {
                 </div>
 
                 {/* Chat Window */}
-                <div className="flex-1 min-w-0">
+                <div className={`flex-1 min-w-0 ${!selectedConversation ? 'hidden md:block' : 'block'}`}>
                     <GlassCard className="h-full flex flex-col p-0 overflow-hidden bg-white/90 backdrop-blur-xl border border-slate-200/50 shadow-lg">
                         {selectedConversation ? (
                             <>
                                 {/* Chat Header */}
                                 <div className="p-4 border-b border-slate-100 bg-gradient-to-r from-blue-50 to-indigo-50 flex items-center gap-3">
+                                    <button
+                                        onClick={() => setSelectedConversation(null)}
+                                        className="md:hidden p-1.5 rounded-lg hover:bg-white/60 transition-colors"
+                                    >
+                                        <ArrowLeft className="h-5 w-5 text-slate-600" />
+                                    </button>
                                     <Avatar className="h-10 w-10 border-2 border-white shadow-md">
                                         <AvatarFallback className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white font-medium">
                                             {getOtherParticipantName(selectedConversation)?.substring(0, 2).toUpperCase() || 'DR'}

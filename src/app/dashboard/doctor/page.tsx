@@ -30,6 +30,27 @@ export default function DoctorDashboard() {
         todayAppointments: 0
     });
 
+    if (doctorProfile?.verification_status === 'pending') {
+        return (
+            <div className="min-h-[80vh] flex flex-col items-center justify-center p-6 text-center">
+                <div className="w-20 h-20 bg-amber-100 dark:bg-amber-900/30 rounded-full flex items-center justify-center mb-6">
+                    <Activity className="h-10 w-10 text-amber-500" />
+                </div>
+                <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-4">
+                    Verification Pending
+                </h2>
+                <p className="max-w-md text-slate-500 dark:text-slate-400 mb-8">
+                    Your profile is currently under review by our administrators. We will notify you via email as soon as your account is verified. You will not have access to patients or appointments until then.
+                </p>
+                <div className="p-4 bg-blue-50 dark:bg-blue-500/10 rounded-xl border border-blue-100 dark:border-blue-500/20">
+                    <p className="text-sm text-blue-800 dark:text-blue-300">
+                        If you have any urgent questions, please contact <a href="mailto:healthassistpilani@gmail.com" className="font-semibold hover:underline">healthassistpilani@gmail.com</a>
+                    </p>
+                </div>
+            </div>
+        );
+    }
+
     useEffect(() => {
         const fetchStats = async () => {
             if (!user) return;
@@ -124,14 +145,14 @@ export default function DoctorDashboard() {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center justify-between"
+                    className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
                 >
                     <div className="flex items-center gap-4">
                         <div className="p-3 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/25">
                             <Stethoscope className="h-6 w-6" />
                         </div>
                         <div>
-                            <h1 className="text-2xl md:text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600">
+                            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600">
                                 Welcome, Dr. {doctorProfile?.full_name?.split(' ')[0] || 'Doctor'}
                             </h1>
                             <p className="text-slate-500 flex items-center gap-2">
@@ -199,13 +220,13 @@ export default function DoctorDashboard() {
                 </div>
 
                 {/* Main Content Grid */}
-                <div className="h-[calc(100vh-320px)] grid grid-cols-12 gap-4 md:gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 md:h-[calc(100vh-320px)]">
                     {/* Left: Patient List */}
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="col-span-12 md:col-span-3 h-full"
+                        className="md:col-span-3 h-[350px] md:h-full"
                     >
                         <div className="h-full rounded-3xl bg-white/60 backdrop-blur-xl border border-white/40 shadow-xl overflow-hidden">
                             <PatientList
@@ -220,7 +241,7 @@ export default function DoctorDashboard() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
-                        className="col-span-12 md:col-span-6 h-full"
+                        className="md:col-span-6 min-h-[300px] md:h-full"
                     >
                         <div className="h-full rounded-3xl bg-white/60 backdrop-blur-xl border border-white/40 shadow-xl overflow-hidden">
                             <PatientSummary patient={selectedPatient} />
@@ -232,7 +253,7 @@ export default function DoctorDashboard() {
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.4 }}
-                        className="col-span-12 md:col-span-3 h-full"
+                        className="md:col-span-3 h-[350px] md:h-full"
                     >
                         <div className="h-full rounded-3xl bg-white/60 backdrop-blur-xl border border-white/40 shadow-xl overflow-hidden">
                             <AppointmentRequests onUpdate={() => setRefreshTrigger(prev => prev + 1)} />

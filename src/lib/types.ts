@@ -24,6 +24,7 @@ export interface UserProfile {
     full_name: string;
     email: string;
     is_onboarded: boolean;
+    verification_status?: 'pending' | 'verified' | 'rejected';
     specialization?: string;
     hospital_name?: string;
     experience_years?: number;
@@ -43,6 +44,42 @@ export interface MedicalRecord {
     uploaded_by: 'doctor' | 'patient';
     created_at: string;
     test_results?: string | Record<string, any>; // JSON string or object
+}
+
+export interface AvailabilitySlot {
+    day: string;
+    startTime: string;
+    endTime: string;
+    mode: 'online' | 'offline' | 'both';
+}
+
+export interface DoctorProfile {
+    id?: string;
+    user_id: string;
+    // Step 1 – Personal
+    gender: string;
+    bio: string;
+    languages: string[];
+    // Step 2 – Education & Registration
+    degrees: string[];
+    specialization_category: string;
+    specializations: string[];
+    medical_college: string;
+    graduation_year: number | null;
+    additional_certifications: string;
+    registration_number: string;
+    medical_council: string;
+    // Step 3 – Practice
+    experience_years: number | null;
+    current_hospitals: string[];
+    previous_experience: string;
+    clinic_address: string;
+    // Step 4 – Availability
+    availability: AvailabilitySlot[];
+    consultation_mode: 'online' | 'offline' | 'both';
+    // Meta
+    created_at?: string;
+    updated_at?: string;
 }
 
 export interface Appointment {
