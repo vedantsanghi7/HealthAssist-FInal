@@ -148,13 +148,13 @@ export function AIChatInterface() {
     };
 
     return (
-        <div className="relative h-[calc(100vh-140px)] flex flex-col rounded-3xl overflow-hidden border border-white/40 bg-white/40 backdrop-blur-xl shadow-2xl">
+        <div className="relative h-[calc(100vh-140px)] flex flex-col rounded-3xl overflow-hidden border border-white/40 dark:border-white/[0.05] bg-white/40 dark:bg-slate-900/40 backdrop-blur-xl shadow-2xl">
             {/* Background Effects */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-blue-400/20 rounded-full blur-[100px] -z-10" />
             <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-400/20 rounded-full blur-[100px] -z-10" />
 
             {/* Header */}
-            <div className="px-6 py-4 border-b border-white/20 bg-white/30 backdrop-blur-md flex items-center justify-between z-10">
+            <div className="px-6 py-4 border-b border-white/20 dark:border-white/[0.05] bg-white/30 dark:bg-slate-800/30 backdrop-blur-md flex items-center justify-between z-10">
                 <div className="flex items-center gap-3">
                     <div className="relative">
                         <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-2.5 rounded-xl text-white shadow-lg shadow-indigo-500/30">
@@ -166,7 +166,7 @@ export function AIChatInterface() {
                         </span>
                     </div>
                     <div>
-                        <h2 className="font-bold text-slate-800 text-lg">AI Health Assistant</h2>
+                        <h2 className="font-bold text-slate-800 dark:text-white text-lg">AI Health Assistant</h2>
                         <div className="flex items-center gap-1.5">
                             <Sparkles className="h-3 w-3 text-purple-500" />
                             <span className="text-xs font-semibold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Powered by Sarvam</span>
@@ -178,13 +178,13 @@ export function AIChatInterface() {
                 <div className="flex items-center gap-2">
                     <button
                         onClick={handleNewChat}
-                        className="p-2 rounded-lg bg-white/50 hover:bg-white/70 border border-white/30 transition-colors"
+                        className="p-2 rounded-lg bg-white/50 dark:bg-slate-800/50 hover:bg-white/70 dark:hover:bg-slate-700/50 border border-white/30 dark:border-white/[0.05] transition-colors"
                         title="New Chat"
                     >
-                        <RefreshCw className="h-4 w-4 text-slate-600" />
+                        <RefreshCw className="h-4 w-4 text-slate-600 dark:text-slate-300" />
                     </button>
                     <Select value={language} onValueChange={handleLanguageChange} disabled={isTranslating || isLoading}>
-                        <SelectTrigger className="w-[130px] h-9 bg-white/50 border-white/20 text-xs font-medium text-slate-700 backdrop-blur-sm">
+                        <SelectTrigger className="w-[130px] h-9 bg-white/50 dark:bg-slate-800/50 border-white/20 dark:border-white/[0.05] text-xs font-medium text-slate-700 dark:text-slate-200 backdrop-blur-sm">
                             {isTranslating ? (
                                 <Loader2 className="w-3 h-3 mr-2 text-indigo-600 animate-spin" />
                             ) : (
@@ -211,7 +211,7 @@ export function AIChatInterface() {
 
             {/* Translation Overlay */}
             {isTranslating && (
-                <div className="absolute inset-0 bg-white/60 backdrop-blur-sm z-20 flex items-center justify-center">
+                <div className="absolute inset-0 bg-white/60 dark:bg-slate-900/80 backdrop-blur-sm z-20 flex items-center justify-center">
                     <div className="flex flex-col items-center gap-3">
                         <Loader2 className="h-8 w-8 text-indigo-600 animate-spin" />
                         <p className="text-sm font-medium text-slate-600">Translating messages...</p>
@@ -240,8 +240,8 @@ export function AIChatInterface() {
                                 <div className={cn(
                                     "flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center shadow-md mt-1",
                                     message.role === 'user'
-                                        ? "bg-slate-800 text-white"
-                                        : "bg-white text-indigo-600"
+                                        ? "bg-slate-800 dark:bg-slate-700 text-white"
+                                        : "bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400"
                                 )}>
                                     {message.role === 'user' ? <User size={14} /> : <Bot size={14} />}
                                 </div>
@@ -250,24 +250,24 @@ export function AIChatInterface() {
                                 <div className={cn(
                                     "p-4 rounded-2xl shadow-sm text-sm leading-relaxed relative overflow-hidden",
                                     message.role === 'user'
-                                        ? "bg-gradient-to-br from-slate-800 to-slate-900 text-white rounded-tr-sm"
-                                        : "bg-white/80 backdrop-blur-md text-slate-700 border border-white/40 rounded-tl-sm"
+                                        ? "bg-gradient-to-br from-slate-800 to-slate-900 dark:from-indigo-600 dark:to-blue-600 text-white rounded-tr-sm"
+                                        : "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-slate-700 dark:text-slate-200 border border-white/40 dark:border-white/[0.05] rounded-tl-sm"
                                 )}>
                                     {message.role === 'user' ? (
                                         <p className="whitespace-pre-wrap font-medium">{message.content}</p>
                                     ) : (
-                                        <div className="markdown-content text-slate-700">
+                                        <div className="markdown-content text-slate-700 dark:text-slate-200">
                                             <ReactMarkdown
                                                 remarkPlugins={[remarkGfm]}
                                                 components={{
                                                     ul: ({ node, ...props }) => <ul className="list-disc pl-4 my-2 space-y-1 marker:text-indigo-500" {...props} />,
                                                     ol: ({ node, ...props }) => <ol className="list-decimal pl-4 my-2 space-y-1 marker:text-indigo-500" {...props} />,
                                                     li: ({ node, ...props }) => <li className="pl-1" {...props} />,
-                                                    p: ({ node, ...props }) => <p className="mb-3 last:mb-0 text-slate-700" {...props} />,
-                                                    strong: ({ node, ...props }) => <strong className="font-bold text-slate-900" {...props} />,
-                                                    h1: ({ node, ...props }) => <h1 className="text-lg font-bold mb-2 mt-4 text-slate-900 border-b border-slate-200 pb-1" {...props} />,
-                                                    h2: ({ node, ...props }) => <h2 className="text-base font-bold mb-2 mt-3 text-slate-800" {...props} />,
-                                                    blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-indigo-200 pl-4 py-1 my-2 bg-indigo-50/50 italic text-slate-600 rounded-r" {...props} />,
+                                                    p: ({ node, ...props }) => <p className="mb-3 last:mb-0 text-slate-700 dark:text-slate-200" {...props} />,
+                                                    strong: ({ node, ...props }) => <strong className="font-bold text-slate-900 dark:text-white" {...props} />,
+                                                    h1: ({ node, ...props }) => <h1 className="text-lg font-bold mb-2 mt-4 text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-700 pb-1" {...props} />,
+                                                    h2: ({ node, ...props }) => <h2 className="text-base font-bold mb-2 mt-3 text-slate-800 dark:text-slate-100" {...props} />,
+                                                    blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-indigo-200 dark:border-indigo-800 pl-4 py-1 my-2 bg-indigo-50/50 dark:bg-indigo-900/10 italic text-slate-600 dark:text-slate-400 rounded-r" {...props} />,
                                                 }}
                                             >
                                                 {message.content}
@@ -307,8 +307,8 @@ export function AIChatInterface() {
             {/* Input Area */}
             <div className="p-4 md:p-6 pt-2 z-10">
                 <form onSubmit={handleSubmit}>
-                    <GlassCard className="p-2 flex gap-2 items-center bg-white/90 backdrop-blur-xl border-white/50 shadow-xl rounded-2xl">
-                        <button type="button" className="p-3 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-colors hidden sm:block">
+                    <GlassCard className="p-2 flex gap-2 items-center bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-white/50 dark:border-white/[0.05] shadow-xl rounded-2xl">
+                        <button type="button" className="p-3 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-slate-800 rounded-xl transition-colors hidden sm:block">
                             <Plus className="h-5 w-5" />
                         </button>
                         <input
@@ -316,7 +316,7 @@ export function AIChatInterface() {
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             placeholder="Describe your symptoms or ask a medical question..."
-                            className="flex-1 bg-transparent border-none focus:ring-0 focus:outline-none text-slate-700 placeholder:text-slate-400 text-sm md:text-base px-2"
+                            className="flex-1 bg-transparent border-none focus:ring-0 focus:outline-none text-slate-700 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-sm md:text-base px-2"
                             disabled={isLoading || isTranslating}
                         />
                         <button

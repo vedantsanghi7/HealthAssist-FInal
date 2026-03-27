@@ -205,7 +205,7 @@ export default function PatientMessagesPage() {
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-1"
             >
-                <h1 className="text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600">
+                <h1 className="text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-300">
                     Messages
                 </h1>
                 <p className="text-muted-foreground text-base max-w-lg">
@@ -225,8 +225,8 @@ export default function PatientMessagesPage() {
                     <GlassCard className="h-full flex flex-col p-0 overflow-hidden bg-white/80 dark:bg-[#0B0F14]/80 backdrop-blur-xl border border-slate-200/50 dark:border-white/[0.05] shadow-lg">
                         <div className="p-4 border-b border-slate-100 dark:border-white/[0.05] bg-slate-50/50 dark:bg-white/[0.02]">
                             <div className="flex items-center gap-2 mb-3">
-                                <Mail className="h-5 w-5 text-blue-600" />
-                                <h2 className="font-semibold text-slate-800">Conversations</h2>
+                                <Mail className="h-5 w-5 text-blue-600 dark:text-blue-500" />
+                                <h2 className="font-semibold text-slate-800 dark:text-white">Conversations</h2>
                             </div>
                             <div className="relative">
                                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
@@ -247,9 +247,9 @@ export default function PatientMessagesPage() {
                             ) : filteredConversations.length === 0 ? (
                                 <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
                                     <div className="h-16 w-16 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center mb-4">
-                                        <Mail className="h-8 w-8 text-blue-400" />
+                                        <Mail className="h-8 w-8 text-blue-400 dark:text-blue-500" />
                                     </div>
-                                    <h3 className="font-medium text-slate-700 mb-1">No conversations</h3>
+                                    <h3 className="font-medium text-slate-700 dark:text-slate-300 mb-1">No conversations</h3>
                                     <p className="text-sm text-slate-400">Doctor conversations will appear here</p>
                                 </div>
                             ) : (
@@ -269,7 +269,7 @@ export default function PatientMessagesPage() {
                                             </Avatar>
                                             <div className="flex-1 min-w-0">
                                                 <div className="flex justify-between items-start gap-2">
-                                                    <h3 className={`font-medium text-sm truncate ${isSelected ? 'text-blue-700' : 'text-slate-700'}`}>
+                                                    <h3 className={`font-medium text-sm truncate ${isSelected ? 'text-blue-700 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300'}`}>
                                                         {otherName || 'Doctor'}
                                                     </h3>
                                                     <span className="text-[10px] text-slate-400 shrink-0">
@@ -307,7 +307,7 @@ export default function PatientMessagesPage() {
                                         </AvatarFallback>
                                     </Avatar>
                                     <div>
-                                        <h3 className="font-semibold text-slate-800">
+                                        <h3 className="font-semibold text-slate-800 dark:text-white">
                                             {getOtherParticipantName(selectedConversation) || 'Doctor'}
                                         </h3>
                                         <div className="flex items-center gap-2">
@@ -382,9 +382,9 @@ export default function PatientMessagesPage() {
                         ) : (
                             <div className="flex-1 flex flex-col items-center justify-center text-center p-8">
                                 <div className="h-24 w-24 rounded-full bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 flex items-center justify-center mb-6">
-                                    <Mail className="h-10 w-10 text-blue-400" />
+                                    <Mail className="h-10 w-10 text-blue-400 dark:text-blue-500" />
                                 </div>
-                                <h3 className="text-xl font-bold text-slate-800 mb-2">Select a conversation</h3>
+                                <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-2">Select a conversation</h3>
                                 <p className="text-slate-500 max-w-sm">
                                     Choose a conversation from the list to view messages and chat with your healthcare provider.
                                 </p>

@@ -168,7 +168,7 @@ export default function MedicalRecordsPage() {
                     animate={{ opacity: 1, y: 0 }}
                     className="space-y-1"
                 >
-                    <h1 className="text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600">
+                    <h1 className="text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-300">
                         Medical Records
                     </h1>
                     <p className="text-muted-foreground text-base max-w-lg">
@@ -349,7 +349,7 @@ export default function MedicalRecordsPage() {
                         <div className="relative">
                             <LoadingSpinner size={48} className="text-blue-500" />
                             <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="h-8 w-8 rounded-full bg-blue-50" />
+                                <div className="h-8 w-8 rounded-full bg-blue-50 dark:bg-blue-900/20" />
                             </div>
                         </div>
                         <p className="mt-4 text-slate-400 font-medium">Loading your secure records...</p>
@@ -360,18 +360,18 @@ export default function MedicalRecordsPage() {
                         animate={{ opacity: 1, scale: 1 }}
                         className="col-span-full"
                     >
-                        <GlassCard className="flex flex-col items-center justify-center py-24 text-center border-dashed border-2 border-slate-200 bg-slate-50/50">
-                            <div className="h-24 w-24 rounded-full bg-blue-50 flex items-center justify-center mb-6 shadow-inner">
-                                <Search className="h-10 w-10 text-blue-400 opacity-80" />
+                        <GlassCard className="flex flex-col items-center justify-center py-24 text-center border-dashed border-2 border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/[0.02]">
+                            <div className="h-24 w-24 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center mb-6 shadow-inner">
+                                <Search className="h-10 w-10 text-blue-400 dark:text-blue-500 opacity-80" />
                             </div>
-                            <h3 className="text-xl font-bold text-slate-800 mb-2">No records found</h3>
-                            <p className="text-slate-500 max-w-sm mx-auto mb-8">
+                            <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-2">No records found</h3>
+                            <p className="text-slate-500 dark:text-slate-400 max-w-sm mx-auto mb-8">
                                 {hasActiveFilters
                                     ? "Try adjusting your filters or search terms."
                                     : "Upload your first medical record to start tracking your health journey."}
                             </p>
                             {hasActiveFilters ? (
-                                <Button onClick={clearFilters} variant="outline" className="border-slate-300">
+                                <Button onClick={clearFilters} variant="outline" className="border-slate-300 dark:border-slate-700 dark:hover:bg-slate-800">
                                     Clear Filters
                                 </Button>
                             ) : (

@@ -94,11 +94,11 @@ export default function AppointmentsPage() {
         <div className="space-y-8 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-end gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600">My Appointments</h1>
-                    <p className="text-slate-500 mt-1">Manage your upcoming visits and past consultations.</p>
+                    <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-300">My Appointments</h1>
+                    <p className="text-slate-500 dark:text-slate-400 mt-1">Manage your upcoming visits and past consultations.</p>
                 </div>
                 <Button
-                    className="bg-slate-900 text-white hover:bg-slate-800 shadow-lg shadow-slate-900/20 rounded-xl"
+                    className="bg-slate-900 text-white hover:bg-slate-800 dark:bg-blue-600 dark:hover:bg-blue-700 shadow-lg shadow-slate-900/20 dark:shadow-blue-900/20 rounded-xl"
                     onClick={() => router.push('/dashboard/patient/doctors')}
                 >
                     + New Appointment
@@ -113,11 +113,11 @@ export default function AppointmentsPage() {
                 </div>
             ) : appointments.length === 0 ? (
                 <GlassCard className="p-12 text-center flex flex-col items-center justify-center min-h-[400px]">
-                    <div className="h-20 w-20 bg-blue-50 rounded-full flex items-center justify-center mb-6">
-                        <Calendar className="h-10 w-10 text-blue-400" />
+                    <div className="h-20 w-20 bg-blue-50 dark:bg-blue-900/20 rounded-full flex items-center justify-center mb-6">
+                        <Calendar className="h-10 w-10 text-blue-400 dark:text-blue-500" />
                     </div>
-                    <h3 className="text-xl font-bold text-slate-800 mb-2">No appointments scheduled</h3>
-                    <p className="text-slate-500 max-w-sm mb-6">You don&apos;t have any upcoming appointments. Find a specialist to book your first visit.</p>
+                    <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-2">No appointments scheduled</h3>
+                    <p className="text-slate-500 dark:text-slate-400 max-w-sm mb-6">You don&apos;t have any upcoming appointments. Find a specialist to book your first visit.</p>
                     <Button
                         variant="outline"
                         className="border-blue-200 text-blue-600 hover:bg-blue-50"
@@ -144,10 +144,10 @@ export default function AppointmentsPage() {
                                     <GlassCard className="group p-0 overflow-hidden hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300 border-white/60">
                                         <div className="flex flex-col md:flex-row">
                                             {/* Date Block */}
-                                            <div className="w-full md:w-32 bg-slate-50/50 border-b md:border-b-0 md:border-r border-slate-100 p-6 flex flex-row md:flex-col items-center justify-center gap-1 md:gap-0 text-center">
-                                                <span className="text-xs font-bold uppercase tracking-wider text-slate-400">{format(dateObj, 'MMM')}</span>
-                                                <span className="text-2xl md:text-3xl font-bold text-slate-800">{format(dateObj, 'd')}</span>
-                                                <span className="text-sm font-medium text-slate-500">{format(dateObj, 'EEE')}</span>
+                                            <div className="w-full md:w-32 bg-slate-50/50 dark:bg-slate-800/50 border-b md:border-b-0 md:border-r border-slate-100 dark:border-slate-700/50 p-6 flex flex-row md:flex-col items-center justify-center gap-1 md:gap-0 text-center">
+                                                <span className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">{format(dateObj, 'MMM')}</span>
+                                                <span className="text-2xl md:text-3xl font-bold text-slate-800 dark:text-white">{format(dateObj, 'd')}</span>
+                                                <span className="text-sm font-medium text-slate-500 dark:text-slate-400">{format(dateObj, 'EEE')}</span>
                                             </div>
 
                                             {/* Content */}
@@ -162,7 +162,7 @@ export default function AppointmentsPage() {
 
                                                     <div className="space-y-1">
                                                         <div className="flex items-center gap-2 flex-wrap">
-                                                            <h3 className="font-bold text-lg text-slate-800">
+                                                            <h3 className="font-bold text-lg text-slate-800 dark:text-white">
                                                                 {apt.doctor?.full_name ? `Dr. ${apt.doctor.full_name}` : 'Unknown Doctor'}
                                                             </h3>
                                                             <div className={`px-2.5 py-0.5 rounded-full text-[10px] uppercase font-bold tracking-wider border flex items-center gap-1 ${getStatusStyle(apt.status)}`}>
