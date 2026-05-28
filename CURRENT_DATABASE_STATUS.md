@@ -91,3 +91,15 @@ CREATE TABLE public.timeline_events (
   CONSTRAINT timeline_events_pkey PRIMARY KEY (id),
   CONSTRAINT timeline_events_patient_id_fkey FOREIGN KEY (patient_id) REFERENCES public.profiles(id)
 );
+CREATE TABLE public.video_sessions (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  appointment_id uuid NOT NULL,
+  room_name text NOT NULL,
+  room_url text NOT NULL,
+  created_at timestamp with time zone DEFAULT now(),
+  expires_at timestamp with time zone NOT NULL,
+  deleted_at timestamp with time zone,
+  CONSTRAINT video_sessions_pkey PRIMARY KEY (id),
+  CONSTRAINT video_sessions_appointment_id_fkey FOREIGN KEY (appointment_id) REFERENCES public.appointments(id),
+  CONSTRAINT video_sessions_room_name_key UNIQUE (room_name)
+);

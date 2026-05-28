@@ -5,7 +5,7 @@ import { GlassCard } from '@/components/ui/GlassCard';
 import { supabase } from '@/lib/supabase/supabaseClient';
 import { useAuth } from '@/context/AuthContext';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Search, MoreVertical } from 'lucide-react';
+import { Search, MoreVertical, Video } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
@@ -18,6 +18,7 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 import { UploadRecordModal } from '@/components/records/UploadRecordModal';
+import { VideoCallModal } from '@/components/video/VideoCallModal';
 
 export default function DoctorPatientsPage() {
     const { user } = useAuth();
@@ -27,6 +28,8 @@ export default function DoctorPatientsPage() {
     const [isAddPatientOpen, setIsAddPatientOpen] = useState(false);
     const [newPatientEmail, setNewPatientEmail] = useState('');
     const [loading, setLoading] = useState(false);
+    const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+    const [currentAppointmentId, setCurrentAppointmentId] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchPatients = async () => {
@@ -186,6 +189,16 @@ export default function DoctorPatientsPage() {
                                                 <Button variant="outline" size="sm" onClick={() => handleMessage(patient.id)}>
                                                     Message
                                                 </Button>
+                                                <Button 
+                                                    variant="outline" 
+                                                    size="sm"
+                                                    onClick={() => {
+                                                        setCurrentAppointmentId(patient.id);
+                                                        setIsVideoModalOpen(true);
+                                                    }}
+                                                >
+                                                    <Video className="h-4 w-4" />
+                                                </Button>
                                                 <UploadRecordModal patientId={patient.id} onRecordAdded={() => alert('Record uploaded successfully!')}>
                                                     <Button variant="outline" size="sm">Upload</Button>
                                                 </UploadRecordModal>
@@ -239,6 +252,17 @@ export default function DoctorPatientsPage() {
                                     <Button variant="outline" size="sm" className="w-full text-xs bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-200" onClick={() => handleMessage(patient.id)}>
                                         Message
                                     </Button>
+                                    <Button 
+                                        variant="outline" 
+                                        size="sm" 
+                                        className="w-full text-xs"
+                                        onClick={() => {
+                                            setCurrentAppointmentId(patient.id);
+                                            setIsVideoModalOpen(true);
+                                        }}
+                                    >
+                                        Video
+                                    </Button>
                                     <UploadRecordModal patientId={patient.id} onRecordAdded={() => alert('Record uploaded successfully!')}>
                                         <Button variant="outline" size="sm" className="w-full text-xs">Upload</Button>
                                     </UploadRecordModal>
@@ -278,6 +302,15 @@ export default function DoctorPatientsPage() {
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
+
+            {currentAppointmentId && (
+                <VideoCallModal
+                    appointmentId={currentAppointmentId}
+                    role="doctor"
+                    isOpen={isVideoModalOpen}
+                    onClose={() => setIsVideoModalOpen(false)}
+                />
+            )}
         </div>
     );
 }

@@ -11,6 +11,8 @@ import { Doctor } from '@/lib/types';
 import { DoctorCard } from '@/components/patient/DoctorCard';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
+import { useAuth } from '@/context/AuthContext';
+import { VideoCallModal } from '@/components/video/VideoCallModal';
 
 export default function FindDoctorsPage() {
     const [doctors, setDoctors] = useState<Doctor[]>([]);
@@ -19,6 +21,10 @@ export default function FindDoctorsPage() {
     const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [activeCategory, setActiveCategory] = useState('All Specialists');
+    const { user } = useAuth();
+    const [appointments, setAppointments] = useState<any[]>([]);
+    const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+    const [currentAppointmentId, setCurrentAppointmentId] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchDoctors = async () => {
@@ -41,8 +47,26 @@ export default function FindDoctorsPage() {
             }
         };
 
+        const fetchAppointments = async () => {
+            if (!user) return;
+            try {
+                const { data, error } = await supabase
+                    .from('appointments')
+                    .select('*')
+                    .eq('patient_id', user.id);
+                if (!error && data) {
+                    setAppointments(data);
+                }
+            } catch (error) {
+                console.error('Error fetching appointments:', error);
+            }
+        };
+
         fetchDoctors();
-    }, []);
+        if (user) {
+            fetchAppointments();
+        }
+    }, [user]);
 
     const filteredDoctors = doctors.filter(doc =>
         (activeCategory === 'All Specialists' || doc.specialization === activeCategory) &&
@@ -186,16 +210,27 @@ export default function FindDoctorsPage() {
                     </motion.div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                        {filteredDoctors.map((doc, index) => (
-                            <motion.div
-                                key={doc.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.05 }}
-                            >
-                                <DoctorCard doctor={doc} onBook={handleBookClick} />
-                            </motion.div>
-                        ))}
+                        {filteredDoctors.map((doc, index) => {
+                            const doctorAppointment = appointments.find(a => a.doctor_id === doc.id && a.status === 'confirmed');
+                            return (
+                                <motion.div
+                                    key={doc.id}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: index * 0.05 }}
+                                >
+                                    <DoctorCard 
+                                        doctor={doc} 
+                                        onBook={handleBookClick} 
+                                        appointment={doctorAppointment}
+                                        onJoinCall={(appointmentId) => {
+                                            setCurrentAppointmentId(appointmentId);
+                                            setIsVideoModalOpen(true);
+                                        }}
+                                    />
+                                </motion.div>
+                            );
+                        })}
                     </div>
                 )}
             </AnimatePresence>
@@ -204,7 +239,19 @@ export default function FindDoctorsPage() {
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 doctor={selectedDoctor}
+                onSuccess={(appointment) => {
+                    setAppointments(prev => [...prev, appointment]);
+                }}
             />
+
+            {currentAppointmentId && (
+                <VideoCallModal
+                    appointmentId={currentAppointmentId}
+                    role="patient"
+                    isOpen={isVideoModalOpen}
+                    onClose={() => setIsVideoModalOpen(false)}
+                />
+            )}
         </div>
     );
 }

@@ -4,10 +4,13 @@ import React from 'react';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { Calendar, Clock, User, Video, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { VideoCallModal } from '@/components/video/VideoCallModal';
 
 export default function DoctorConsultationsPage() {
     const [selectedAppointment, setSelectedAppointment] = React.useState<any>(null);
     const [isDetailsOpen, setIsDetailsOpen] = React.useState(false);
+    const [isVideoModalOpen, setIsVideoModalOpen] = React.useState(false);
+    const [currentAppointmentId, setCurrentAppointmentId] = React.useState<string | null>(null);
 
     const appointments = [
         { id: 1, patient: "Alice Smith", time: "09:00 AM", type: "General Checkup", mode: "In-Person", reason: "Annual physical examination", age: 34, history: "None" },
@@ -17,13 +20,8 @@ export default function DoctorConsultationsPage() {
 
     const handleStart = (apt: any) => {
         if (apt.mode === 'Video Call') {
-            const width = 800;
-            const height = 600;
-            const left = (window.screen.width - width) / 2;
-            const top = (window.screen.height - height) / 2;
-            // Open a mock video call window or navigate to a call page
-            // For now, let's just alert
-            alert(`Starting secure video call with ${apt.patient}...`);
+            setCurrentAppointmentId(apt.id.toString());
+            setIsVideoModalOpen(true);
         } else {
             alert(`Marking ${apt.patient} as checked-in for in-person visit.`);
         }
@@ -125,6 +123,15 @@ export default function DoctorConsultationsPage() {
                         </div>
                     </GlassCard>
                 </div>
+            )}
+
+            {currentAppointmentId && (
+                <VideoCallModal
+                    appointmentId={currentAppointmentId}
+                    role="doctor"
+                    isOpen={isVideoModalOpen}
+                    onClose={() => setIsVideoModalOpen(false)}
+                />
             )}
         </div>
     );

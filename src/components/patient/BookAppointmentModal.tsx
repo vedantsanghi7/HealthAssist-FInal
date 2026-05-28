@@ -15,9 +15,10 @@ interface BookAppointmentModalProps {
     isOpen: boolean;
     onClose: () => void;
     doctor: Doctor | null;
+    onSuccess?: (appointment: any) => void;
 }
 
-export function BookAppointmentModal({ isOpen, onClose, doctor }: BookAppointmentModalProps) {
+export function BookAppointmentModal({ isOpen, onClose, doctor, onSuccess }: BookAppointmentModalProps) {
     const { user, profile } = useAuth();
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
@@ -41,15 +42,17 @@ export function BookAppointmentModal({ isOpen, onClose, doctor }: BookAppointmen
                 minute: '2-digit'
             });
 
-            const { error } = await supabase
+            const { data, error } = await supabase
                 .from('appointments')
                 .insert({
                     patient_id: user.id,
                     doctor_id: doctor.id,
                     appointment_date: appointmentDate.toISOString(),
                     reason: reason,
-                    status: 'pending'
-                });
+                    status: 'confirmed'
+                })
+                .select('*')
+                .single();
 
             if (error) throw error;
 
@@ -73,11 +76,16 @@ export function BookAppointmentModal({ isOpen, onClose, doctor }: BookAppointmen
                 })
             }).catch(err => console.error('Email notification failed:', err));
 
-            alert('Appointment booked successfully! You will receive a confirmation email shortly.');
+            import('sonner').then(({ toast }) => {
+                toast.success(`Appointment booked for ${formattedDate} at ${formattedTime} with Dr. ${doctor.full_name}`);
+            });
+            if (onSuccess && data) {
+                onSuccess(data);
+            }
             onClose();
         } catch (error) {
             console.error('Error booking appointment:', error);
-            alert('Failed to book appointment.');
+            import('sonner').then(({ toast }) => toast.error('Failed to book appointment.'));
         } finally {
             setLoading(false);
         }

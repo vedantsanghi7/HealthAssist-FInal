@@ -22,6 +22,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { supabase } from '@/lib/supabase/supabaseClient';
 import { useAuth } from '@/context/AuthContext';
 import { cn } from '@/lib/utils';
+import { VideoCallModal } from '@/components/video/VideoCallModal';
 
 export default function DoctorMessagesPage() {
     const { user } = useAuth();
@@ -32,6 +33,8 @@ export default function DoctorMessagesPage() {
     const [loading, setLoading] = React.useState(true);
     const [searchQuery, setSearchQuery] = React.useState('');
     const messagesEndRef = React.useRef<HTMLDivElement>(null);
+    const [isVideoModalOpen, setIsVideoModalOpen] = React.useState(false);
+    const [currentAppointmentId, setCurrentAppointmentId] = React.useState<string | null>(null);
 
     // Fetch conversations
     React.useEffect(() => {
@@ -369,7 +372,15 @@ export default function DoctorMessagesPage() {
                                         <Button variant="ghost" size="icon" className="rounded-xl hover:bg-indigo-50 dark:hover:bg-slate-700/50 text-slate-500 dark:text-slate-400">
                                             <Phone className="h-4 w-4" />
                                         </Button>
-                                        <Button variant="ghost" size="icon" className="rounded-xl hover:bg-indigo-50 dark:hover:bg-slate-700/50 text-slate-500 dark:text-slate-400">
+                                        <Button 
+                                            variant="ghost" 
+                                            size="icon" 
+                                            className="rounded-xl hover:bg-indigo-50 dark:hover:bg-slate-700/50 text-slate-500 dark:text-slate-400"
+                                            onClick={() => {
+                                                setCurrentAppointmentId(selectedConversation.id);
+                                                setIsVideoModalOpen(true);
+                                            }}
+                                        >
                                             <Video className="h-4 w-4" />
                                         </Button>
                                         <Button variant="ghost" size="icon" className="rounded-xl hover:bg-indigo-50 dark:hover:bg-slate-700/50 text-slate-500 dark:text-slate-400">
@@ -480,6 +491,15 @@ export default function DoctorMessagesPage() {
                     )}
                 </motion.div>
             </div>
+
+            {currentAppointmentId && (
+                <VideoCallModal
+                    appointmentId={currentAppointmentId}
+                    role="doctor"
+                    isOpen={isVideoModalOpen}
+                    onClose={() => setIsVideoModalOpen(false)}
+                />
+            )}
         </div>
     );
 }

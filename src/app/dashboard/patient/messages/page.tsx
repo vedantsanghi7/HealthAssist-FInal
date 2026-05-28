@@ -4,12 +4,13 @@ import React, { useEffect, useState, useRef } from 'react';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Send, Search, Mail, User, ArrowLeft } from 'lucide-react';
+import { Send, Search, Mail, User, ArrowLeft, Video } from 'lucide-react';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { supabase } from '@/lib/supabase/supabaseClient';
 import { useAuth } from '@/context/AuthContext';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { motion, AnimatePresence } from 'framer-motion';
+import { VideoCallModal } from '@/components/video/VideoCallModal';
 
 interface Conversation {
     id: string;
@@ -39,6 +40,8 @@ export default function PatientMessagesPage() {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+    const [currentAppointmentId, setCurrentAppointmentId] = useState<string | null>(null);
 
     // Fetch conversations
     useEffect(() => {
@@ -393,6 +396,15 @@ export default function PatientMessagesPage() {
                     </GlassCard>
                 </div>
             </motion.div>
+
+            {currentAppointmentId && (
+                <VideoCallModal
+                    appointmentId={currentAppointmentId}
+                    role="patient"
+                    isOpen={isVideoModalOpen}
+                    onClose={() => setIsVideoModalOpen(false)}
+                />
+            )}
         </div>
     );
 }

@@ -12,9 +12,11 @@ import { cn } from '@/lib/utils';
 interface DoctorCardProps {
     doctor: Doctor;
     onBook: (doctor: Doctor) => void;
+    appointment?: any;
+    onJoinCall?: (appointmentId: string) => void;
 }
 
-export function DoctorCard({ doctor, onBook }: DoctorCardProps) {
+export function DoctorCard({ doctor, onBook, appointment, onJoinCall }: DoctorCardProps) {
     return (
         <motion.div
             whileHover={{ y: -8, scale: 1.02 }}
@@ -97,19 +99,34 @@ export function DoctorCard({ doctor, onBook }: DoctorCardProps) {
                     </div>
 
                     {/* Action */}
-                    <Button
-                        onClick={() => onBook(doctor)}
-                        className={cn(
-                            "w-full shadow-lg transition-all duration-300 rounded-xl h-11 group/btn relative overflow-hidden",
-                            "bg-slate-900 dark:bg-white hover:bg-blue-600 dark:hover:bg-blue-500",
-                            "text-white dark:text-slate-900 dark:hover:text-white",
-                            "hover:shadow-blue-500/25"
-                        )}
-                    >
-                        <span className="relative z-10 flex items-center justify-center gap-2">
-                            Book Appointment <ArrowRight className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
-                        </span>
-                    </Button>
+                    {appointment ? (
+                        <Button
+                            onClick={() => onJoinCall?.(appointment.id)}
+                            className={cn(
+                                "w-full shadow-lg transition-all duration-300 rounded-xl h-11 group/btn relative overflow-hidden",
+                                "bg-indigo-600 hover:bg-indigo-700 text-white",
+                                "hover:shadow-indigo-500/25"
+                            )}
+                        >
+                            <span className="relative z-10 flex items-center justify-center gap-2">
+                                Join Call <ArrowRight className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                            </span>
+                        </Button>
+                    ) : (
+                        <Button
+                            onClick={() => onBook(doctor)}
+                            className={cn(
+                                "w-full shadow-lg transition-all duration-300 rounded-xl h-11 group/btn relative overflow-hidden",
+                                "bg-slate-900 dark:bg-white hover:bg-blue-600 dark:hover:bg-blue-500",
+                                "text-white dark:text-slate-900 dark:hover:text-white",
+                                "hover:shadow-blue-500/25"
+                            )}
+                        >
+                            <span className="relative z-10 flex items-center justify-center gap-2">
+                                Book Appointment <ArrowRight className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                            </span>
+                        </Button>
+                    )}
                 </div>
             </GlassCard>
         </motion.div>

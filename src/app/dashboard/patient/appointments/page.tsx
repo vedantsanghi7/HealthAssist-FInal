@@ -17,12 +17,15 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { VideoCallModal } from '@/components/video/VideoCallModal';
 
 export default function AppointmentsPage() {
     const { user } = useAuth();
     const router = useRouter();
     const [appointments, setAppointments] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+    const [currentAppointmentId, setCurrentAppointmentId] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchAppointments = async () => {
@@ -201,7 +204,10 @@ export default function AppointmentsPage() {
                                                             </Button>
                                                             <Button
                                                                 className="flex-1 md:flex-none bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-200 rounded-xl gap-2"
-                                                                onClick={() => toast.info('Video consultation feature coming soon!')}
+                                                                onClick={() => {
+                                                                    setCurrentAppointmentId(apt.id);
+                                                                    setIsVideoModalOpen(true);
+                                                                }}
                                                             >
                                                                 <Video className="h-4 w-4" />
                                                                 Join Call
@@ -237,6 +243,15 @@ export default function AppointmentsPage() {
                         })}
                     </AnimatePresence>
                 </div>
+            )}
+
+            {currentAppointmentId && (
+                <VideoCallModal
+                    appointmentId={currentAppointmentId}
+                    role="patient"
+                    isOpen={isVideoModalOpen}
+                    onClose={() => setIsVideoModalOpen(false)}
+                />
             )}
         </div>
     );
