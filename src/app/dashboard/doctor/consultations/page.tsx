@@ -13,14 +13,14 @@ export default function DoctorConsultationsPage() {
     const [currentAppointmentId, setCurrentAppointmentId] = React.useState<string | null>(null);
 
     const appointments = [
-        { id: 1, patient: "Alice Smith", time: "09:00 AM", type: "General Checkup", mode: "In-Person", reason: "Annual physical examination", age: 34, history: "None" },
-        { id: 2, patient: "Bob Jones", time: "10:30 AM", type: "Follow-up", mode: "Video Call", reason: "Post-surgery review", age: 45, history: "Knee surgery (2 weeks ago)" },
-        { id: 3, patient: "Charlie Brown", time: "02:00 PM", type: "Consultation", mode: "In-Person", reason: "Persistent headache", age: 28, history: "Migraines" },
+        { id: "11111111-1111-4111-a111-111111111111", patient: "Alice Smith", time: "09:00 AM", type: "General Checkup", mode: "In-Person", reason: "Annual physical examination", age: 34, history: "None" },
+        { id: "22222222-2222-4222-a222-222222222222", patient: "Bob Jones", time: "10:30 AM", type: "Follow-up", mode: "Video Call", reason: "Post-surgery review", age: 45, history: "Knee surgery (2 weeks ago)" },
+        { id: "33333333-3333-4333-a333-333333333333", patient: "Charlie Brown", time: "02:00 PM", type: "Consultation", mode: "In-Person", reason: "Persistent headache", age: 28, history: "Migraines" },
     ];
 
     const handleStart = (apt: any) => {
         if (apt.mode === 'Video Call') {
-            setCurrentAppointmentId(apt.id.toString());
+            setCurrentAppointmentId(apt.id);
             setIsVideoModalOpen(true);
         } else {
             alert(`Marking ${apt.patient} as checked-in for in-person visit.`);
